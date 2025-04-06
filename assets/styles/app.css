@@ -1,14 +1,177 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
     /* background-color:skyblue */
-    background: url('../images/background.jpg');
-    background-size: cover;
+    /* background: url('../images/background.jpg'); */
+    /* background-size: cover; */
+    background-color: #90AEAD;
+}
+
+main {
+    flex: 1;
+    margin-top: 50px;
+    padding: 10px;
+}
+
+.special-main {
+    flex: 1;
+    margin-top: 0px;
+    padding: 10px;
+    background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet, red);
+}
+
+.special-p {
+    background-color: #FBE9D0;
+    padding: 10px;
+    border-radius: 20px;
+}
+article {
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 h1 {
     border-bottom: 4px double #ccc;
 }
 
+p {
+    font-size: 20px;
+    margin: 20px auto;
+}
+
+header {
+    background-color: #E64833;
+}
+
+.header-title {
+    color: #FBE9D0;
+    padding: 0px 10px;
+}
+
+.header-title-a {
+    text-decoration: none;
+}
+
+
+.header-ul {
+    padding: 0px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    gap: 20px;
+    margin: 0 auto;
+}
+
+.header-li {
+    list-style-type: none;
+    font-size: 22px;
+}
+
+.header-li a {
+    text-decoration: none;
+    color: #FBE9D0
+
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #E64833;
+    padding: 20px;
+    color: #FBE9D0;
+    min-height: fit-content
+}
+
+footer a {
+    color: #FBE9D0;
+    text-decoration: none;
+    font-size: 22px;
+}
+
+
+.about-page {
+    margin-top: 100px;
+    display: grid;
+    align-items: center;
+    gap: 50px;
+    grid-template-columns: 1fr 1fr;
+
+}
+
+.kmom-link {
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+.kmom-link-div {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+}
+.github-link {
+    margin-top: 20px;
+    text-align: center;
+    text-decoration: none;
+}
+.page-title {
+    text-align: center;
+    border-bottom: none;
+}
+
+.page-title-special {
+    margin: 50px auto;
+    text-align: center;
+    border-bottom: none;
+    width: fit-content;
+    background-color: #FBE9D0;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.profile-pic-a {
+    text-align: center;
+}
+
+
+.profile-pic {
+    max-width: 400px;
+    border-radius: 20px;
+}
+
 .site-header {
     height: 200px;
+}
+
+.api-ul {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: 0 auto;
+    list-style-type: none;
+    padding: 0px 10px 0px 10px;
+    border: solid #000000 2px;
+}
+
+.api-link {
+    text-decoration: none;
+    color:  #000000;
+}
+
+.api-link:hover {
+    color: #FBE9D0;
 }

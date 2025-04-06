@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Lucky you{% endblock %}
+
+{% block body %}
+    <main class="special-main">
+        <h1 class="page-title-special">Dina lyckonummer</h1>
+        <br>
+        <br>
+        <article>
+            <a class="profile-pic-a"href="{{ asset('img/Eurojackpot.png') }}">
+                <img class="profile-pic" src="{{ asset('img/Eurojackpot.png') }}" alt="">
+            </a>
+            <p class="special-p">Det här de nummer du bör spela på EuroJackpot: {{ number1 }}, {{ number2 }}, {{ number3 }}, {{ number4 }}, {{ number5 }}, {{ number6 }}, {{ number7 }}</p>
+        </article>
+    </main>
+{% endblock %}

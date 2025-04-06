@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Api Routes{% endblock %}
+
+{% block body %}
+    <main>
+        <h1 class="page-title">Api Routes</h1>
+        <br>
+        <br>
+        <article>
+            <ul class="api-ul">
+                <a class="api-link" href="{{ path('quote') }}"><h3>Link: /api/quote </h3></a>
+                <li class="api-li"> <h3>A route which returns a random quote, today's date and a timestamp.</h3> </li>
+            </ul>
+    
+        </article>
+    </main>
+{% endblock %}

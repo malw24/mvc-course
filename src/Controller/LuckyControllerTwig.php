@@ -8,26 +8,38 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LuckyControllerTwig extends AbstractController
 {
-    #[Route("/lucky/number/twig", name: "lucky_number")]
-    public function number(): Response
+    #[Route("/lucky", name: "lucky")]
+    public function luckyNumbers(): Response
     {
-        $number = random_int(0, 100);
+        $number1 = random_int(1, 50);
+        $number2 = random_int(1, 50);
+        $number3 = random_int(1, 50);
+        $number4 = random_int(1, 50);
+        $number5 = random_int(1, 50);
+        $number6 = random_int(1, 12);
+        $number7 = random_int(1, 12);
 
         $data = [
-            'number' => $number
+            'number1' => $number1,
+            'number2' => $number2,
+            'number3' => $number3,
+            'number4' => $number4,
+            'number5' => $number5,
+            'number6' => $number6,
+            'number7' => $number7,
         ];
 
-        return $this->render('lucky_number.html.twig', $data);
+        return $this->render('lucky.html.twig', $data);
     }
-    #[Route("/home", name: "home")]
-    public function home(): Response
-    {
-        return $this->render('home.html.twig');
-    }
+    // #[Route("/home", name: "home")]
+    // public function home(): Response
+    // {
+    //     return $this->render('home.html.twig');
+    // }
 
-    #[Route("/about", name: "about")]
-    public function about(): Response
-    {
-        return $this->render('about.html.twig');
-    }
+    // #[Route("/about", name: "about")]
+    // public function about(): Response
+    // {
+    //     return $this->render('about.html.twig');
+    // }
 }
