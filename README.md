@@ -15,4 +15,4 @@ Unit testing will also be a part of the course.
 
 1. Create a folder for where you want the repo to be located.
 2. Move to the folder in your terminal using cd.
-3. Using SSH enter the following line to clone the repo into your specified folder: git clone git@github.com:malw24/mvc-course.git
+3. Using SSH enter the following line to clone the repo into your specified folder: `git clone git@github.com:malw24/mvc-course.git`
