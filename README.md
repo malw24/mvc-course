@@ -8,7 +8,7 @@
 ## Welcome to the repo of the MVC-course for malw24!
 
 This is the repo of student malw24 for the MVC-course (Model View Controller).
-The course, using PHP and databases, aims to teach and further the understanding of object-oriented programming techniques.
+The course, using PHP, Symfony and databases, aims to teach and further the understanding of object-oriented programming techniques.
 Unit testing will also be a part of the course.
 
 #### How to clone the repo  
