@@ -28,16 +28,16 @@ class QuoteApiJson
         ];
         // https://www.php.net/manual/en/function.date-default-timezone-set.php
         // https://www.php.net/manual/en/timezones.europe.php
-        date_default_timezone_set("Europe/Stockholm"); 
+        date_default_timezone_set("Europe/Stockholm");
 
         $randomQuote = $quotes[$randomNumber];
         $todaysDate = date("Y-m-d");
-        $timeStamp = date("Y-m-d H:i:s"); 
+        $timeStamp = date("Y-m-d H:i:s");
 
         $data = [
-            'quote'=>$randomQuote,
-            'todaysDate'=>$todaysDate,
-            'timeStamp'=>$timeStamp
+            'quote' => $randomQuote,
+            'todaysDate' => $todaysDate,
+            'timeStamp' => $timeStamp
         ];
 
 

@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Session print{% endblock %}
+
+{% block body %}
+    <main>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        <h1 class="page-title-special">Från session</h1>
+        <br>
+        <br>
+        <article>
+            {% for value in session_info %}
+                <p>Value: {{ value }}</p>
+            {% endfor %}
+        </article>
+    </main>
+{% endblock %}

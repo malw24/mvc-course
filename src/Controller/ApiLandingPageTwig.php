@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 class ApiLandingPageTwig extends AbstractController
 {
     #[Route("/api", name: "api")]
@@ -14,5 +13,5 @@ class ApiLandingPageTwig extends AbstractController
     {
         return $this->render('api.html.twig');
     }
-    
+
 }
