@@ -4,10 +4,8 @@ namespace App\Card;
 
 use App\Card\DeckOfCards;
 
-
 class CardHand
 {
-
     protected $cards = [];
 
     public function __construct($amount_of_cards)
@@ -26,7 +24,7 @@ class CardHand
         foreach ($this->cards as $card) {
             $hand .= $card;
         }
-    
+
         return $hand;
     }
 

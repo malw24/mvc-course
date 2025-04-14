@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,7 +34,7 @@ class CardGameController extends AbstractController
             'notice',
             'The data in session has been deleted!'
         );
-        
+
         return $this->redirectToRoute('session');
     }
 
@@ -48,23 +47,23 @@ class CardGameController extends AbstractController
     #[Route("/card/deck", name: "card_deck")]
     public function cardDeck(SessionInterface $session): Response
     {
-        $deck_of_cards = new DeckOfCards;
+        $deck_of_cards = new DeckOfCards();
         // https://www.w3schools.com/php/func_var_serialize.asp
         $session->set("deck_of_cards", serialize($deck_of_cards));
         // var_dump($session);
         $deck_as_array = $deck_of_cards->getWholeDeckAsArray();
-   
+
         $data = [
             "deck_as_array" => $deck_as_array
         ];
         return $this->render('write_out_whole_deck.html.twig', $data);
-        
+
     }
 
     #[Route("card/deck/shuffle", name: "card_deck_shuffle")]
     public function shuffleDeck(SessionInterface $session): Response
     {
-        $deck_of_cards = new DeckOfCards;
+        $deck_of_cards = new DeckOfCards();
         $deck_of_cards->shuffledTheDeck();
         // https://www.w3schools.com/php/func_var_serialize.asp
         $session->set("deck_of_cards", serialize($deck_of_cards));
@@ -75,7 +74,7 @@ class CardGameController extends AbstractController
             "deck_of_cards" => $deck_of_cards
         ];
         return $this->render('shuffled_deck.html.twig', $data);
-        
+
     }
 
     #[Route("/card/deck/draw", name: "card_deck_draw")]
@@ -83,8 +82,8 @@ class CardGameController extends AbstractController
     {
         // https://www.w3schools.com/php/func_var_unserialize.asp
         $session_deck = unserialize($session->get("deck_of_cards"));
-        if($session_deck) {
-            if($session_deck->getTheAmountOfCards() > 0) {
+        if ($session_deck) {
+            if ($session_deck->getTheAmountOfCards() > 0) {
                 // https://www.w3schools.com/php/func_var_unserialize.asp
                 $deck_of_cards = unserialize($session->get("deck_of_cards"));
                 $random_card = $deck_of_cards->getRandomCard();
@@ -95,9 +94,9 @@ class CardGameController extends AbstractController
                     "amount_of_cards_left" => $amount_of_cards_left
                 ];
                 return $this->render('draw_random_card.html.twig', $data);
-    
+
             } else {
-                $deck_of_cards = new DeckOfCards;
+                $deck_of_cards = new DeckOfCards();
                 $random_card = $deck_of_cards->getRandomCard();
                 $amount_of_cards_left = $deck_of_cards->getTheAmountOfCards();
                 // https://www.w3schools.com/php/func_var_serialize.asp
@@ -115,16 +114,16 @@ class CardGameController extends AbstractController
             );
             return $this->redirectToRoute('card_deck_shuffle');
         }
-        
-        
-        
+
+
+
     }
 
     #[Route("card/deck/draw/{num<\d+>}", name: "deck_draw_num_cards")]
     public function drawAmountOfCards(int $num, SessionInterface $session, Request $request): Response
     {
 
-        if($request->request->get('num_cards')) {
+        if ($request->request->get('num_cards')) {
             $num = $request->request->get('num_cards');
         }
         if ($num > 52) {
@@ -133,8 +132,8 @@ class CardGameController extends AbstractController
 
         // https://www.w3schools.com/php/func_var_unserialize.asp
         $session_deck = unserialize($session->get("deck_of_cards"));
-        if($session_deck) {
-            if($session_deck->getTheAmountOfCards() >= $num) {
+        if ($session_deck) {
+            if ($session_deck->getTheAmountOfCards() >= $num) {
                 // https://www.w3schools.com/php/func_var_unserialize.asp
                 $deck_of_cards =  unserialize($session->get("deck_of_cards"));
                 $drawnCards = [];
@@ -146,11 +145,11 @@ class CardGameController extends AbstractController
                 $data = [
                     "num_cards_left" => $deck_of_cards->getTheAmountOfCards(),
                     "drawnCards" => $drawnCards,
-                    "requested_amount"=> $num
+                    "requested_amount" => $num
                 ];
-    
+
                 return $this->render('draw_many.html.twig', $data);
-    
+
             } else {
                 $deck_of_cards = new DeckOfCards();
                 $drawnCards = [];
@@ -162,11 +161,11 @@ class CardGameController extends AbstractController
                 $data = [
                     "num_cards_left" => $deck_of_cards->getTheAmountOfCards(),
                     "drawnCards" => $drawnCards,
-                    "requested_amount"=> $num
+                    "requested_amount" => $num
                 ];
-    
+
                 return $this->render('draw_many.html.twig', $data);
-    
+
             }
 
 
@@ -178,11 +177,11 @@ class CardGameController extends AbstractController
             );
             return $this->redirectToRoute('card_deck_shuffle');
         }
-        
 
-        
+
+
     }
-    
+
 
 
 }
