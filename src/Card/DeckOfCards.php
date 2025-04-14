@@ -69,14 +69,7 @@ class DeckOfCards
         return $returned_array;
     }
     
-    public function getString(): array
-    {
-        $cards = [];
-        foreach ($this->deck as $card) {
-            $cards[] = $card->getAsString();
-        } 
-        return $cards;
-    }
+    
 
     public function getTheAmountOfCards(): int
     {

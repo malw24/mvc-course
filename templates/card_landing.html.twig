@@ -4,7 +4,48 @@
 
 {% block body %}
     <main>
-        <h1 class="page-title-special">Alla länkar för kortspelet</h1>
-    </main>
+        <h1 class="page-title">Alla länkar för kortspelet</h1>
+        <br>
+        <br>
+        <article>
+            <ul class="card-ul" style="border-bottom: solid #000000 2px;">
+                <a class="card-link" href="{{ path('card_deck') }}"><h3>Link: /card/deck </h3></a>
+                <li class="card-li"> <h3>Print out the entire deck sorted.</h3> </li>
+                <a class="card-link" href="{{ path('card_deck_shuffle') }}"><h3>Link: /card/deck/shuffle </h3></a>
+                <li class="card-li"> <h3>Print out a shuffled deck.</h3> </li>
+                <a class="card-link" href="{{ path('card_deck_draw') }}"><h3>Link: /card/deck/draw </h3></a>
+                <li class="card-li"> <h3>Draw one card from the deck.</h3> </li>
 
+                <form method="post" action="card/deck/draw/1">
+                    <h3>Link: /card/deck/draw/:number </h3>
+                    <h3>Draw a selected amount of cards from the deck </h3>
+                    <input type="number" name="num_cards" min="1" max="52" value="1">
+                    <input type="submit" name="do_it" value="Select amount of cards">
+                </form>
+                <br>
+                <br>
+       
+            </ul>
+            <br>
+            <br>
+            <h1 class="page-title">Hur klasserna är uppbyggda</h1>
+            <p class="page-title">
+                Jag har skapat 4 klasser totalt för kortleken än så länge.<br>
+                Klasserna är <b>Card</b>, som representerar ett kort i kortleken.<br>
+                <b>CardGraphic</b> som ärver av Card, främst eftersom det var ett krav.<br>
+                <b>CardHand</b> som representerar en hand av ett eller flera kort. <br>
+                <b>CardHand</b> är uppbygd via komposition med klassen <b>DeckOfCards</b>.<br>
+                Jag använde aldrig <b>CardHand</b> men jag tänker spara den för tillfället ifall det är så att jag skulle behöva den senare.<br>
+                <b>DeckOfCards</b> som representerar en hel kortlek och är uppbyggd via komposition med klassen <b>CardGraphic</b>.<br>
+            </p>
+            <h2 class="page-title">Klassdiagram</h2>
+            <a class="profile-pic-a"href="{{ asset('img/classdiagram.png') }}">
+                <img class="profile-pic" src="{{ asset('img/classdiagram.png') }}" alt="">
+            </a>
+        <br>
+        <br>
+        <br>
+        <br>
+        </article>
+    </main>
 {% endblock %}

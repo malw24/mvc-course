@@ -5,6 +5,13 @@
 
 {% block body %}
     <main>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
         <h1 class="page-title-special">Hela kortleken shufflad och utskriven</h1>
         <div class="card-grid">
             {% for card in deck_of_cards %}

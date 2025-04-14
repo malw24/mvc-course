@@ -176,6 +176,34 @@ footer a {
     color: #FBE9D0;
 }
 
+.api-li {
+    border-bottom: solid #000000 2px;
+}
+
+.card-ul {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: 0 auto;
+    list-style-type: none;
+    padding: 0px 10px 0px 10px;
+}
+
+.card-link {
+    text-decoration: none;
+    color:  #000000;
+}
+
+.card-li {
+    padding-bottom: 10px;
+    border-bottom: solid #000000 2px;
+}
+
+.card-link:hover {
+    color: #FBE9D0;
+}
+
+
 input {
     font-size: 1em;
 }

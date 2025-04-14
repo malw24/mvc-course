@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Request;
 use App\Card\DeckOfCards;
 
 class CardGameController extends AbstractController
@@ -82,10 +83,10 @@ class CardGameController extends AbstractController
     {
         // https://www.w3schools.com/php/func_var_unserialize.asp
         $session_deck = unserialize($session->get("deck_of_cards"));
-        if($session_deck->getTheAmountOfCards() > 0) {
-            if($session_deck) {
+        if($session_deck) {
+            if($session_deck->getTheAmountOfCards() > 0) {
                 // https://www.w3schools.com/php/func_var_unserialize.asp
-                $deck_of_cards =  unserialize($session->get("deck_of_cards"));
+                $deck_of_cards = unserialize($session->get("deck_of_cards"));
                 $random_card = $deck_of_cards->getRandomCard();
                 $amount_of_cards_left = $deck_of_cards->getTheAmountOfCards();
                 $session->set("deck_of_cards", serialize($deck_of_cards));
@@ -110,9 +111,9 @@ class CardGameController extends AbstractController
         } else {
             $this->addFlash(
                 'notice',
-                'The were not enough cards left in the deck, session has been cleared!'
+                'There was no deck in the session, a new deck has been added to the session! Try again!'
             );
-            return $this->redirectToRoute('session_delete');
+            return $this->redirectToRoute('card_deck_shuffle');
         }
         
         
@@ -120,16 +121,20 @@ class CardGameController extends AbstractController
     }
 
     #[Route("card/deck/draw/{num<\d+>}", name: "deck_draw_num_cards")]
-    public function drawAmountOfCards(int $num, SessionInterface $session): Response
+    public function drawAmountOfCards(int $num, SessionInterface $session, Request $request): Response
     {
+
+        if($request->request->get('num_cards')) {
+            $num = $request->request->get('num_cards');
+        }
         if ($num > 52) {
             throw new \Exception("Can not draw more then 52 cards!");
         }
 
         // https://www.w3schools.com/php/func_var_unserialize.asp
         $session_deck = unserialize($session->get("deck_of_cards"));
-        if($session_deck->getTheAmountOfCards() > $num) {
-            if($session_deck) {
+        if($session_deck) {
+            if($session_deck->getTheAmountOfCards() >= $num) {
                 // https://www.w3schools.com/php/func_var_unserialize.asp
                 $deck_of_cards =  unserialize($session->get("deck_of_cards"));
                 $drawnCards = [];
@@ -169,9 +174,9 @@ class CardGameController extends AbstractController
         } else {
             $this->addFlash(
                 'notice',
-                'The were not enough cards left in the deck, session has been cleared!'
+                'There was no deck in the session, a new deck has been added to the session! Try again!'
             );
-            return $this->redirectToRoute('session_delete');
+            return $this->redirectToRoute('card_deck_shuffle');
         }
         
 
