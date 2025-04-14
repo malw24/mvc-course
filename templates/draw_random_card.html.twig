@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Random card write out{% endblock %}
+
+{% block body %}
+        <main>
+        <h1 class="page-title-special">Random kort utskrivet</h1>
+        <div class="random-card-div">
+            {% if '♥' in random_card %}
+                <p class="red-card">{{ random_card }}</p>
+            {% elseif '♦' in random_card %}
+                <p class="red-card">{{ random_card }}</p>
+            {% else %}
+                <p class="card">{{ random_card }}</p>
+            {% endif %}
+            <p> Antal kort kvar i kortleken: {{amount_of_cards_left}}</p>
+        </div>
+    </main>
+
+{% endblock %}

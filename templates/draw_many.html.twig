@@ -1,0 +1,27 @@
+
+{% extends "base.html.twig" %}
+
+{% block title %}{{requested_amount}} cards drawn!{% endblock %}
+
+{% block body %}
+    <main>
+        <h1 class="page-title-special">{{requested_amount}} kort dragna!</h1>
+        <div class="card-grid">
+            {% for card in drawnCards %}
+   
+                {% if ('♥' in card)%}
+                    <p class="red-card" >{{ card }}</p>
+             
+                {% elseif ('♦' in card)%}
+                    <p class="red-card" >{{ card }}</p>
+                {% else %}
+                    <p class="card">{{ card }}</p>
+                {% endif %}
+                
+            {% endfor %}
+           
+        </div>
+         <p style="text-align: center;"> Antal kort kvar i kortleken: {{num_cards_left}}</p>
+    </main>
+
+{% endblock %}

@@ -2,14 +2,6 @@
 
 namespace App\Card;
 
-/*
-
-MÅSTE FIXA TILL CardGraphic så att den gör mer nytta!! Tror jag?
-
-Och CardHand är inte klar!
-
-
-*/
 
 class Card
 {
@@ -24,7 +16,7 @@ class Card
 
     public function getAsString(): string
     {
-        return "[{$this->value}{$this->suit}]";
+        return "{$this->value}{$this->suit}";
     }
 
 }

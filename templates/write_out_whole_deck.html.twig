@@ -1,0 +1,26 @@
+
+{% extends "base.html.twig" %}
+
+{% block title %}Whole deck write out{% endblock %}
+
+{% block body %}
+    <main>
+        <h1 class="page-title-special">Hela kortleken utskriven</h1>
+        <div class="card-grid">
+            {% for card in deck_as_array %}
+            
+                {% if ('♥' in card.getAsString())%}
+                    <p class="red-card" >{{ card.getAsString() }}</p>
+             
+                {% elseif ('♦' in card.getAsString())%}
+                    <p class="red-card" >{{ card.getAsString() }}</p>
+                {% else %}
+                    <p class="card">{{ card.getAsString() }}</p>
+                {% endif %}
+                
+            {% endfor %}
+        </div>
+        
+    </main>
+
+{% endblock %}

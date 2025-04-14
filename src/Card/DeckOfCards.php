@@ -2,20 +2,13 @@
 
 namespace App\Card;
 
-/*
-
-MÅSTE FIXA TILL CardGraphic så att den gör mer nytta!! Tror jag?
-
-Och CardHand är inte klar!
-
-
-*/
 
 use App\Card\CardGraphic;
 
 class DeckOfCards
 {
-    private $deck = [];
+    protected $deck = [];
+    
 
     private $suits = [
         '♠',
@@ -25,12 +18,12 @@ class DeckOfCards
     ];
 
     function __construct() {
-        // För varje färg
+
         foreach ($this->suits as $suit) {
-            // Lägg till 13 kort
+            
             for ($counter = 2; $counter <= 14; $counter++) {
                 $value = $counter;
-                // Om korten är 11 eller mer, lägg till klädda kort
+                
                 if ($counter == 11) {
                     $value = 'J';
                 } 
@@ -43,20 +36,52 @@ class DeckOfCards
                 if ($counter == 14) {
                     $value = 'A';
                 } 
-                // https://www.w3schools.com/php/php_arrays_add.asp
+                
                 $this->deck[] = new CardGraphic($suit, $value);
             }
         }
     }
-    
+
+ 
+
+    public function getRandomCard(): string
+    {
+        // https://www.w3schools.com/php/func_array_rand.asp
+        $random_index = array_rand($this->deck);
+        $card = $this->deck[$random_index]; 
+        unset($this->deck[$random_index]); 
+        return $card->getAsString(); 
+    }
+
+    public function shuffledTheDeck(): array
+    {
+        // https://www.w3schools.com/Php/func_array_shuffle.asp
+        shuffle($this->deck);
+        return $this->deck; 
+    }
+
+    public function getWholeDeckAsArray(): array
+    {
+        $returned_array = [];
+        foreach($this->deck as $card) {
+            $returned_array[] = $card;
+        }
+        return $returned_array;
+    }
     
     public function getString(): array
     {
         $cards = [];
         foreach ($this->deck as $card) {
             $cards[] = $card->getAsString();
-        }
+        } 
         return $cards;
+    }
+
+    public function getTheAmountOfCards(): int
+    {
+        $amount_of_cards_left = count($this->deck);
+        return $amount_of_cards_left;
     }
     
     

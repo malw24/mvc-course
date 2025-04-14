@@ -1,0 +1,26 @@
+
+{% extends "base.html.twig" %}
+
+{% block title %}Whole deck write out as shuffled{% endblock %}
+
+{% block body %}
+    <main>
+        <h1 class="page-title-special">Hela kortleken shufflad och utskriven</h1>
+        <div class="card-grid">
+            {% for card in deck_of_cards %}
+   
+                {% if ('♥' in card.getAsString())%}
+                    <p class="red-card" >{{ card.getAsString() }}</p>
+             
+                {% elseif ('♦' in card.getAsString())%}
+                    <p class="red-card" >{{ card.getAsString() }}</p>
+                {% else %}
+                    <p class="card">{{ card.getAsString() }}</p>
+                {% endif %}
+                
+            {% endfor %}
+        </div>
+        
+    </main>
+
+{% endblock %}

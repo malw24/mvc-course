@@ -2,30 +2,32 @@
 
 namespace App\Card;
 
-
-/*
-
-MÅSTE FIXA TILL CardGraphic så att den gör mer nytta!! Tror jag?
-
-Och CardHand är inte klar!
+use App\Card\DeckOfCards;
 
 
-*/
 class CardHand
 {
 
     protected $cards = [];
 
-    public function __construct($cards)
+    public function __construct($amount_of_cards)
     {
-        $this->cards = $cards; //Kommer vara en array
+        $deck_of_cards = new DeckOfCards();
+        for ($counter = 0; $counter < $amount_of_cards; $counter++) {
+            $this->cards[] = $deck_of_cards->getRandomCard();
+        }
+
 
     }
 
     public function getAsString(): string
     {
-        foreach($this->cards as $card) {
-            return $card;
+        $hand = "";
+        foreach ($this->cards as $card) {
+            $hand .= $card;
         }
+    
+        return $hand;
     }
+
 }
