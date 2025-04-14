@@ -80,30 +80,41 @@ class CardGameController extends AbstractController
     #[Route("/card/deck/draw", name: "card_deck_draw")]
     public function drawRandomCardDeck(SessionInterface $session): Response
     {
-        if($session->get("deck_of_cards")) {
-            // https://www.w3schools.com/php/func_var_unserialize.asp
-            $deck_of_cards =  unserialize($session->get("deck_of_cards"));
-            $random_card = $deck_of_cards->getRandomCard();
-            $amount_of_cards_left = $deck_of_cards->getTheAmountOfCards();
-            $session->set("deck_of_cards", serialize($deck_of_cards));
-            $data = [
-                "random_card" => $random_card,
-                "amount_of_cards_left" => $amount_of_cards_left
-            ];
-            return $this->render('draw_random_card.html.twig', $data);
-
+        // https://www.w3schools.com/php/func_var_unserialize.asp
+        $session_deck = unserialize($session->get("deck_of_cards"));
+        if($session_deck->getTheAmountOfCards() > 0) {
+            if($session_deck) {
+                // https://www.w3schools.com/php/func_var_unserialize.asp
+                $deck_of_cards =  unserialize($session->get("deck_of_cards"));
+                $random_card = $deck_of_cards->getRandomCard();
+                $amount_of_cards_left = $deck_of_cards->getTheAmountOfCards();
+                $session->set("deck_of_cards", serialize($deck_of_cards));
+                $data = [
+                    "random_card" => $random_card,
+                    "amount_of_cards_left" => $amount_of_cards_left
+                ];
+                return $this->render('draw_random_card.html.twig', $data);
+    
+            } else {
+                $deck_of_cards = new DeckOfCards;
+                $random_card = $deck_of_cards->getRandomCard();
+                $amount_of_cards_left = $deck_of_cards->getTheAmountOfCards();
+                // https://www.w3schools.com/php/func_var_serialize.asp
+                $session->set("deck_of_cards", serialize($deck_of_cards));
+                $data = [
+                    "random_card" => $random_card,
+                    "amount_of_cards_left" => $amount_of_cards_left
+                ];
+                return $this->render('draw_random_card.html.twig', $data);
+            }
         } else {
-            $deck_of_cards = new DeckOfCards;
-            $random_card = $deck_of_cards->getRandomCard();
-            $amount_of_cards_left = $deck_of_cards->getTheAmountOfCards();
-            // https://www.w3schools.com/php/func_var_serialize.asp
-            $session->set("deck_of_cards", serialize($deck_of_cards));
-            $data = [
-                "random_card" => $random_card,
-                "amount_of_cards_left" => $amount_of_cards_left
-            ];
-            return $this->render('draw_random_card.html.twig', $data);
+            $this->addFlash(
+                'notice',
+                'The were not enough cards left in the deck, session has been cleared!'
+            );
+            return $this->redirectToRoute('session_delete');
         }
+        
         
         
     }
@@ -115,40 +126,54 @@ class CardGameController extends AbstractController
             throw new \Exception("Can not draw more then 52 cards!");
         }
 
-        if($session->get("deck_of_cards")) {
-            // https://www.w3schools.com/php/func_var_unserialize.asp
-            $deck_of_cards =  unserialize($session->get("deck_of_cards"));
-            $drawnCards = [];
-            for ($counter = 1; $counter <= $num; $counter++) {
-                $random_card = $deck_of_cards->getRandomCard();
-                $drawnCards[] = $random_card;
+        // https://www.w3schools.com/php/func_var_unserialize.asp
+        $session_deck = unserialize($session->get("deck_of_cards"));
+        if($session_deck->getTheAmountOfCards() > $num) {
+            if($session_deck) {
+                // https://www.w3schools.com/php/func_var_unserialize.asp
+                $deck_of_cards =  unserialize($session->get("deck_of_cards"));
+                $drawnCards = [];
+                for ($counter = 1; $counter <= $num; $counter++) {
+                    $random_card = $deck_of_cards->getRandomCard();
+                    $drawnCards[] = $random_card;
+                }
+                $session->set("deck_of_cards", serialize($deck_of_cards));
+                $data = [
+                    "num_cards_left" => $deck_of_cards->getTheAmountOfCards(),
+                    "drawnCards" => $drawnCards,
+                    "requested_amount"=> $num
+                ];
+    
+                return $this->render('draw_many.html.twig', $data);
+    
+            } else {
+                $deck_of_cards = new DeckOfCards();
+                $drawnCards = [];
+                for ($counter = 1; $counter <= $num; $counter++) {
+                    $random_card = $deck_of_cards->getRandomCard();
+                    $drawnCards[] = $random_card;
+                }
+                $session->set("deck_of_cards", serialize($deck_of_cards));
+                $data = [
+                    "num_cards_left" => $deck_of_cards->getTheAmountOfCards(),
+                    "drawnCards" => $drawnCards,
+                    "requested_amount"=> $num
+                ];
+    
+                return $this->render('draw_many.html.twig', $data);
+    
             }
-            $session->set("deck_of_cards", serialize($deck_of_cards));
-            $data = [
-                "num_cards_left" => $deck_of_cards->getTheAmountOfCards(),
-                "drawnCards" => $drawnCards,
-                "requested_amount"=> $num
-            ];
 
-            return $this->render('draw_many.html.twig', $data);
+
 
         } else {
-            $deck_of_cards = new DeckOfCards();
-            $drawnCards = [];
-            for ($counter = 1; $counter <= $num; $counter++) {
-                $random_card = $deck_of_cards->getRandomCard();
-                $drawnCards[] = $random_card;
-            }
-            $session->set("deck_of_cards", serialize($deck_of_cards));
-            $data = [
-                "num_cards_left" => $deck_of_cards->getTheAmountOfCards(),
-                "drawnCards" => $drawnCards,
-                "requested_amount"=> $num
-            ];
-
-            return $this->render('draw_many.html.twig', $data);
-
+            $this->addFlash(
+                'notice',
+                'The were not enough cards left in the deck, session has been cleared!'
+            );
+            return $this->redirectToRoute('session_delete');
         }
+        
 
         
     }
