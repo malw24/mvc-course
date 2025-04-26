@@ -14,8 +14,6 @@ class CardGameController extends AbstractController
     #[Route("/session", name: "session")]
     public function sessionPrint(SessionInterface $session): Response
     {
-        $session->set("Testing", "Test"); // Ta bort sedan
-        // $session->set("gfgfdgfd", "Thgfhgst");
         $session_content = $session;
         $data = [
             "session_info" => $session_content
@@ -47,16 +45,20 @@ class CardGameController extends AbstractController
     #[Route("/card/deck", name: "card_deck")]
     public function cardDeck(SessionInterface $session): Response
     {
-        $deck_of_cards = new DeckOfCards();
-        // https://www.w3schools.com/php/func_var_serialize.asp
-        $session->set("deck_of_cards", serialize($deck_of_cards));
-        // var_dump($session);
-        $deck_as_array = $deck_of_cards->getWholeDeckAsArray();
+        $deck_of_cards = unserialize($session->get("deck_of_cards"));
+        if(!$deck_of_cards) {
+            $deck_of_cards = new DeckOfCards();
+            // https://www.w3schools.com/php/func_var_serialize.asp
+            $session->set("deck_of_cards", serialize($deck_of_cards));
+        }
+       
+        
+        $sorted_deck_as_array = $deck_of_cards->sortTheCurrentDeck();
 
         $data = [
-            "deck_as_array" => $deck_as_array
+            "deck_as_array" => $sorted_deck_as_array
         ];
-        return $this->render('write_out_whole_deck.html.twig', $data);
+        return $this->render('write_out_current_deck.html.twig', $data);
 
     }
 
@@ -108,11 +110,16 @@ class CardGameController extends AbstractController
                 return $this->render('draw_random_card.html.twig', $data);
             }
         } else {
-            $this->addFlash(
-                'notice',
-                'There was no deck in the session, a new deck has been added to the session! Try again!'
-            );
-            return $this->redirectToRoute('card_deck_shuffle');
+            $deck_of_cards = new DeckOfCards();
+            $random_card = $deck_of_cards->getRandomCard();
+            $amount_of_cards_left = $deck_of_cards->getTheAmountOfCards();
+            // https://www.w3schools.com/php/func_var_serialize.asp
+            $session->set("deck_of_cards", serialize($deck_of_cards));
+            $data = [
+                "random_card" => $random_card,
+                "amount_of_cards_left" => $amount_of_cards_left
+            ];
+            return $this->render('draw_random_card.html.twig', $data);
         }
 
 
@@ -171,17 +178,27 @@ class CardGameController extends AbstractController
 
 
         } else {
-            $this->addFlash(
-                'notice',
-                'There was no deck in the session, a new deck has been added to the session! Try again!'
-            );
-            return $this->redirectToRoute('card_deck_shuffle');
+            $deck_of_cards = new DeckOfCards();
+            $drawnCards = [];
+            for ($counter = 1; $counter <= $num; $counter++) {
+                $random_card = $deck_of_cards->getRandomCard();
+                $drawnCards[] = $random_card;
+            }
+            $session->set("deck_of_cards", serialize($deck_of_cards));
+            $data = [
+                "num_cards_left" => $deck_of_cards->getTheAmountOfCards(),
+                "drawnCards" => $drawnCards,
+                "requested_amount" => $num
+            ];
+
+            return $this->render('draw_many.html.twig', $data);
         }
 
 
 
     }
 
+   
 
 
 }

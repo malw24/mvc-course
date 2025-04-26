@@ -13,11 +13,17 @@ use App\Card\DeckOfCards;
 class CardGameApiJson extends AbstractController
 {
     #[Route("/api/deck", name: "api_deck")]
-    public function apiDeck(): Response
+    public function apiDeck(SessionInterface $session): Response
     {
-        $deck_of_cards = new DeckOfCards();
-
-        $deck_of_cards_as_array = $deck_of_cards->getString();
+        // https://github.com/symfony/symfony/blob/6.4/src/Symfony/Component/HttpFoundation/Session/SessionInterface.php
+        if(count($session->all()) == 0) {
+            $deck_of_cards = new DeckOfCards();
+        } else {
+            $deck_of_cards = unserialize($session->get("deck_of_cards"));
+            
+        }
+    
+        $deck_of_cards_as_array = $deck_of_cards->sortTheCurrentDeck();
 
         $response = new Response();
         $response->setContent(json_encode($deck_of_cards_as_array, JSON_UNESCAPED_UNICODE));
@@ -30,7 +36,7 @@ class CardGameApiJson extends AbstractController
     {
         $deck_of_cards = new DeckOfCards();
         $deck_of_cards->shuffledTheDeck();
-        $deck_of_cards_as_array = $deck_of_cards->getString();
+        $deck_of_cards_as_array = $deck_of_cards->getAsString();
 
         $session->set("deck_of_cards", serialize($deck_of_cards));
 
@@ -49,7 +55,6 @@ class CardGameApiJson extends AbstractController
 
             if ($session_deck->getTheAmountOfCards() > 0) {
                 $deck_of_cards = unserialize($session->get("deck_of_cards"));
-                ;
                 $random_card = $deck_of_cards->getRandomCard();
                 $session->set("deck_of_cards", serialize($deck_of_cards));
 
@@ -81,21 +86,24 @@ class CardGameApiJson extends AbstractController
             }
 
         } else {
+            $deck_of_cards = new DeckOfCards();
+                $random_card = $deck_of_cards->getRandomCard();
+                $session->set("deck_of_cards", serialize($deck_of_cards));
 
-            $this->addFlash(
-                'notice',
-                'There was no deck in the session, a new deck has been added to the session! Try again!'
-            );
-            return $this->redirectToRoute('card_deck_shuffle');
+                $data = [
+                    "drawn_card" => $random_card,
+                    "cards_left_in_deck" => $deck_of_cards->getTheAmountOfCards()
+                ];
+
+
+                $response = new Response();
+                $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE));
+                $response->headers->set('Content-Type', 'application/json');
+                return $response;
         }
 
 
     }
-
-
-
-
-
 
     #[Route("api/deck/draw/{num<\d+>}", name: "api_deck_draw_amount", methods: ['GET', 'POST'])]
     public function apiDeckDrawAmount(int $num, SessionInterface $session, Request $request): Response
@@ -148,12 +156,26 @@ class CardGameApiJson extends AbstractController
             }
 
         } else {
+            
+            $deck_of_cards = new DeckOfCards();
+            $drawnCards = [];
+            for ($counter = 1; $counter <= $num; $counter++) {
+                $random_card = $deck_of_cards->getRandomCard();
+                $drawnCards[] = $random_card;
+            }
+            $session->set("deck_of_cards", serialize($deck_of_cards));
 
-            $this->addFlash(
-                'notice',
-                'There was no deck in the session, a new deck has been added to the session! Try again!'
-            );
-            return $this->redirectToRoute('card_deck_shuffle');
+            $data = [
+                "drawn_cards" => $drawnCards,
+                "cards_left_in_deck" => $deck_of_cards->getTheAmountOfCards()
+            ];
+
+
+            $response = new Response();
+            $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+
         }
 
 

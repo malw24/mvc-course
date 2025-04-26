@@ -259,3 +259,24 @@ input {
 .random-card-div {
     text-align: center;
 }
+
+.game-article {
+    /* background-color: red; */
+    max-width: 800px;
+    padding-bottom: 50px;
+}
+
+.game-p {
+    margin: 10px 0px;
+}
+
+.game-form {
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.psuedo-code-div {
+    border: solid black 2px;
+    padding: 10px;
+    margin-bottom: 75px;
+}

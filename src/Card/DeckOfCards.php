@@ -37,12 +37,143 @@ class DeckOfCards
                     $value = 'A';
                 }
 
-                $this->deck[] = new CardGraphic($suit, $value);
+                $this->deck[] = new CardGraphic($suit, $value, $counter);
             }
         }
     }
 
+    public function sortTheCurrentDeck(): array
+    {
+        $deck_of_cards_as_array = $this->deck;
+        foreach($deck_of_cards_as_array as $card) {
+            // if($card->numeric_value < 11) {
+            //     if($card->suit == '♠') {
+            //         $spades_values[] = $card->value;
+            //         sort($spades_values);
+            //     }
+            //     if($card->suit == '♥') {
+            //         $hearts_values[] = $card->value;
+            //         sort($hearts_values);
+            //     }
+            //     if($card->suit == '♦') {
+            //         $diamond_values[] = $card->value;
+            //         sort($diamond_values);
+            //     }
+            //     if($card->suit == '♣') {
+            //         $club_values[] = $card->value;
+            //         sort($club_values);
+            //     }
+            // }
+            if($card->suit == '♠') {
+            $spades_values[] = $card->numeric_value;
+            sort($spades_values);
+            }
+            if($card->suit == '♥') {
+                $hearts_values[] = $card->numeric_value;
+                sort($hearts_values);
+            }
+            if($card->suit == '♦') {
+                $diamond_values[] = $card->numeric_value;
+                sort($diamond_values);
+            }
+            if($card->suit == '♣') {
+                $club_values[] = $card->numeric_value;
+                sort($club_values);
+            }
+        }
+      
+        //spades
+        //https://www.w3schools.com/php/func_var_isset.asp
+        if(isset($spades_values)) {
+            foreach($spades_values as $spade_card_value) {
+                if($spade_card_value == 11) {
+                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♠', "J", 11);
+                }
+                if($spade_card_value == 12) {
+                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♠', "Q", 12);
+                }
+                if($spade_card_value == 13) {
+                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♠', "K", 13);
+                }
+                if($spade_card_value == 14) {
+                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♠', "A", 14);
+                }
+                if($spade_card_value < 11) {
+                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♠', $spade_card_value, $spade_card_value);
+                }
+            }
+        }
+        
+        //hearts
+        //https://www.w3schools.com/php/func_var_isset.asp
+        if(isset($hearts_values)) {
+            foreach($hearts_values as $heart_card_value) {
+                if($heart_card_value == 11) {
+                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♥', "J", 11);
+                }
+                if($heart_card_value == 12) {
+                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♥', "Q", 12);
+                }
+                if($heart_card_value == 13) {
+                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♥', "K", 13);
+                }
+                if($heart_card_value == 14) {
+                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♥', "A", 14);
+                }
+                if($heart_card_value < 11) {
+                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♥', $heart_card_value, $heart_card_value);
+                }
+            }
+        }
+        
 
+        //Diamonds
+        //https://www.w3schools.com/php/func_var_isset.asp
+        if(isset($diamond_values)) {
+            foreach($diamond_values as $diamond_card_value) {
+                if($diamond_card_value == 11) {
+                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♦', "J", 11);
+                }
+                if($diamond_card_value == 12) {
+                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♦', "Q", 12);
+                }
+                if($diamond_card_value == 13) {
+                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♦', "K", 13);
+                }
+                if($diamond_card_value == 14) {
+                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♦', "A", 14);
+                }
+                if($diamond_card_value < 11) {
+                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♦', $diamond_card_value, $diamond_card_value);
+                }
+            }
+        }
+        
+        // Clubs
+        //https://www.w3schools.com/php/func_var_isset.asp
+        if(isset($club_values)) {
+            foreach($club_values as $club_card_value) {
+                if($club_card_value == 11) {
+                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♣', "J", 11);
+                }
+                if($club_card_value == 12) {
+                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♣', "Q", 12);
+                }
+                if($club_card_value == 13) {
+                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♣', "K", 13);
+                }
+                if($club_card_value == 14) {
+                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♣', "A", 14);
+                }
+                if($club_card_value < 11) {
+                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♣', $club_card_value, $club_card_value);
+                }
+            }
+        }
+        
+      
+        return $deck_of_cards_as_array_sorted;
+    }
 
     public function getRandomCard(): string
     {
@@ -69,6 +200,14 @@ class DeckOfCards
         return $returned_array;
     }
 
+    public function getAsString(): array
+     {
+         $cards = [];
+         foreach ($this->deck as $card) {
+             $cards[] = $card->getAsString();
+         } 
+         return $cards;
+     }
 
 
     public function getTheAmountOfCards(): int

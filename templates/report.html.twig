@@ -54,55 +54,56 @@
                 Controller är också en PHP-klass som i mitt fall tar emot förfrågningar på en viss route, kör logiken och skickar vidare till vyn (.twig-filen).
             </p>
             <h2 id="kmom02">kmom02 - Redovisning</h2>
-             <p>
-                The standard Lorem Ipsum passage, used since the 1500s
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-
-                Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
-                "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, 
-                eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. 
-                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. 
-                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, 
-                sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. 
-                Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? 
-                Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, 
-                vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-
-                1914 translation by H. Rackham
-                "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and 
-                I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, 
-                the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, 
-                but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. 
-                Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, 
-                but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. 
-                To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? 
-                But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, 
-                or one who avoids a pain that produces no resultant pleasure?"
-
-                Section 1.10.33 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
-                "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque 
-                corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, 
-                similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. 
-                Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, 
-                cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, 
-                omnis voluptas assumenda est, omnis dolor repellendus. 
-                Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates 
-                repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, 
-                ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."
-
-                1914 translation by H. Rackham
-                "On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized 
-                by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; 
-                and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. 
-                These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our 
-                being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the 
-                claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. 
-                The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, 
-                or else he endures pains to avoid worse pains."
+            <p>
+                Arv i OOP innebär att en klass ärver från en annan klass.
+                Att ärva betyder att den nya klassen (B) automatiskt får tillgång till attribut och metoder från den gamla klassen (A).
+                På så sätt kan man skapa en ny klass (B) med utökad funktionalitet jämfört med originalet (A).
+                <br>
+                <br>
+                Komposition i OOP innebär att en klass byggs upp med hjälp av en annan klass.
+                Som i min klass DeckOfCards, som är uppbyggd med hjälp av min andra klass CardGraphic, där varje kort i kortleken utgörs av en instans av CardGraphic.
+                <br>
+                <br>
+                Interface i PHP OOP är ett sätt att definiera hur en klass ska implementeras.
+                Ett interface säkerställer att alla klasser som implementerar det innehåller de metoder som anges i interfacet.
+                <br>
+                <br>
+                Trait i PHP löser problemet med att en klass inte kan ärva från mer än en annan klass.
+                Eftersom PHP endast tillåter enkel arv kan man använda en eller flera traits för att återanvända kod i olika klasser.
+                På så sätt kan man kringgå begränsningen av enkel arv i PHP.
+                
             </p>
+            <p>
+                Jag är 6/10 nöjd med min implementering av uppgiften.
+                Jag löste uppgiften till stor del genom att utgå från övningen med tärningar, med en controller för alla card-routes och en för API:et.
+                <br>
+                <br>
+                Min klass CardGraphic gör inte mycket mer än att ärva från Card, för att uppfylla arvskravet, vilket jag troligen kommer att ändra framöver.
+                Samma gäller klassen CardHand – jag hade planer för att använda den men insåg att jag kunde lösa allt med DeckOfCards.
+                <br>
+                <br>
+                Detta kommer jag också att ändra framöver så att CardHand faktiskt används.
+                I övrigt tycker jag att min implementering är acceptabel.
+            </p>
+            <p>
+                Jag tycker ändå att PHP är intressant.
+                Jag är van vid Python och JavaScript, så PHP känns som ett språk som vill sticka ut lite och göra saker på sitt eget sätt.
+                Men jag gillar det.
+                <br>
+                <br>
+                Det känns som att PHP har många smidiga hjälpmetoder, och det är rätt intressant att läsa dess dokumentation.
+                Symfony känns som ett stabilt ramverk, men precis som PHP gör det saker på sitt eget sätt jämfört med Flask och Express.
+                <br>
+                <br>
+                Detta kursmoment kändes ibland lite mastigt, men jag hade roligt större delen av tiden.
+                Det fanns även stunder då det uppstod en del frustration.
+                <br>
+                <br>
+                Min TIL detta kmom är interfaces.
+                Traits kikade jag lite på förra veckan, så jag hade redan viss koll på dem.
+            </p>
+            
+        
             <h2 id="kmom03">kmom03 - Redovisning</h2>
              <p>
                 The standard Lorem Ipsum passage, used since the 1500s
