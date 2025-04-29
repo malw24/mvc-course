@@ -6,10 +6,10 @@ use App\Card\CardGraphic;
 
 class DeckOfCards
 {
-    protected $deck = [];
+    protected array $deck = [];
 
 
-    private $suits = [
+    private array $suits = [
         '♠',
         '♥',
         '♦',

@@ -14,9 +14,9 @@ class CardGameController extends AbstractController
     #[Route("/session", name: "session")]
     public function sessionPrint(SessionInterface $session): Response
     {
-        $session_content = $session;
+        $sessionContent = $session;
         $data = [
-            "session_info" => $session_content
+            "session_info" => $sessionContent
         ];
         return $this->render('session.html.twig', $data);
     }
@@ -26,7 +26,7 @@ class CardGameController extends AbstractController
     {
         // Jag vet inte om denna dokumentationen är okej att använda? Jag googlade "symfony sessionInterface"
         // https://github.com/symfony/symfony/blob/6.4/src/Symfony/Component/HttpFoundation/Session/SessionInterface.php
-        $session_content = $session->clear();
+        $sessionContent = $session->clear();
 
         $this->addFlash(
             'notice',
@@ -45,18 +45,18 @@ class CardGameController extends AbstractController
     #[Route("/card/deck", name: "card_deck")]
     public function cardDeck(SessionInterface $session): Response
     {
-        $deck_of_cards = unserialize($session->get("deck_of_cards"));
-        if (!$deck_of_cards) {
-            $deck_of_cards = new DeckOfCards();
+        $deckOfCards = unserialize($session->get("deck_of_cards"));
+        if (!$deckOfCards) {
+            $deckOfCards = new DeckOfCards();
             // https://www.w3schools.com/php/func_var_serialize.asp
-            $session->set("deck_of_cards", serialize($deck_of_cards));
+            $session->set("deck_of_cards", serialize($deckOfCards));
         }
 
 
-        $sorted_deck_as_array = $deck_of_cards->sortTheCurrentDeck();
+        $sortedDeckAsArray = $deckOfCards->sortTheCurrentDeck();
 
         $data = [
-            "deck_as_array" => $sorted_deck_as_array
+            "deck_as_array" => $sortedDeckAsArray
         ];
         return $this->render('write_out_current_deck.html.twig', $data);
 
@@ -65,15 +65,15 @@ class CardGameController extends AbstractController
     #[Route("card/deck/shuffle", name: "card_deck_shuffle")]
     public function shuffleDeck(SessionInterface $session): Response
     {
-        $deck_of_cards = new DeckOfCards();
-        $deck_of_cards->shuffledTheDeck();
+        $deckOfCards = new DeckOfCards();
+        $deckOfCards->shuffledTheDeck();
         // https://www.w3schools.com/php/func_var_serialize.asp
-        $session->set("deck_of_cards", serialize($deck_of_cards));
+        $session->set("deck_of_cards", serialize($deckOfCards));
         // var_dump($session);
-        $deck_of_cards = $deck_of_cards->getWholeDeckAsArray();
-        // var_dump($deck_of_cards);
+        $deckOfCards = $deckOfCards->getWholeDeckAsArray();
+        // var_dump($deckOfCards);
         $data = [
-            "deck_of_cards" => $deck_of_cards
+            "deck_of_cards" => $deckOfCards
         ];
         return $this->render('shuffled_deck.html.twig', $data);
 
@@ -83,44 +83,45 @@ class CardGameController extends AbstractController
     public function drawRandomCardDeck(SessionInterface $session): Response
     {
         // https://www.w3schools.com/php/func_var_unserialize.asp
-        $session_deck = unserialize($session->get("deck_of_cards"));
-        if ($session_deck) {
-            if ($session_deck->getTheAmountOfCards() > 0) {
+        $sessionDeck = unserialize($session->get("deck_of_cards"));
+        if ($sessionDeck) {
+            if ($sessionDeck->getTheAmountOfCards() > 0) {
                 // https://www.w3schools.com/php/func_var_unserialize.asp
-                $deck_of_cards = unserialize($session->get("deck_of_cards"));
-                $random_card = $deck_of_cards->getRandomCard();
-                $amount_of_cards_left = $deck_of_cards->getTheAmountOfCards();
-                $session->set("deck_of_cards", serialize($deck_of_cards));
+                $deckOfCards = unserialize($session->get("deck_of_cards"));
+                $randomCard = $deckOfCards->getRandomCard();
+                $amountOfCardsLeft = $deckOfCards->getTheAmountOfCards();
+                $session->set("deck_of_cards", serialize($deckOfCards));
                 $data = [
-                    "random_card" => $random_card,
-                    "amount_of_cards_left" => $amount_of_cards_left
+                    "random_card" => $randomCard,
+                    "amount_of_cards_left" => $amountOfCardsLeft
                 ];
                 return $this->render('draw_random_card.html.twig', $data);
 
-            } else {
-                $deck_of_cards = new DeckOfCards();
-                $random_card = $deck_of_cards->getRandomCard();
-                $amount_of_cards_left = $deck_of_cards->getTheAmountOfCards();
-                // https://www.w3schools.com/php/func_var_serialize.asp
-                $session->set("deck_of_cards", serialize($deck_of_cards));
-                $data = [
-                    "random_card" => $random_card,
-                    "amount_of_cards_left" => $amount_of_cards_left
-                ];
-                return $this->render('draw_random_card.html.twig', $data);
-            }
-        } else {
-            $deck_of_cards = new DeckOfCards();
-            $random_card = $deck_of_cards->getRandomCard();
-            $amount_of_cards_left = $deck_of_cards->getTheAmountOfCards();
+            } 
+
+            $deckOfCards = new DeckOfCards();
+            $randomCard = $deckOfCards->getRandomCard();
+            $amountOfCardsLeft = $deckOfCards->getTheAmountOfCards();
             // https://www.w3schools.com/php/func_var_serialize.asp
-            $session->set("deck_of_cards", serialize($deck_of_cards));
+            $session->set("deck_of_cards", serialize($deckOfCards));
             $data = [
-                "random_card" => $random_card,
-                "amount_of_cards_left" => $amount_of_cards_left
+                "random_card" => $randomCard,
+                "amount_of_cards_left" => $amountOfCardsLeft
             ];
             return $this->render('draw_random_card.html.twig', $data);
-        }
+           
+        } 
+        $deckOfCards = new DeckOfCards();
+        $randomCard = $deckOfCards->getRandomCard();
+        $amountOfCardsLeft = $deckOfCards->getTheAmountOfCards();
+        // https://www.w3schools.com/php/func_var_serialize.asp
+        $session->set("deck_of_cards", serialize($deckOfCards));
+        $data = [
+            "random_card" => $randomCard,
+            "amount_of_cards_left" => $amountOfCardsLeft
+        ];
+        return $this->render('draw_random_card.html.twig', $data);
+     
 
 
 
@@ -138,64 +139,57 @@ class CardGameController extends AbstractController
         }
 
         // https://www.w3schools.com/php/func_var_unserialize.asp
-        $session_deck = unserialize($session->get("deck_of_cards"));
-        if ($session_deck) {
-            if ($session_deck->getTheAmountOfCards() >= $num) {
+        $sessionDeck = unserialize($session->get("deck_of_cards"));
+        if ($sessionDeck) {
+            if ($sessionDeck->getTheAmountOfCards() >= $num) {
                 // https://www.w3schools.com/php/func_var_unserialize.asp
-                $deck_of_cards =  unserialize($session->get("deck_of_cards"));
+                $deckOfCards =  unserialize($session->get("deck_of_cards"));
                 $drawnCards = [];
                 for ($counter = 1; $counter <= $num; $counter++) {
-                    $random_card = $deck_of_cards->getRandomCard();
-                    $drawnCards[] = $random_card;
+                    $randomCard = $deckOfCards->getRandomCard();
+                    $drawnCards[] = $randomCard;
                 }
-                $session->set("deck_of_cards", serialize($deck_of_cards));
+                $session->set("deck_of_cards", serialize($deckOfCards));
                 $data = [
-                    "num_cards_left" => $deck_of_cards->getTheAmountOfCards(),
+                    "num_cards_left" => $deckOfCards->getTheAmountOfCards(),
                     "drawnCards" => $drawnCards,
                     "requested_amount" => $num
                 ];
 
                 return $this->render('draw_many.html.twig', $data);
 
-            } else {
-                $deck_of_cards = new DeckOfCards();
-                $drawnCards = [];
-                for ($counter = 1; $counter <= $num; $counter++) {
-                    $random_card = $deck_of_cards->getRandomCard();
-                    $drawnCards[] = $random_card;
-                }
-                $session->set("deck_of_cards", serialize($deck_of_cards));
-                $data = [
-                    "num_cards_left" => $deck_of_cards->getTheAmountOfCards(),
-                    "drawnCards" => $drawnCards,
-                    "requested_amount" => $num
-                ];
-
-                return $this->render('draw_many.html.twig', $data);
-
-            }
-
-
-
-        } else {
-            $deck_of_cards = new DeckOfCards();
+            } 
+            $deckOfCards = new DeckOfCards();
             $drawnCards = [];
             for ($counter = 1; $counter <= $num; $counter++) {
-                $random_card = $deck_of_cards->getRandomCard();
-                $drawnCards[] = $random_card;
+                $randomCard = $deckOfCards->getRandomCard();
+                $drawnCards[] = $randomCard;
             }
-            $session->set("deck_of_cards", serialize($deck_of_cards));
+            $session->set("deck_of_cards", serialize($deckOfCards));
             $data = [
-                "num_cards_left" => $deck_of_cards->getTheAmountOfCards(),
+                "num_cards_left" => $deckOfCards->getTheAmountOfCards(),
                 "drawnCards" => $drawnCards,
                 "requested_amount" => $num
             ];
 
             return $this->render('draw_many.html.twig', $data);
+
+        } 
+
+        $deckOfCards = new DeckOfCards();
+        $drawnCards = [];
+        for ($counter = 1; $counter <= $num; $counter++) {
+            $randomCard = $deckOfCards->getRandomCard();
+            $drawnCards[] = $randomCard;
         }
+        $session->set("deck_of_cards", serialize($deckOfCards));
+        $data = [
+            "num_cards_left" => $deckOfCards->getTheAmountOfCards(),
+            "drawnCards" => $drawnCards,
+            "requested_amount" => $num
+        ];
 
-
-
+        return $this->render('draw_many.html.twig', $data);
     }
 
 

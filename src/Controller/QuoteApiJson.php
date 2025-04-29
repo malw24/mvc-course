@@ -41,9 +41,14 @@ class QuoteApiJson
         ];
 
 
-        $response = new Response();
-        $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE));
-        $response->headers->set('Content-Type', 'application/json');
+        // $response = new Response();
+        $response = new JsonResponse($data);
+        $response->setEncodingOptions(
+            $response->getEncodingOptions() | JSON_PRETTY_PRINT
+        );
+        // $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE));
+        // $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
 }
+

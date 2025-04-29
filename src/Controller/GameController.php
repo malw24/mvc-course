@@ -11,6 +11,7 @@ use App\Card\DeckOfCards;
 use App\Card\CardHand;
 use App\Game\CardGame;
 
+
 class GameController extends AbstractController
 {
     #[Route("/game", name: "game", methods:["GET", "POST"])]
@@ -33,18 +34,17 @@ class GameController extends AbstractController
         // https://www.w3schools.com/php/php_superglobals_request.asp
         $requestMethod = $_SERVER["REQUEST_METHOD"];
 
-        // Linten klagar på att $theGame kanske inte alltid är definerad men på sättet som jag
-        // har satt ihop detta på så går det endast att göra en POST-förfrågan när spelet är igång,
-        // och spelet börjar alltid med en GET, så $theGame kommer alltid vara definerad
+        
         if ($requestMethod === "GET") {
             $session->clear();
             $theGame = new CardGame();
             $session->set("current_game", serialize($theGame));
             $playersTurn = true;
         }
-
+        // Linten klagar på att $theGame kanske inte alltid är definerad men på sättet som jag
+        // har satt ihop detta på så går det endast att göra en POST-förfrågan när spelet är igång,
+        // och spelet börjar alltid med en GET, så $theGame kommer alltid vara definerad
         if ($requestMethod === "POST" || $theGame->playerHand->getTotalNumericalValue() === 21) {
-            
             $theGame = unserialize($session->get("current_game"));
             if ($request->request->get('one_more_card')) {
 
