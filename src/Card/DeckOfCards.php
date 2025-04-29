@@ -46,24 +46,6 @@ class DeckOfCards
     {
         $deck_of_cards_as_array = $this->deck;
         foreach($deck_of_cards_as_array as $card) {
-            // if($card->numeric_value < 11) {
-            //     if($card->suit == '♠') {
-            //         $spades_values[] = $card->value;
-            //         sort($spades_values);
-            //     }
-            //     if($card->suit == '♥') {
-            //         $hearts_values[] = $card->value;
-            //         sort($hearts_values);
-            //     }
-            //     if($card->suit == '♦') {
-            //         $diamond_values[] = $card->value;
-            //         sort($diamond_values);
-            //     }
-            //     if($card->suit == '♣') {
-            //         $club_values[] = $card->value;
-            //         sort($club_values);
-            //     }
-            // }
             if($card->suit == '♠') {
             $spades_values[] = $card->numeric_value;
             sort($spades_values);
@@ -182,6 +164,15 @@ class DeckOfCards
         $card = $this->deck[$random_index];
         unset($this->deck[$random_index]);
         return $card->getAsString();
+    }
+
+    public function getRandomCardAsObject(): Object
+    {
+        // https://www.w3schools.com/php/func_array_rand.asp
+        $random_index = array_rand($this->deck);
+        $card = $this->deck[$random_index];
+        unset($this->deck[$random_index]);
+        return $card;
     }
 
     public function shuffledTheDeck(): array

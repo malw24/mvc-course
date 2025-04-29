@@ -138,7 +138,7 @@ footer a {
     text-align: center;
     border-bottom: none;
     width: fit-content;
-    background-color: #FBE9D0;
+    /* background-color: #FBE9D0; */
     padding: 10px;
     border-radius: 20px;
 }
@@ -238,12 +238,104 @@ input {
     display: grid;
     /* https://www.w3schools.com/cssref/func_repeat.php */
     grid-template-columns: repeat(13, 1fr);
+    
+    background-color: red;
+}
+
+.card-game {
+    display: flex;
+    flex-direction: column;
+    /* background-color: purple; */
+}
+
+
+
+.game-main {
+    min-height: 1200px;
+    /* background-color: chartreuse; */
+}
+.card-grid-game-player {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 70%;
+    margin: 0 auto;
+    gap: 10px;
+    align-items: center;
+    /* background-color: burlywood; */
+}
+
+.card-grid-game-bank {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0 auto;
+    gap: 10px;
+    /* background-color: red; */
+    align-items: center;
+}
+
+.card-grid-game-bank-h3 {
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+.game-buttons {
+    padding: 10px;
+    margin-top: 30px;
+    gap: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-grid-game-player p {
+    margin: 0;
+}
+
+.game-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.player-one-more-card {
+    text-align: center;
+    max-width: 100px;
+   
+}
+.bank-won {
+    text-align: center;
+    margin: 0;
+    border-bottom: none;
+    color: red;
+}
+
+.player-won {
+    text-align: center;
+    margin: 0;
+    border-bottom: none;
+    color: green;
+}
+
+
+.game-buttons-new-round {
+    max-width: 150px;
+    margin: 20px auto;
+}
+
+.card-grid-game-player-h3 {
+    text-align: center;
 }
 
 .card {
     background-color: white;
     width: 34px;
     height: 40px;
+    margin: 0 auto;
     text-align: center;
     border-radius: 5px;
 }
@@ -252,6 +344,7 @@ input {
     background-color: white;
     width: 34px;
     height: 40px;
+    margin: 0 auto;
     text-align: center;
     border-radius: 5px;
 }
@@ -271,8 +364,7 @@ input {
 }
 
 .game-form {
-    margin: 0 auto;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 .psuedo-code-div {

@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Game landing page{% endblock %}
+
+{% block body %}
+    <main class="game-main">
+        <h1 class="page-title-special">Vi är igång!</h1>
+        <div class="card-game">
+            <div class="card-grid-game-player">
+          
+                {% for card in player_hand_array %}
+    
+                    {% if ('♥' in card)%}
+                        <p class="red-card" >{{ card }}</p>
+                    {% elseif ('♦' in card)%}
+                        <p class="red-card" >{{ card }}</p>
+                    {% else %}
+                        <p class="card">{{ card }}</p>
+                    {% endif %}
+                    
+                {% endfor %}
+                
+            </div>
+            {% if current_total_points < 21%}
+                    <div class="game-buttons">
+                        <form class="game-form" method="POST" action="/game/play">
+                            <input class="the-two-choices" type="submit" name="one_more_card" value="Ett kort till">
+                        </form>
+                        <form class="game-form" method="POST" action="/game/play">
+                            <input class="the-two-choices" type="submit" name="enough" value="Jag nöjer mig">
+                        </form>
+                    </div>
+            {% elseif current_total_points > 21%}
+                <form class="game-form" method="get" action="/game/play">
+                    <h2 style="text-align: center; color: red;">Du förlorade!</h2>
+                    <input class="game-buttons-new-round" type="submit" name="do_it" value="Ny omgång">
+                </form>
+            {% endif %}
+            <h3 class="card-grid-game-player-h3 "> {{current_player}} totala poäng: {{current_total_points}}</h3>    
+        </div>
+    </main>
+{% endblock %}
