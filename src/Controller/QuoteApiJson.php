@@ -42,6 +42,7 @@ class QuoteApiJson
 
 
         // $response = new Response();
+        // Behöver en commit till
         $response = new JsonResponse($data);
         $response->setEncodingOptions(
             $response->getEncodingOptions() | JSON_PRETTY_PRINT
