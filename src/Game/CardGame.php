@@ -22,10 +22,14 @@ class CardGame
     }
 
     public function evaluateWinner() {
-        if($this->bank_hand->getTotalNumericalValue() > 21) {
+        if ($this->player_hand->getTotalNumericalValue() > 21) {
+            $this->bankWon = true;
+        }
+        elseif($this->bank_hand->getTotalNumericalValue() > 21) {
             $this->playerWon = true;
 
-        } else {
+        }
+        else {
             if($this->player_hand->getTotalNumericalValue() > $this->bank_hand->getTotalNumericalValue()) {
                 $this->playerWon = true;
 
@@ -49,9 +53,6 @@ class CardGame
             $this->bank_hand->cards[] = $this->the_deck->getRandomCardAsObject();
         }
         $this->evaluateWinner();
-   
-        
-
     }
 
     public function didPlayerWin() {

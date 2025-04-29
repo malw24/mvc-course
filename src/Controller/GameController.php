@@ -69,6 +69,9 @@ class GameController extends AbstractController
       
  
         if($players_turn) {
+            if($the_game->player_hand->getTotalNumericalValue() > 21) {
+                $the_game->evaluateWinner();
+            }
             $data = [
                 "player_hand_array" => $the_game->player_hand->getAsString(),
                 "current_total_points" =>$the_game->player_hand->getTotalNumericalValue(),
@@ -78,8 +81,10 @@ class GameController extends AbstractController
                 "bank_wins" => $the_game->didBankWin(),
                 "banks_turn" => false
             ];
+            $session->set("current_game", serialize($the_game));
             return $this->render('game_play_players_turn.html.twig', $data);
         } else {
+            
             $data = [
                 "player_hand_array" => $the_game->player_hand->getAsString(),
                 "current_total_points" =>$the_game->player_hand->getTotalNumericalValue(),
@@ -92,6 +97,7 @@ class GameController extends AbstractController
                 "bank_wins" => $the_game->didBankWin(),
                 "banks_turn" => true
             ];
+            $session->set("current_game", serialize($the_game));
             return $this->render('game_play_banks_turn.html.twig', $data);
         }
         
@@ -101,7 +107,7 @@ class GameController extends AbstractController
     }
 
     #[Route("game/doc", name: "game_doc")]
-    public function shuffleDeck(): Response
+    public function gameDoc(): Response
     {
         return $this->render('game_doc.html.twig');
 

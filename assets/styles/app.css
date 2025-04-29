@@ -238,8 +238,7 @@ input {
     display: grid;
     /* https://www.w3schools.com/cssref/func_repeat.php */
     grid-template-columns: repeat(13, 1fr);
-    
-    background-color: red;
+
 }
 
 .card-game {
