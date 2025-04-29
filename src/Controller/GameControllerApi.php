@@ -15,19 +15,25 @@ class GameControllerApi extends AbstractController
     #[Route("/api/game", name: "api_game")]
     public function apiGame(SessionInterface $session): Response
     {
-        $session_dump = unserialize($session->get("current_game"));
-        if($session_dump) {
-            $response = new Response();
-            $response->setContent(json_encode($session_dump, JSON_UNESCAPED_UNICODE));
-            $response->headers->set('Content-Type', 'application/json');
+        $sessionGet = unserialize($session->get("current_game"));
+        if ($sessionGet) {
+       
+            $response = new JsonResponse($sessionGet);
+
+            $response->setEncodingOptions(
+                $response->getEncodingOptions() | JSON_PRETTY_PRINT
+            );
             return $response;
-        } else {
-            $message = "No game currently going on.";
-            $response = new Response();
-            $response->setContent(json_encode($message, JSON_UNESCAPED_UNICODE));
-            $response->headers->set('Content-Type', 'application/json');
-            return $response;
-        }
+        } 
+        $message = "No game currently going on.";
+   
+        $response = new JsonResponse($message);
+
+        $response->setEncodingOptions(
+            $response->getEncodingOptions() | JSON_PRETTY_PRINT
+        );
+        return $response;
+     
     }
 
 }

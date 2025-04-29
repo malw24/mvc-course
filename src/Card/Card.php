@@ -4,15 +4,15 @@ namespace App\Card;
 
 class Card
 {
-    public $suit;
-    public $value;
-    public $numeric_value;
+    public string $suit;
+    public string|int $value;
+    public int $numericValue;
 
-    public function __construct($suit, $value, $numeric_value)
+    public function __construct(string $suit, string|int $value, int $numericValue)
     {
         $this->suit =  $suit;
         $this->value = $value;
-        $this->numeric_value = $numeric_value;
+        $this->numericValue = $numericValue;
     }
 
     public function getAsString(): string

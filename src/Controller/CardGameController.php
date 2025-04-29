@@ -46,13 +46,13 @@ class CardGameController extends AbstractController
     public function cardDeck(SessionInterface $session): Response
     {
         $deck_of_cards = unserialize($session->get("deck_of_cards"));
-        if(!$deck_of_cards) {
+        if (!$deck_of_cards) {
             $deck_of_cards = new DeckOfCards();
             // https://www.w3schools.com/php/func_var_serialize.asp
             $session->set("deck_of_cards", serialize($deck_of_cards));
         }
-       
-        
+
+
         $sorted_deck_as_array = $deck_of_cards->sortTheCurrentDeck();
 
         $data = [
@@ -198,7 +198,7 @@ class CardGameController extends AbstractController
 
     }
 
-   
+
 
 
 }

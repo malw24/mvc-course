@@ -8,14 +8,14 @@
         <div class="card-game">
             {% if bank_wins %}
                 <h1 class="bank-won">Banken vann!</h1>
-                <form class="game-form" method="get" action="/game/play">
+                <form class="game-form" method="get" action="{{ path('game_play') }}">
                     <h2 style="text-align: center; color: green;">Du förlorade!</h2>
                     <input class="game-buttons-new-round" type="submit" name="do_it" value="Ny omgång">
                 </form>
             {% endif %}
             {% if player_wins %}
                 <h1 class="player-won">Du vann!</h1>
-                <form class="game-form" method="get" action="/game/play">
+                <form class="game-form" method="get" action="{{ path('game_play') }}">
                     <h2 style="text-align: center; color:red;">Banken förlorade!</h2>
                     <input class="game-buttons-new-round" type="submit" name="do_it" value="Ny omgång">
                 </form>

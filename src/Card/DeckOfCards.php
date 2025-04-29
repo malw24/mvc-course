@@ -42,136 +42,142 @@ class DeckOfCards
         }
     }
 
+    public function sortSpades() {
+        
+    }
+
     public function sortTheCurrentDeck(): array
-    {
-        $deck_of_cards_as_array = $this->deck;
-        foreach($deck_of_cards_as_array as $card) {
-            if($card->suit == '♠') {
-            $spades_values[] = $card->numeric_value;
-            sort($spades_values);
+    {   
+        $deckOfCardsAsArray = $this->deck;
+        foreach ($deckOfCardsAsArray as $card) {
+            if ($card->suit == '♠') {
+                $spadesValues[] = $card->numericValue;
+                sort($spadesValues);
             }
-            if($card->suit == '♥') {
-                $hearts_values[] = $card->numeric_value;
-                sort($hearts_values);
+            if ($card->suit == '♥') {
+                $heartsValues[] = $card->numericValue;
+                sort($heartsValues);
             }
-            if($card->suit == '♦') {
-                $diamond_values[] = $card->numeric_value;
-                sort($diamond_values);
+            if ($card->suit == '♦') {
+                $diamondValues[] = $card->numericValue;
+                sort($diamondValues);
             }
-            if($card->suit == '♣') {
-                $club_values[] = $card->numeric_value;
-                sort($club_values);
+            if ($card->suit == '♣') {
+                $clubValues[] = $card->numericValue;
+                sort($clubValues);
             }
         }
-      
+
+        $deckOfCardsAsArraySorted = [];
+        
         //spades
         //https://www.w3schools.com/php/func_var_isset.asp
-        if(isset($spades_values)) {
-            foreach($spades_values as $spade_card_value) {
-                if($spade_card_value == 11) {
-                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♠', "J", 11);
+        if (isset($spadesValues)) {
+            foreach ($spadesValues as $spadeCardValue) {
+                if ($spadeCardValue == 11) {
+                    $deckOfCardsAsArraySorted[] = new CardGraphic('♠', "J", 11);
                 }
-                if($spade_card_value == 12) {
-                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♠', "Q", 12);
+                if ($spadeCardValue == 12) {
+                    $deckOfCardsAsArraySorted[] = new CardGraphic('♠', "Q", 12);
                 }
-                if($spade_card_value == 13) {
-                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♠', "K", 13);
+                if ($spadeCardValue == 13) {
+                    $deckOfCardsAsArraySorted[] = new CardGraphic('♠', "K", 13);
                 }
-                if($spade_card_value == 14) {
-                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♠', "A", 14);
+                if ($spadeCardValue == 14) {
+                    $deckOfCardsAsArraySorted[] = new CardGraphic('♠', "A", 14);
                 }
-                if($spade_card_value < 11) {
-                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♠', $spade_card_value, $spade_card_value);
+                if ($spadeCardValue < 11) {
+                    $deckOfCardsAsArraySorted[] = new CardGraphic('♠', $spadeCardValue, $spadeCardValue);
                 }
             }
         }
-        
+
         //hearts
         //https://www.w3schools.com/php/func_var_isset.asp
-        if(isset($hearts_values)) {
-            foreach($hearts_values as $heart_card_value) {
-                if($heart_card_value == 11) {
-                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♥', "J", 11);
+        if (isset($heartsValues)) {
+            foreach ($heartsValues as $heartCardValue) {
+                if ($heartCardValue == 11) {
+                    $deckOfCardsAsArraySorted[] = new CardGraphic('♥', "J", 11);
                 }
-                if($heart_card_value == 12) {
-                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♥', "Q", 12);
+                if ($heartCardValue == 12) {
+                    $deckOfCardsAsArraySorted[] = new CardGraphic('♥', "Q", 12);
                 }
-                if($heart_card_value == 13) {
-                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♥', "K", 13);
+                if ($heartCardValue == 13) {
+                    $deckOfCardsAsArraySorted[] = new CardGraphic('♥', "K", 13);
                 }
-                if($heart_card_value == 14) {
-                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♥', "A", 14);
+                if ($heartCardValue == 14) {
+                    $deckOfCardsAsArraySorted[] = new CardGraphic('♥', "A", 14);
                 }
-                if($heart_card_value < 11) {
-                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♥', $heart_card_value, $heart_card_value);
+                if ($heartCardValue < 11) {
+                    $deckOfCardsAsArraySorted[] = new CardGraphic('♥', $heartCardValue, $heartCardValue);
                 }
             }
         }
-        
+
 
         //Diamonds
         //https://www.w3schools.com/php/func_var_isset.asp
-        if(isset($diamond_values)) {
-            foreach($diamond_values as $diamond_card_value) {
-                if($diamond_card_value == 11) {
-                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♦', "J", 11);
+        if (isset($diamondValues)) {
+            foreach ($diamondValues as $diamondCardValue) {
+                if ($diamondCardValue == 11) {
+                    $deckOfCardsAsArraySorted[] = new CardGraphic('♦', "J", 11);
                 }
-                if($diamond_card_value == 12) {
-                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♦', "Q", 12);
+                if ($diamondCardValue == 12) {
+                    $deckOfCardsAsArraySorted[] = new CardGraphic('♦', "Q", 12);
                 }
-                if($diamond_card_value == 13) {
-                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♦', "K", 13);
+                if ($diamondCardValue == 13) {
+                    $deckOfCardsAsArraySorted[] = new CardGraphic('♦', "K", 13);
                 }
-                if($diamond_card_value == 14) {
-                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♦', "A", 14);
+                if ($diamondCardValue == 14) {
+                    $deckOfCardsAsArraySorted[] = new CardGraphic('♦', "A", 14);
                 }
-                if($diamond_card_value < 11) {
-                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♦', $diamond_card_value, $diamond_card_value);
+                if ($diamondCardValue < 11) {
+                    $deckOfCardsAsArraySorted[] = new CardGraphic('♦', $diamondCardValue, $diamondCardValue);
                 }
             }
         }
-        
+
         // Clubs
         //https://www.w3schools.com/php/func_var_isset.asp
-        if(isset($club_values)) {
-            foreach($club_values as $club_card_value) {
-                if($club_card_value == 11) {
-                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♣', "J", 11);
+        if (isset($clubValues)) {
+            foreach ($clubValues as $clubCardValue) {
+                if ($clubCardValue == 11) {
+                    $deckOfCardsAsArraySorted[] = new CardGraphic('♣', "J", 11);
                 }
-                if($club_card_value == 12) {
-                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♣', "Q", 12);
+                if ($clubCardValue == 12) {
+                    $deckOfCardsAsArraySorted[] = new CardGraphic('♣', "Q", 12);
                 }
-                if($club_card_value == 13) {
-                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♣', "K", 13);
+                if ($clubCardValue == 13) {
+                    $deckOfCardsAsArraySorted[] = new CardGraphic('♣', "K", 13);
                 }
-                if($club_card_value == 14) {
-                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♣', "A", 14);
+                if ($clubCardValue == 14) {
+                    $deckOfCardsAsArraySorted[] = new CardGraphic('♣', "A", 14);
                 }
-                if($club_card_value < 11) {
-                    $deck_of_cards_as_array_sorted[] = new CardGraphic('♣', $club_card_value, $club_card_value);
+                if ($clubCardValue < 11) {
+                    $deckOfCardsAsArraySorted[] = new CardGraphic('♣', $clubCardValue, $clubCardValue);
                 }
             }
         }
-        
-      
-        return $deck_of_cards_as_array_sorted;
+
+
+        return $deckOfCardsAsArraySorted;
     }
 
     public function getRandomCard(): string
     {
         // https://www.w3schools.com/php/func_array_rand.asp
-        $random_index = array_rand($this->deck);
-        $card = $this->deck[$random_index];
-        unset($this->deck[$random_index]);
+        $randomIndex = array_rand($this->deck);
+        $card = $this->deck[$randomIndex];
+        unset($this->deck[$randomIndex]);
         return $card->getAsString();
     }
 
     public function getRandomCardAsObject(): Object
     {
         // https://www.w3schools.com/php/func_array_rand.asp
-        $random_index = array_rand($this->deck);
-        $card = $this->deck[$random_index];
-        unset($this->deck[$random_index]);
+        $randomIndex = array_rand($this->deck);
+        $card = $this->deck[$randomIndex];
+        unset($this->deck[$randomIndex]);
         return $card;
     }
 
@@ -184,27 +190,27 @@ class DeckOfCards
 
     public function getWholeDeckAsArray(): array
     {
-        $returned_array = [];
+        $returnedArray = [];
         foreach ($this->deck as $card) {
-            $returned_array[] = $card;
+            $returnedArray[] = $card;
         }
-        return $returned_array;
+        return $returnedArray;
     }
 
     public function getAsString(): array
-     {
-         $cards = [];
-         foreach ($this->deck as $card) {
-             $cards[] = $card->getAsString();
-         } 
-         return $cards;
-     }
+    {
+        $cards = [];
+        foreach ($this->deck as $card) {
+            $cards[] = $card->getAsString();
+        }
+        return $cards;
+    }
 
 
     public function getTheAmountOfCards(): int
     {
-        $amount_of_cards_left = count($this->deck);
-        return $amount_of_cards_left;
+        $amountOfCardsLeft = count($this->deck);
+        return $amountOfCardsLeft;
     }
 
 

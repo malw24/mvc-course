@@ -3,63 +3,69 @@
 namespace App\Game;
 
 use App\Card\CardHand;
-
-
+use App\Card\DeckOfCards;
 
 class CardGame
 {
-    public $player_hand;
-    public $bank_hand;
-    public $the_deck;
-    public $playerWon = false;
-    public $bankWon = false; 
-    
+    public CardHand $playerHand;
+    public CardHand $bankHand;
+    public DeckOfCards $theDeck;
+    public bool $playerWon = false;
+    public bool $bankWon = false;
+
     public function __construct()
     {
-        $this->player_hand = new CardHand(1);
-        $this->the_deck = $this->player_hand->deck_of_cards;
+        $this->playerHand = new CardHand(1);
+        $this->theDeck = $this->playerHand->deckOfCards;
 
     }
 
-    public function evaluateWinner() {
-        if ($this->player_hand->getTotalNumericalValue() > 21) {
+
+    public function evaluateWinner(): void
+    {
+        if ($this->playerHand->getTotalNumericalValue() > 21) {
             $this->bankWon = true;
+            return;
         }
-        elseif($this->bank_hand->getTotalNumericalValue() > 21) {
+
+        if ($this->bankHand->getTotalNumericalValue() > 21) {
             $this->playerWon = true;
-
+            return;
         }
-        else {
-            if($this->player_hand->getTotalNumericalValue() > $this->bank_hand->getTotalNumericalValue()) {
-                $this->playerWon = true;
 
-            } else {
-                $this->bankWon = true;
-
-            }
-        }
+        if ($this->playerHand->getTotalNumericalValue() > $this->bankHand->getTotalNumericalValue()) {
+            $this->playerWon = true;
+            return;
+        } 
+        $this->bankWon = true;
+        return;
+        
     }
 
-    public function addOneMoreCardToPlayerHand(){
-        $this->player_hand->cards[] = $this->the_deck->getRandomCardAsObject();
+    public function addOneMoreCardToPlayerHand(): void
+    {
+        $this->playerHand->cards[] = $this->theDeck->getRandomCardAsObject();
     }
 
-    public function banksTurn() {
-        $this->bank_hand = new CardHand(0);
-        $this->bank_hand->deck_of_cards = $this->the_deck;
-        $this->bank_hand->cards[] = $this->the_deck->getRandomCardAsObject();
-        $this->bank_hand->cards[] = $this->the_deck->getRandomCardAsObject();
-        while ($this->bank_hand->getTotalNumericalValue() < 17) {
-            $this->bank_hand->cards[] = $this->the_deck->getRandomCardAsObject();
+    public function banksTurn(): void
+    {
+        $this->bankHand = new CardHand(0);
+        $this->bankHand->deckOfCards = $this->theDeck;
+        $this->bankHand->cards[] = $this->theDeck->getRandomCardAsObject();
+        $this->bankHand->cards[] = $this->theDeck->getRandomCardAsObject();
+        while ($this->bankHand->getTotalNumericalValue() < 17) {
+            $this->bankHand->cards[] = $this->theDeck->getRandomCardAsObject();
         }
         $this->evaluateWinner();
     }
 
-    public function didPlayerWin() {
+    public function didPlayerWin(): bool
+    {
         return $this->playerWon;
     }
 
-    public function didBankWin() {
+    public function didBankWin(): bool
+    {
         return $this->bankWon;
     }
 

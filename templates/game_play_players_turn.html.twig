@@ -23,15 +23,15 @@
             </div>
             {% if current_total_points < 21%}
                     <div class="game-buttons">
-                        <form class="game-form" method="POST" action="/game/play">
+                        <form class="game-form" method="POST" action="{{ path('game_play') }}">
                             <input class="the-two-choices" type="submit" name="one_more_card" value="Ett kort till">
                         </form>
-                        <form class="game-form" method="POST" action="/game/play">
+                        <form class="game-form" method="POST" action="{{ path('game_play') }}">
                             <input class="the-two-choices" type="submit" name="enough" value="Jag nöjer mig">
                         </form>
                     </div>
             {% elseif current_total_points > 21%}
-                <form class="game-form" method="get" action="/game/play">
+                <form class="game-form" method="GET" action="{{ path('game_play') }}">
                     <h2 style="text-align: center; color: red;">Du förlorade!</h2>
                     <input class="game-buttons-new-round" type="submit" name="do_it" value="Ny omgång">
                 </form>

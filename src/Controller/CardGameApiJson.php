@@ -14,19 +14,24 @@ class CardGameApiJson extends AbstractController
 {
     #[Route("/api/deck", name: "api_deck")]
     public function apiDeck(SessionInterface $session): Response
-    {
+    {   
         // https://github.com/symfony/symfony/blob/6.4/src/Symfony/Component/HttpFoundation/Session/SessionInterface.php
-        if(count($session->all()) == 0) {
-            $deck_of_cards = new DeckOfCards();
-        } else {
-            $deck_of_cards = unserialize($session->get("deck_of_cards"));
-            
-        }
-    
-        $deck_of_cards_as_array = $deck_of_cards->sortTheCurrentDeck();
+        if (count($session->all()) == 0) {
+            $deckOfCards = new DeckOfCards();
+            $deckOfCardsAsArray = $deckOfCards->sortTheCurrentDeck();
+            $response = new Response();
+            $response->setContent(json_encode($deckOfCardsAsArray, JSON_UNESCAPED_UNICODE));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        } 
+        
+        $deckOfCards = unserialize($session->get("deck_of_cards"));
+        
+
+        $deckOfCardsAsArray = $deckOfCards->sortTheCurrentDeck();
 
         $response = new Response();
-        $response->setContent(json_encode($deck_of_cards_as_array, JSON_UNESCAPED_UNICODE));
+        $response->setContent(json_encode($deckOfCardsAsArray, JSON_UNESCAPED_UNICODE));
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
@@ -34,14 +39,14 @@ class CardGameApiJson extends AbstractController
     #[Route("/api/deck/shuffle", name: "api_deck_shuffle", methods: ['GET', 'POST'])]
     public function apiDeckShuffle(SessionInterface $session): Response
     {
-        $deck_of_cards = new DeckOfCards();
-        $deck_of_cards->shuffledTheDeck();
-        $deck_of_cards_as_array = $deck_of_cards->getAsString();
+        $deckOfCards = new DeckOfCards();
+        $deckOfCards->shuffledTheDeck();
+        $deckOfCardsAsArray = $deckOfCards->getAsString();
 
-        $session->set("deck_of_cards", serialize($deck_of_cards));
+        $session->set("deck_of_cards", serialize($deckOfCards));
 
         $response = new Response();
-        $response->setContent(json_encode($deck_of_cards_as_array, JSON_UNESCAPED_UNICODE));
+        $response->setContent(json_encode($deckOfCardsAsArray, JSON_UNESCAPED_UNICODE));
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
@@ -50,17 +55,17 @@ class CardGameApiJson extends AbstractController
     public function apiDeckDraw(SessionInterface $session): Response
     {
         // https://www.w3schools.com/php/func_var_unserialize.asp
-        $session_deck = unserialize($session->get("deck_of_cards"));
-        if ($session_deck) {
+        $sessionDeck = unserialize($session->get("deck_of_cards"));
+        if ($sessionDeck) {
 
-            if ($session_deck->getTheAmountOfCards() > 0) {
-                $deck_of_cards = unserialize($session->get("deck_of_cards"));
-                $random_card = $deck_of_cards->getRandomCard();
-                $session->set("deck_of_cards", serialize($deck_of_cards));
+            if ($sessionDeck->getTheAmountOfCards() > 0) {
+                $deckOfCards = unserialize($session->get("deck_of_cards"));
+                $randomCard = $deckOfCards->getRandomCard();
+                $session->set("deck_of_cards", serialize($deckOfCards));
 
                 $data = [
-                    "drawn_card" => $random_card,
-                    "cards_left_in_deck" => $deck_of_cards->getTheAmountOfCards()
+                    "drawn_card" => $randomCard,
+                    "cards_left_in_deck" => $deckOfCards->getTheAmountOfCards()
                 ];
 
 
@@ -68,40 +73,40 @@ class CardGameApiJson extends AbstractController
                 $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE));
                 $response->headers->set('Content-Type', 'application/json');
                 return $response;
-            } else {
-                $deck_of_cards = new DeckOfCards();
-                $random_card = $deck_of_cards->getRandomCard();
-                $session->set("deck_of_cards", serialize($deck_of_cards));
+            } 
 
-                $data = [
-                    "drawn_card" => $random_card,
-                    "cards_left_in_deck" => $deck_of_cards->getTheAmountOfCards()
-                ];
+            $deckOfCards = new DeckOfCards();
+            $randomCard = $deckOfCards->getRandomCard();
+            $session->set("deck_of_cards", serialize($deckOfCards));
 
-
-                $response = new Response();
-                $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE));
-                $response->headers->set('Content-Type', 'application/json');
-                return $response;
-            }
-
-        } else {
-            $deck_of_cards = new DeckOfCards();
-                $random_card = $deck_of_cards->getRandomCard();
-                $session->set("deck_of_cards", serialize($deck_of_cards));
-
-                $data = [
-                    "drawn_card" => $random_card,
-                    "cards_left_in_deck" => $deck_of_cards->getTheAmountOfCards()
-                ];
+            $data = [
+                "drawn_card" => $randomCard,
+                "cards_left_in_deck" => $deckOfCards->getTheAmountOfCards()
+            ];
 
 
-                $response = new Response();
-                $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE));
-                $response->headers->set('Content-Type', 'application/json');
-                return $response;
-        }
+            $response = new Response();
+            $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+           
 
+        } 
+
+        $deckOfCards = new DeckOfCards();
+        $randomCard = $deckOfCards->getRandomCard();
+        $session->set("deck_of_cards", serialize($deckOfCards));
+
+        $data = [
+            "drawn_card" => $randomCard,
+            "cards_left_in_deck" => $deckOfCards->getTheAmountOfCards()
+        ];
+
+
+        $response = new Response();
+        $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
 
     }
 
@@ -112,21 +117,21 @@ class CardGameApiJson extends AbstractController
             $num = $request->request->get('num_cards');
         }
         // https://www.w3schools.com/php/func_var_unserialize.asp
-        $session_deck = unserialize($session->get("deck_of_cards"));
-        if ($session_deck) {
+        $sessionDeck = unserialize($session->get("deck_of_cards"));
+        if ($sessionDeck) {
 
-            if ($session_deck->getTheAmountOfCards() >= $num) {
-                $deck_of_cards = unserialize($session->get("deck_of_cards"));
+            if ($sessionDeck->getTheAmountOfCards() >= $num) {
+                $deckOfCards = unserialize($session->get("deck_of_cards"));
                 ;
                 $drawnCards = [];
                 for ($counter = 1; $counter <= $num; $counter++) {
-                    $random_card = $deck_of_cards->getRandomCard();
-                    $drawnCards[] = $random_card;
+                    $randomCard = $deckOfCards->getRandomCard();
+                    $drawnCards[] = $randomCard;
                 }
-                $session->set("deck_of_cards", serialize($deck_of_cards));
+                $session->set("deck_of_cards", serialize($deckOfCards));
                 $data = [
                     "drawn_cards" => $drawnCards,
-                    "cards_left_in_deck" => $deck_of_cards->getTheAmountOfCards()
+                    "cards_left_in_deck" => $deckOfCards->getTheAmountOfCards()
                 ];
 
 
@@ -134,40 +139,18 @@ class CardGameApiJson extends AbstractController
                 $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE));
                 $response->headers->set('Content-Type', 'application/json');
                 return $response;
-            } else {
-                $deck_of_cards = new DeckOfCards();
-                $drawnCards = [];
-                for ($counter = 1; $counter <= $num; $counter++) {
-                    $random_card = $deck_of_cards->getRandomCard();
-                    $drawnCards[] = $random_card;
-                }
-                $session->set("deck_of_cards", serialize($deck_of_cards));
-
-                $data = [
-                    "drawn_cards" => $drawnCards,
-                    "cards_left_in_deck" => $deck_of_cards->getTheAmountOfCards()
-                ];
-
-
-                $response = new Response();
-                $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE));
-                $response->headers->set('Content-Type', 'application/json');
-                return $response;
-            }
-
-        } else {
-            
-            $deck_of_cards = new DeckOfCards();
+            } 
+            $deckOfCards = new DeckOfCards();
             $drawnCards = [];
             for ($counter = 1; $counter <= $num; $counter++) {
-                $random_card = $deck_of_cards->getRandomCard();
-                $drawnCards[] = $random_card;
+                $randomCard = $deckOfCards->getRandomCard();
+                $drawnCards[] = $randomCard;
             }
-            $session->set("deck_of_cards", serialize($deck_of_cards));
+            $session->set("deck_of_cards", serialize($deckOfCards));
 
             $data = [
                 "drawn_cards" => $drawnCards,
-                "cards_left_in_deck" => $deck_of_cards->getTheAmountOfCards()
+                "cards_left_in_deck" => $deckOfCards->getTheAmountOfCards()
             ];
 
 
@@ -175,9 +158,30 @@ class CardGameApiJson extends AbstractController
             $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE));
             $response->headers->set('Content-Type', 'application/json');
             return $response;
+           
 
         }
 
+        $deckOfCards = new DeckOfCards();
+        $drawnCards = [];
+        for ($counter = 1; $counter <= $num; $counter++) {
+            $randomCard = $deckOfCards->getRandomCard();
+            $drawnCards[] = $randomCard;
+        }
+        $session->set("deck_of_cards", serialize($deckOfCards));
+
+        $data = [
+            "drawn_cards" => $drawnCards,
+            "cards_left_in_deck" => $deckOfCards->getTheAmountOfCards()
+        ];
+
+
+        $response = new Response();
+        $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+
+        
 
     }
 

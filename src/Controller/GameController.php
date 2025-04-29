@@ -14,15 +14,16 @@ use App\Game\CardGame;
 class GameController extends AbstractController
 {
     #[Route("/game", name: "game", methods:["GET", "POST"])]
-    public function gameLandingPage(Request $request): Response
+    public function gameLandingPage(): Response
     {
         // https://www.w3schools.com/php/php_superglobals_request.asp
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             return $this->redirectToRoute('game_play');
-        } else {
-            return $this->render('game_landing.html.twig');
-        }
-        
+        } 
+
+        return $this->render('game_landing.html.twig');
+       
+
     }
 
 
@@ -30,83 +31,82 @@ class GameController extends AbstractController
     public function gamePlay(SessionInterface $session, Request $request): Response
     {
         // https://www.w3schools.com/php/php_superglobals_request.asp
-        $request_method = $_SERVER["REQUEST_METHOD"];
-        
-    
-        if($request_method === "GET") {
+        $requestMethod = $_SERVER["REQUEST_METHOD"];
+
+        // Linten klagar på att $theGame kanske inte alltid är definerad men på sättet som jag
+        // har satt ihop detta på så går det endast att göra en POST-förfrågan när spelet är igång,
+        // och spelet börjar alltid med en GET, så $theGame kommer alltid vara definerad
+        if ($requestMethod === "GET") {
             $session->clear();
-            $the_game = new CardGame();
-            $session->set("current_game", serialize($the_game));
-            $players_turn = true;
-       
+            $theGame = new CardGame();
+            $session->set("current_game", serialize($theGame));
+            $playersTurn = true;
         }
-     
-        if($request_method === "POST" || $the_game->player_hand->getTotalNumericalValue() === 21) {
-     
-            $the_game = unserialize($session->get("current_game"));
-            if($request->request->get('one_more_card')){
-          
-                $the_game->addOneMoreCardToPlayerHand();
-                $session->set("current_game", serialize($the_game));
-                $players_turn = true;
-                if($the_game->player_hand->getTotalNumericalValue() === 21) {
-                
-                    $the_game->banksTurn();
-                    $players_turn = false;
+
+        if ($requestMethod === "POST" || $theGame->playerHand->getTotalNumericalValue() === 21) {
+            
+            $theGame = unserialize($session->get("current_game"));
+            if ($request->request->get('one_more_card')) {
+
+                $theGame->addOneMoreCardToPlayerHand();
+                $session->set("current_game", serialize($theGame));
+                $playersTurn = true;
+                if ($theGame->playerHand->getTotalNumericalValue() === 21) {
+
+                    $theGame->banksTurn();
+                    $playersTurn = false;
                 }
+            }
+            
+            if ($request->request->get('enough')) {
+                $theGame->banksTurn();
+                $playersTurn = false;
             } 
-            elseif ($request->request->get('enough')) {
-             
-                $the_game->banksTurn();
-                $players_turn = false;
-            } else {
-                $the_game->banksTurn();
-                $players_turn = false;
+            
+            if (!$request->request->get('one_more_card') && !$request->request->get('enough')) {
+                $theGame->banksTurn();
+                $playersTurn = false;
             }
         }
 
-        $current_player = "Ditt";
-      
- 
-        if($players_turn) {
-            if($the_game->player_hand->getTotalNumericalValue() > 21) {
-                $the_game->evaluateWinner();
+        $currentPlayer = "Ditt";
+
+
+        if ($playersTurn) {
+            if ($theGame->playerHand->getTotalNumericalValue() > 21) {
+                $theGame->evaluateWinner();
             }
             $data = [
-                "player_hand_array" => $the_game->player_hand->getAsString(),
-                "current_total_points" =>$the_game->player_hand->getTotalNumericalValue(),
-                "player_hand_object" => $the_game->player_hand,
-                "current_player" => $current_player,
-                "player_wins" => $the_game->didPlayerWin(),
-                "bank_wins" => $the_game->didBankWin(),
+                "player_hand_array" => $theGame->playerHand->getAsString(),
+                "current_total_points" => $theGame->playerHand->getTotalNumericalValue(),
+                "player_hand_object" => $theGame->playerHand,
+                "current_player" => $currentPlayer,
+                "player_wins" => $theGame->didPlayerWin(),
+                "bank_wins" => $theGame->didBankWin(),
                 "banks_turn" => false
             ];
-            $session->set("current_game", serialize($the_game));
+            $session->set("current_game", serialize($theGame));
             return $this->render('game_play_players_turn.html.twig', $data);
-        } else {
-            
-            $data = [
-                "player_hand_array" => $the_game->player_hand->getAsString(),
-                "current_total_points" =>$the_game->player_hand->getTotalNumericalValue(),
-                "player_hand_object" => $the_game->player_hand,
-                "current_player" => $current_player,
-                "bank_hand_array" => $the_game->bank_hand->getAsString(),
-                "current_total_points_bank" =>$the_game->bank_hand->getTotalNumericalValue(),
-                "bank_hand_object" => $the_game->bank_hand,
-                "player_wins" => $the_game->didPlayerWin(),
-                "bank_wins" => $the_game->didBankWin(),
-                "banks_turn" => true
-            ];
-            $session->set("current_game", serialize($the_game));
-            return $this->render('game_play_banks_turn.html.twig', $data);
         }
-        
 
+        $data = [
+            "player_hand_array" => $theGame->playerHand->getAsString(),
+            "current_total_points" => $theGame->playerHand->getTotalNumericalValue(),
+            "player_hand_object" => $theGame->playerHand,
+            "current_player" => $currentPlayer,
+            "bank_hand_array" => $theGame->bankHand->getAsString(),
+            "current_total_points_bank" => $theGame->bankHand->getTotalNumericalValue(),
+            "bank_hand_object" => $theGame->bankHand,
+            "player_wins" => $theGame->didPlayerWin(),
+            "bank_wins" => $theGame->didBankWin(),
+            "banks_turn" => true
+        ];
+        $session->set("current_game", serialize($theGame));
+        return $this->render('game_play_banks_turn.html.twig', $data);
 
-        
     }
 
-    #[Route("game/doc", name: "game_doc")]
+    #[Route("/game/doc", name: "game_doc")]
     public function gameDoc(): Response
     {
         return $this->render('game_doc.html.twig');
