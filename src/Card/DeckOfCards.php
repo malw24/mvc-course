@@ -42,9 +42,9 @@ class DeckOfCards
         }
     }
 
-    public function sortSpades() {
+    // public function sortSpades() {
         
-    }
+    // }
 
     public function sortTheCurrentDeck(): array
     {   
