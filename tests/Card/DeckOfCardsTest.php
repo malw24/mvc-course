@@ -62,7 +62,7 @@ class DeckOfCardsTest extends TestCase
     }
 
     /**
-     * Test that the sortTheCurrentDeck method returns a sorted deck
+     * Test that the sortTheCurrentDeck method returns a sorted deck.
      */
     public function testsortTheCurrentDeck()
     {

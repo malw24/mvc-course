@@ -9,7 +9,7 @@ use App\Card\CardGraphic;
 
 
 /**
- * Test cases for class Card.
+ * Test cases for class CardHand.
  */
 class CardHandTest extends TestCase
 {
