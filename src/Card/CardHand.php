@@ -9,7 +9,6 @@ use App\Card\DeckOfCards;
  */
 class CardHand
 {
-
     /**
      * @var array $cards                 The cards that the hand is currently holding.
      * @var DeckOfCards $deckOfCards     The deck of cards used to deal hands to the CardHand.
@@ -19,9 +18,9 @@ class CardHand
     public DeckOfCards $deckOfCards;
 
     /**
-     * Constructor to initiate the object. 
+     * Constructor to initiate the object.
      * @param int $amountOfCards    The amount of cards that hand starts with.
-     *                    
+     *
      */
     public function __construct(int $amountOfCards)
     {
@@ -34,8 +33,8 @@ class CardHand
     }
 
     /**
-     * Fetches the current deck and the cards currenlty in the deck.  
-     * @return object which is the used instance of the class DeckOfCards.       
+     * Fetches the current deck and the cards currenlty in the deck.
+     * @return object which is the used instance of the class DeckOfCards.
      */
     public function returnCurrentDeck(): object
     {
@@ -43,8 +42,8 @@ class CardHand
     }
 
     /**
-     * Fetches the current hand as a string.  
-     * @return array containing all the cards in the current hand as strings.       
+     * Fetches the current hand as a string.
+     * @return array containing all the cards in the current hand as strings.
      */
     public function getAsString(): array
     {
@@ -56,8 +55,8 @@ class CardHand
     }
 
     /**
-     * Fetches the total numerical value of the current hand.  
-     * @return int representing the total numerical value of the current player's hand.       
+     * Fetches the total numerical value of the current hand.
+     * @return int representing the total numerical value of the current player's hand.
      */
     public function getTotalNumericalValue(): int
     {
@@ -69,8 +68,8 @@ class CardHand
     }
 
     /**
-     * Fetches a random card from the deck and puts it in the cards array.  
-     * @return array containing the newly fetched card.       
+     * Fetches a random card from the deck and puts it in the cards array.
+     * @return array containing the newly fetched card.
      */
     public function getRandomCard(): array
     {

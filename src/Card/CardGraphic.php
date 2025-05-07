@@ -8,15 +8,14 @@ namespace App\Card;
  */
 class CardGraphic extends Card
 {
-    
     /**
-     * Constructor to initiate the object. 
+     * Constructor to initiate the object.
      * The parameters are what define the cards suit, value and numeric value.
      *
      * @param string $suit          The current cards requested suit.
      * @param string|int $value     The current cards requested value.
      * @param int $numericValue     The current cards requested numeric value.
-     *                    
+     *
      */
     public function __construct(string $suit, string|int $value, int $numericValue)
     {

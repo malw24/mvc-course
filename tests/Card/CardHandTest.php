@@ -7,7 +7,6 @@ use App\Card\DeckOfCards;
 use App\Card\CardHand;
 use App\Card\CardGraphic;
 
-
 /**
  * Test cases for class CardHand.
  */
@@ -52,7 +51,7 @@ class CardHandTest extends TestCase
     {
         $cardHand = new CardHand(7);
         $testTotalValue = 0;
-        foreach($cardHand->cards as $card) {
+        foreach ($cardHand->cards as $card) {
             $testTotalValue += $card->numericValue;
         }
 

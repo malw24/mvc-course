@@ -7,7 +7,6 @@ use App\Card\DeckOfCards;
 use App\Card\CardHand;
 use App\Card\CardGraphic;
 
-
 /**
  * Test cases for class Card.
  */
@@ -42,7 +41,7 @@ class DeckOfCardsTest extends TestCase
         $deckOfCardsAsArray = $deckOfCards->getWholeDeckAsArray();
         $this->assertEquals("array", gettype($deckOfCardsAsArray));
         $totalAmountOfCards = 0;
-        foreach($deckOfCardsAsArray as $card) {
+        foreach ($deckOfCardsAsArray as $card) {
             $totalAmountOfCards += 1;
         }
         $this->assertEquals(52, $totalAmountOfCards);
@@ -55,10 +54,10 @@ class DeckOfCardsTest extends TestCase
     {
         $deckOfCards = new DeckOfCards();
         $deckOfCardsAsStringArray = $deckOfCards->getAsString();
-        foreach($deckOfCardsAsStringArray as $card) {
+        foreach ($deckOfCardsAsStringArray as $card) {
             $this->assertEquals("string", gettype($card));
         }
-        
+
     }
 
     /**
@@ -67,30 +66,30 @@ class DeckOfCardsTest extends TestCase
     public function testsortTheCurrentDeck()
     {
         $deckOfCards = new DeckOfCards();
-    
+
         $deckSorted = $deckOfCards->getWholeDeckAsArray();
-    
+
         $deckOfCards->shuffledTheDeck();
         $deckShuffled = $deckOfCards->getWholeDeckAsArray();
 
         $total = 0;
-        for($index=0; $index<=51; $index++) {
-            if($deckSorted[$index]->value !== $deckShuffled[$index]->value) {
+        for ($index = 0; $index <= 51; $index++) {
+            if ($deckSorted[$index]->value !== $deckShuffled[$index]->value) {
                 $total += 1;
             }
         }
-      
+
         $this->assertFalse($total === 0);
-       
+
         $deckSortedAfterShuffle = $deckOfCards->sortTheCurrentDeck();
-        
+
         $total2 = 0;
-        for($index=0; $index<=51; $index++) {
-            if($deckSorted[$index]->value !== $deckSortedAfterShuffle[$index]->value) {
+        for ($index = 0; $index <= 51; $index++) {
+            if ($deckSorted[$index]->value !== $deckSortedAfterShuffle[$index]->value) {
                 $total2 += 1;
             }
         }
         $this->assertTrue($total2 === 0);
     }
-    
+
 }

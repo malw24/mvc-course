@@ -97,7 +97,7 @@ class CardGameController extends AbstractController
                 ];
                 return $this->render('draw_random_card.html.twig', $data);
 
-            } 
+            }
 
             $deckOfCards = new DeckOfCards();
             $randomCard = $deckOfCards->getRandomCard();
@@ -109,8 +109,8 @@ class CardGameController extends AbstractController
                 "amount_of_cards_left" => $amountOfCardsLeft
             ];
             return $this->render('draw_random_card.html.twig', $data);
-           
-        } 
+
+        }
         $deckOfCards = new DeckOfCards();
         $randomCard = $deckOfCards->getRandomCard();
         $amountOfCardsLeft = $deckOfCards->getTheAmountOfCards();
@@ -121,7 +121,7 @@ class CardGameController extends AbstractController
             "amount_of_cards_left" => $amountOfCardsLeft
         ];
         return $this->render('draw_random_card.html.twig', $data);
-     
+
 
 
 
@@ -158,7 +158,7 @@ class CardGameController extends AbstractController
 
                 return $this->render('draw_many.html.twig', $data);
 
-            } 
+            }
             $deckOfCards = new DeckOfCards();
             $drawnCards = [];
             for ($counter = 1; $counter <= $num; $counter++) {
@@ -174,7 +174,7 @@ class CardGameController extends AbstractController
 
             return $this->render('draw_many.html.twig', $data);
 
-        } 
+        }
 
         $deckOfCards = new DeckOfCards();
         $drawnCards = [];

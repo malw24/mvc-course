@@ -5,7 +5,6 @@ namespace App\Card;
 use PHPUnit\Framework\TestCase;
 use App\Card\Card;
 
-
 /**
  * Test cases for class Card.
  */
@@ -23,11 +22,12 @@ class CardTest extends TestCase
     /**
     * Test to see if the getAsString method returns a correct string.
     */
-    public function testThatItReturnsCorrectString() {
+    public function testThatItReturnsCorrectString()
+    {
         $card = new Card('♠', 7, 7);
         $cardAsString = $card->getAsString();
         $testString = '7♠';
         $this->assertEquals($cardAsString, $testString);
     }
-    
+
 }

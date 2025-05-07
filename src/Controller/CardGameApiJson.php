@@ -14,7 +14,7 @@ class CardGameApiJson extends AbstractController
 {
     #[Route("/api/deck", name: "api_deck")]
     public function apiDeck(SessionInterface $session): Response
-    {   
+    {
         // https://github.com/symfony/symfony/blob/6.4/src/Symfony/Component/HttpFoundation/Session/SessionInterface.php
         if (count($session->all()) == 0) {
             $deckOfCards = new DeckOfCards();
@@ -23,10 +23,10 @@ class CardGameApiJson extends AbstractController
             $response->setContent(json_encode($deckOfCardsAsArray, JSON_UNESCAPED_UNICODE));
             $response->headers->set('Content-Type', 'application/json');
             return $response;
-        } 
-        
+        }
+
         $deckOfCards = unserialize($session->get("deck_of_cards"));
-        
+
 
         $deckOfCardsAsArray = $deckOfCards->sortTheCurrentDeck();
 
@@ -73,7 +73,7 @@ class CardGameApiJson extends AbstractController
                 $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE));
                 $response->headers->set('Content-Type', 'application/json');
                 return $response;
-            } 
+            }
 
             $deckOfCards = new DeckOfCards();
             $randomCard = $deckOfCards->getRandomCard();
@@ -89,9 +89,9 @@ class CardGameApiJson extends AbstractController
             $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE));
             $response->headers->set('Content-Type', 'application/json');
             return $response;
-           
 
-        } 
+
+        }
 
         $deckOfCards = new DeckOfCards();
         $randomCard = $deckOfCards->getRandomCard();
@@ -139,7 +139,7 @@ class CardGameApiJson extends AbstractController
                 $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE));
                 $response->headers->set('Content-Type', 'application/json');
                 return $response;
-            } 
+            }
             $deckOfCards = new DeckOfCards();
             $drawnCards = [];
             for ($counter = 1; $counter <= $num; $counter++) {
@@ -158,7 +158,7 @@ class CardGameApiJson extends AbstractController
             $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE));
             $response->headers->set('Content-Type', 'application/json');
             return $response;
-           
+
 
         }
 
@@ -181,7 +181,7 @@ class CardGameApiJson extends AbstractController
         $response->headers->set('Content-Type', 'application/json');
         return $response;
 
-        
+
 
     }
 

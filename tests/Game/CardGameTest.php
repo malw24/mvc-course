@@ -7,7 +7,6 @@ use App\Game\CardGame;
 use App\Card\CardHand;
 use App\Card\DeckOfCards;
 
-
 /**
  * Test cases for class CardGame.
  */
@@ -27,7 +26,7 @@ class CardGameTest extends TestCase
      */
     public function testEvaluateWinner()
     {
-        for($counter = 0; $counter <= 400; $counter++) {
+        for ($counter = 0; $counter <= 400; $counter++) {
 
             $cardGame = new CardGame();
             $card = $cardGame->playerHand->cards[0];
@@ -35,26 +34,20 @@ class CardGameTest extends TestCase
 
             if ($cardGame->playerHand->getTotalNumericalValue() > 21) {
                 $this->assertTrue($cardGame->bankWon === true);
-                
-            }
 
-            elseif ($cardGame->bankHand->getTotalNumericalValue() > 21) {
+            } elseif ($cardGame->bankHand->getTotalNumericalValue() > 21) {
                 $this->assertTrue($cardGame->playerWon === true);
-                
 
-            }
 
-            elseif ($cardGame->bankHand->getTotalNumericalValue() > 21) {
+            } elseif ($cardGame->bankHand->getTotalNumericalValue() > 21) {
                 $this->assertTrue($cardGame->playerWon === true);
-                
-            }
 
-            elseif ($cardGame->playerHand->getTotalNumericalValue() > $cardGame->bankHand->getTotalNumericalValue()) {
+            } elseif ($cardGame->playerHand->getTotalNumericalValue() > $cardGame->bankHand->getTotalNumericalValue()) {
                 $this->assertTrue($cardGame->playerWon === true);
-                
+
             } else {
                 $this->assertTrue($cardGame->bankWon === true);
-            } 
+            }
         }
 
     }
@@ -62,38 +55,41 @@ class CardGameTest extends TestCase
     /**
      * Test that the bank wins when the player busts.
      */
-    public function testEvaluateWinnerWhenPlayerHandTooBig() {
-            $cardGame = new CardGame();
-            $card = $cardGame->playerHand->cards[0];
-            $card->numericValue = 24;
-            $cardGame->banksTurn();
-            $this->assertTrue($cardGame->bankWon === true);
-            $this->assertTrue($cardGame->didBankWin() === true);
+    public function testEvaluateWinnerWhenPlayerHandTooBig()
+    {
+        $cardGame = new CardGame();
+        $card = $cardGame->playerHand->cards[0];
+        $card->numericValue = 24;
+        $cardGame->banksTurn();
+        $this->assertTrue($cardGame->bankWon === true);
+        $this->assertTrue($cardGame->didBankWin() === true);
     }
 
     /**
      * Test that the player wins when both player and bank are under 21 but the player has a bigger score.
      */
-    public function testPlayerWinnerWhenBothAreUnderTwentyOne() {
-        for($counter = 0; $counter <= 100; $counter++) {
+    public function testPlayerWinnerWhenBothAreUnderTwentyOne()
+    {
+        for ($counter = 0; $counter <= 100; $counter++) {
             $cardGame = new CardGame();
             $card = $cardGame->playerHand->cards[0];
             $card->numericValue = 20;
             $cardGame->banksTurn();
-            if($cardGame->bankHand->getTotalNumericalValue() < 20) {
+            if ($cardGame->bankHand->getTotalNumericalValue() < 20) {
                 $this->assertTrue($cardGame->playerWon === true);
                 $this->assertTrue($cardGame->didPlayerWin() === true);
             }
-        }    
+        }
     }
 
     /**
      * Test that the testaddOneMoreCardToPlayerHand returns null.
      */
-    public function testaddOneMoreCardToPlayerHand() {
+    public function testaddOneMoreCardToPlayerHand()
+    {
         $cardGame = new CardGame();
         $this->assertEquals($cardGame->addOneMoreCardToPlayerHand(), null);
     }
-   
-    
+
+
 }

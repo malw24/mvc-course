@@ -11,7 +11,6 @@ use App\Card\DeckOfCards;
 use App\Card\CardHand;
 use App\Game\CardGame;
 
-
 class GameController extends AbstractController
 {
     #[Route("/game", name: "game", methods:["GET", "POST"])]
@@ -20,10 +19,10 @@ class GameController extends AbstractController
         // https://www.w3schools.com/php/php_superglobals_request.asp
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             return $this->redirectToRoute('game_play');
-        } 
+        }
 
         return $this->render('game_landing.html.twig');
-       
+
 
     }
 
@@ -34,7 +33,7 @@ class GameController extends AbstractController
         // https://www.w3schools.com/php/php_superglobals_request.asp
         $requestMethod = $_SERVER["REQUEST_METHOD"];
 
-        
+
         if ($requestMethod === "GET") {
             $session->clear();
             $theGame = new CardGame();
@@ -57,12 +56,12 @@ class GameController extends AbstractController
                     $playersTurn = false;
                 }
             }
-            
+
             if ($request->request->get('enough')) {
                 $theGame->banksTurn();
                 $playersTurn = false;
-            } 
-            
+            }
+
             if (!$request->request->get('one_more_card') && !$request->request->get('enough')) {
                 $theGame->banksTurn();
                 $playersTurn = false;
@@ -105,7 +104,7 @@ class GameController extends AbstractController
         return $this->render('game_play_banks_turn.html.twig', $data);
 
     }
-    
+
     #[Route("/game/doc", name: "game_doc")]
     public function gameDoc(): Response
     {

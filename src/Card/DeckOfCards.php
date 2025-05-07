@@ -3,19 +3,19 @@
 namespace App\Card;
 
 use App\Card\CardGraphic;
+use function App\Helpers\sortHelper;
 
 /**
  * The DeckOfCards class, acting as the deck in the card game.
  */
 class DeckOfCards
 {
-    
     /**
      * @var array $deck        The array that holds all of the GraphicCard instances.
      * @var array $suits       The array which holds all of the suits.
      */
     protected array $deck = [];
-    
+
     private array $suits = [
         '♠',
         '♥',
@@ -24,8 +24,8 @@ class DeckOfCards
     ];
 
     /**
-     * Constructor to initiate the object. 
-     * The constructor creates the deck with all of the 52 cards sorted after suit and value.          
+     * Constructor to initiate the object.
+     * The constructor creates the deck with all of the 52 cards sorted after suit and value.
      */
     public function __construct()
     {
@@ -55,20 +55,24 @@ class DeckOfCards
 
 
     /**
-     * Sorts the current deck according to suit and value.      
-     * @return array with the sorted deck.        
+     * Sorts the current deck according to suit and value.
+     * @return array with the sorted deck.
      */
     public function sortTheCurrentDeck(): array
-    {   
+    {
+        $spadeValues = [];
+        $heartValues = [];
+        $diamondValues = [];
+        $clubValues = [];
         $deckOfCardsAsArray = $this->deck;
         foreach ($deckOfCardsAsArray as $card) {
             if ($card->suit == '♠') {
-                $spadesValues[] = $card->numericValue;
-                sort($spadesValues);
+                $spadeValues[] = $card->numericValue;
+                sort($spadeValues);
             }
             if ($card->suit == '♥') {
-                $heartsValues[] = $card->numericValue;
-                sort($heartsValues);
+                $heartValues[] = $card->numericValue;
+                sort($heartValues);
             }
             if ($card->suit == '♦') {
                 $diamondValues[] = $card->numericValue;
@@ -80,104 +84,15 @@ class DeckOfCards
             }
         }
 
-        $deckOfCardsAsArraySorted = [];
-        
-        //spades
-        //https://www.w3schools.com/php/func_var_isset.asp
-        if (isset($spadesValues)) {
-            foreach ($spadesValues as $spadeCardValue) {
-                if ($spadeCardValue == 11) {
-                    $deckOfCardsAsArraySorted[] = new CardGraphic('♠', "J", 11);
-                }
-                if ($spadeCardValue == 12) {
-                    $deckOfCardsAsArraySorted[] = new CardGraphic('♠', "Q", 12);
-                }
-                if ($spadeCardValue == 13) {
-                    $deckOfCardsAsArraySorted[] = new CardGraphic('♠', "K", 13);
-                }
-                if ($spadeCardValue == 14) {
-                    $deckOfCardsAsArraySorted[] = new CardGraphic('♠', "A", 14);
-                }
-                if ($spadeCardValue < 11) {
-                    $deckOfCardsAsArraySorted[] = new CardGraphic('♠', $spadeCardValue, $spadeCardValue);
-                }
-            }
-        }
-
-        //hearts
-        //https://www.w3schools.com/php/func_var_isset.asp
-        if (isset($heartsValues)) {
-            foreach ($heartsValues as $heartCardValue) {
-                if ($heartCardValue == 11) {
-                    $deckOfCardsAsArraySorted[] = new CardGraphic('♥', "J", 11);
-                }
-                if ($heartCardValue == 12) {
-                    $deckOfCardsAsArraySorted[] = new CardGraphic('♥', "Q", 12);
-                }
-                if ($heartCardValue == 13) {
-                    $deckOfCardsAsArraySorted[] = new CardGraphic('♥', "K", 13);
-                }
-                if ($heartCardValue == 14) {
-                    $deckOfCardsAsArraySorted[] = new CardGraphic('♥', "A", 14);
-                }
-                if ($heartCardValue < 11) {
-                    $deckOfCardsAsArraySorted[] = new CardGraphic('♥', $heartCardValue, $heartCardValue);
-                }
-            }
-        }
+        $sortedDeckArray = sortHelper($spadeValues, $heartValues, $diamondValues, $clubValues);
 
 
-        //Diamonds
-        //https://www.w3schools.com/php/func_var_isset.asp
-        if (isset($diamondValues)) {
-            foreach ($diamondValues as $diamondCardValue) {
-                if ($diamondCardValue == 11) {
-                    $deckOfCardsAsArraySorted[] = new CardGraphic('♦', "J", 11);
-                }
-                if ($diamondCardValue == 12) {
-                    $deckOfCardsAsArraySorted[] = new CardGraphic('♦', "Q", 12);
-                }
-                if ($diamondCardValue == 13) {
-                    $deckOfCardsAsArraySorted[] = new CardGraphic('♦', "K", 13);
-                }
-                if ($diamondCardValue == 14) {
-                    $deckOfCardsAsArraySorted[] = new CardGraphic('♦', "A", 14);
-                }
-                if ($diamondCardValue < 11) {
-                    $deckOfCardsAsArraySorted[] = new CardGraphic('♦', $diamondCardValue, $diamondCardValue);
-                }
-            }
-        }
-
-        // Clubs
-        //https://www.w3schools.com/php/func_var_isset.asp
-        if (isset($clubValues)) {
-            foreach ($clubValues as $clubCardValue) {
-                if ($clubCardValue == 11) {
-                    $deckOfCardsAsArraySorted[] = new CardGraphic('♣', "J", 11);
-                }
-                if ($clubCardValue == 12) {
-                    $deckOfCardsAsArraySorted[] = new CardGraphic('♣', "Q", 12);
-                }
-                if ($clubCardValue == 13) {
-                    $deckOfCardsAsArraySorted[] = new CardGraphic('♣', "K", 13);
-                }
-                if ($clubCardValue == 14) {
-                    $deckOfCardsAsArraySorted[] = new CardGraphic('♣', "A", 14);
-                }
-                if ($clubCardValue < 11) {
-                    $deckOfCardsAsArraySorted[] = new CardGraphic('♣', $clubCardValue, $clubCardValue);
-                }
-            }
-        }
-
-
-        return $deckOfCardsAsArraySorted;
+        return $sortedDeckArray;
     }
 
     /**
-     * Fetches a random card from the deck as a string.      
-     * @return string as a random card from the deck.       
+     * Fetches a random card from the deck as a string.
+     * @return string as a random card from the deck.
      */
     public function getRandomCard(): string
     {
@@ -189,8 +104,8 @@ class DeckOfCards
     }
 
     /**
-     * Fetches a random card from the deck as an instance of CardGraphic.      
-     * @return object as a random card from the deck.          
+     * Fetches a random card from the deck as an instance of CardGraphic.
+     * @return object as a random card from the deck.
      */
     public function getRandomCardAsObject(): object
     {
@@ -202,8 +117,8 @@ class DeckOfCards
     }
 
     /**
-     * Shuffles the current deck so that the order is of suits and values are random.      
-     * @return array of the whole deck as shuffled.        
+     * Shuffles the current deck so that the order is of suits and values are random.
+     * @return array of the whole deck as shuffled.
      */
     public function shuffledTheDeck(): array
     {
@@ -213,8 +128,8 @@ class DeckOfCards
     }
 
     /**
-     * Fetches the whole deck as an array.      
-     * @return array containing the whole deck.        
+     * Fetches the whole deck as an array.
+     * @return array containing the whole deck.
      */
     public function getWholeDeckAsArray(): array
     {
@@ -226,8 +141,8 @@ class DeckOfCards
     }
 
     /**
-     * Fetches each card as a string, puts it into an array and returns the array.      
-     * @return array containing every card of the current deck as a string.       
+     * Fetches each card as a string, puts it into an array and returns the array.
+     * @return array containing every card of the current deck as a string.
      */
     public function getAsString(): array
     {
@@ -239,8 +154,8 @@ class DeckOfCards
     }
 
     /**
-     * Calculate and returns the total amount of cards left in the current deck.      
-     * @return int representing the total amount of cards in the deck currently.        
+     * Calculate and returns the total amount of cards left in the current deck.
+     * @return int representing the total amount of cards in the deck currently.
      */
     public function getTheAmountOfCards(): int
     {

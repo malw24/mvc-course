@@ -24,8 +24,8 @@ class CardGame
     public bool $bankWon = false;
 
     /**
-     * Constructor to initiate the object. 
-     * This is where the player is dealt one card and the deck variable is assigned its instance of DeckOfCards.    
+     * Constructor to initiate the object.
+     * This is where the player is dealt one card and the deck variable is assigned its instance of DeckOfCards.
      */
     public function __construct()
     {
@@ -35,8 +35,8 @@ class CardGame
     }
 
     /**
-     * Evaluates who is the winner between the bank and the player.      
-     * @return void    
+     * Evaluates who is the winner between the bank and the player.
+     * @return void
      */
     public function evaluateWinner(): void
     {
@@ -53,15 +53,15 @@ class CardGame
         if ($this->playerHand->getTotalNumericalValue() > $this->bankHand->getTotalNumericalValue()) {
             $this->playerWon = true;
             return;
-        } 
+        }
         $this->bankWon = true;
         return;
-        
+
     }
 
     /**
-     * Performs the action of adding one more card to the player's hand.      
-     * @return void  
+     * Performs the action of adding one more card to the player's hand.
+     * @return void
      */
     public function addOneMoreCardToPlayerHand(): void
     {
@@ -69,7 +69,7 @@ class CardGame
     }
 
     /**
-     * Initiates the bank's turn of the round.      
+     * Initiates the bank's turn of the round.
      * @return void
      */
     public function banksTurn(): void
@@ -85,17 +85,17 @@ class CardGame
     }
 
     /**
-     * Fetches current player's win or lose status.      
-     * @return bool representing if the player won or lost.    
+     * Fetches current player's win or lose status.
+     * @return bool representing if the player won or lost.
      */
     public function didPlayerWin(): bool
     {
         return $this->playerWon;
     }
 
-    /** 
-     * Fetches current bank's win or lose status.      
-     * @return bool representing if the bank won or lost.    
+    /**
+     * Fetches current bank's win or lose status.
+     * @return bool representing if the bank won or lost.
      */
     public function didBankWin(): bool
     {

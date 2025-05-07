@@ -52,4 +52,3 @@ class QuoteApiJson
         return $response;
     }
 }
-
