@@ -4,11 +4,18 @@ namespace App\Card;
 
 use App\Card\CardGraphic;
 
+/**
+ * The DeckOfCards class, acting as the deck in the card game.
+ */
 class DeckOfCards
 {
+    
+    /**
+     * @var array $deck        The array that holds all of the GraphicCard instances.
+     * @var array $suits       The array which holds all of the suits.
+     */
     protected array $deck = [];
-
-
+    
     private array $suits = [
         '♠',
         '♥',
@@ -16,6 +23,10 @@ class DeckOfCards
         '♣',
     ];
 
+    /**
+     * Constructor to initiate the object. 
+     * The constructor creates the deck with all of the 52 cards sorted after suit and value.          
+     */
     public function __construct()
     {
 
@@ -42,10 +53,11 @@ class DeckOfCards
         }
     }
 
-    // public function sortSpades() {
-        
-    // }
 
+    /**
+     * Sorts the current deck according to suit and value.      
+     * @return array with the sorted deck.        
+     */
     public function sortTheCurrentDeck(): array
     {   
         $deckOfCardsAsArray = $this->deck;
@@ -163,6 +175,10 @@ class DeckOfCards
         return $deckOfCardsAsArraySorted;
     }
 
+    /**
+     * Fetches a random card from the deck as a string.      
+     * @return string as a random card from the deck.       
+     */
     public function getRandomCard(): string
     {
         // https://www.w3schools.com/php/func_array_rand.asp
@@ -172,7 +188,11 @@ class DeckOfCards
         return $card->getAsString();
     }
 
-    public function getRandomCardAsObject(): Object
+    /**
+     * Fetches a random card from the deck as an instance of CardGraphic.      
+     * @return object as a random card from the deck.          
+     */
+    public function getRandomCardAsObject(): object
     {
         // https://www.w3schools.com/php/func_array_rand.asp
         $randomIndex = array_rand($this->deck);
@@ -181,6 +201,10 @@ class DeckOfCards
         return $card;
     }
 
+    /**
+     * Shuffles the current deck so that the order is of suits and values are random.      
+     * @return array of the whole deck as shuffled.        
+     */
     public function shuffledTheDeck(): array
     {
         // https://www.w3schools.com/Php/func_array_shuffle.asp
@@ -188,6 +212,10 @@ class DeckOfCards
         return $this->deck;
     }
 
+    /**
+     * Fetches the whole deck as an array.      
+     * @return array containing the whole deck.        
+     */
     public function getWholeDeckAsArray(): array
     {
         $returnedArray = [];
@@ -197,6 +225,10 @@ class DeckOfCards
         return $returnedArray;
     }
 
+    /**
+     * Fetches each card as a string, puts it into an array and returns the array.      
+     * @return array containing every card of the current deck as a string.       
+     */
     public function getAsString(): array
     {
         $cards = [];
@@ -206,7 +238,10 @@ class DeckOfCards
         return $cards;
     }
 
-
+    /**
+     * Calculate and returns the total amount of cards left in the current deck.      
+     * @return int representing the total amount of cards in the deck currently.        
+     */
     public function getTheAmountOfCards(): int
     {
         $amountOfCardsLeft = count($this->deck);

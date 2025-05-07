@@ -69,10 +69,6 @@
                 
             </li>
                     <li>
-                <a href="namespaces/app-dice.html" class="">Dice</a>
-                
-            </li>
-                    <li>
                 <a href="namespaces/app-game.html" class="">Game</a>
                 
             </li>
@@ -130,11 +126,12 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Card/DeckOfCards.php"><a href="files/src-card-deckofcards.html"><abbr title="src/Card/DeckOfCards.php">DeckOfCards.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">7</span>
+    <span class="phpdocumentor-element-found-in__line">10</span>
 
     </aside>
 
-        
+            <p class="phpdocumentor-summary">The DeckOfCards class, acting as the deck in the card game.</p>
+
 
 
 
@@ -188,54 +185,56 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
+<dd>Constructor to initiate the object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/App-Card-DeckOfCards.html#method_getAsString">getAsString()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
+<dd>Fetches each card as a string, puts it into an array and returns the array.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/App-Card-DeckOfCards.html#method_getRandomCard">getRandomCard()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
+<dd>Fetches a random card from the deck as a string.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/App-Card-DeckOfCards.html#method_getRandomCardAsObject">getRandomCardAsObject()</a>
     <span>
                                 &nbsp;: object    </span>
 </dt>
+<dd>Fetches a random card from the deck as an instance of CardGraphic.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/App-Card-DeckOfCards.html#method_getTheAmountOfCards">getTheAmountOfCards()</a>
     <span>
                                 &nbsp;: int    </span>
 </dt>
+<dd>Calculate and returns the total amount of cards left in the current deck.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/App-Card-DeckOfCards.html#method_getWholeDeckAsArray">getWholeDeckAsArray()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
+<dd>Fetches the whole deck as an array.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/App-Card-DeckOfCards.html#method_shuffledTheDeck">shuffledTheDeck()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/App-Card-DeckOfCards.html#method_sortSpades">sortSpades()</a>
-    <span>
-                                &nbsp;: mixed    </span>
-</dt>
+<dd>Shuffles the current deck so that the order is of suits and values are random.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/App-Card-DeckOfCards.html#method_sortTheCurrentDeck">sortTheCurrentDeck()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
+<dd>Sorts the current deck according to suit and value.</dd>
 
     </dl>
 
@@ -267,7 +266,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Card/DeckOfCards.php"><a href="files/src-card-deckofcards.html"><abbr title="src/Card/DeckOfCards.php">DeckOfCards.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">9</span>
+    <span class="phpdocumentor-element-found-in__line">17</span>
 
     </aside>
 
@@ -280,7 +279,9 @@
      = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>The array that holds all of the GraphicCard instances.</p>
+</section>
+
     
 
     
@@ -303,7 +304,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Card/DeckOfCards.php"><a href="files/src-card-deckofcards.html"><abbr title="src/Card/DeckOfCards.php">DeckOfCards.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">12</span>
+    <span class="phpdocumentor-element-found-in__line">19</span>
 
     </aside>
 
@@ -344,11 +345,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Card/DeckOfCards.php"><a href="files/src-card-deckofcards.html"><abbr title="src/Card/DeckOfCards.php">DeckOfCards.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+    <span class="phpdocumentor-element-found-in__line">30</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Constructor to initiate the object.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
@@ -356,7 +358,9 @@
     <div class="phpdocumentor-label-line">
         </div>
     
-    
+        <section class="phpdocumentor-description"><p>The constructor creates the deck with all of the 52 cards sorted after suit and value.</p>
+</section>
+
     
     
 
@@ -378,11 +382,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Card/DeckOfCards.php"><a href="files/src-card-deckofcards.html"><abbr title="src/Card/DeckOfCards.php">DeckOfCards.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">200</span>
+    <span class="phpdocumentor-element-found-in__line">232</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Fetches each card as a string, puts it into an array and returns the array.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getAsString</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
@@ -399,6 +404,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>containing every card of the current deck as a string.</p>
+</section>
+
             </section>
 
 </article>
@@ -416,11 +425,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Card/DeckOfCards.php"><a href="files/src-card-deckofcards.html"><abbr title="src/Card/DeckOfCards.php">DeckOfCards.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">166</span>
+    <span class="phpdocumentor-element-found-in__line">182</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Fetches a random card from the deck as a string.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getRandomCard</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
@@ -437,6 +447,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>as a random card from the deck.</p>
+</section>
+
             </section>
 
 </article>
@@ -454,11 +468,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Card/DeckOfCards.php"><a href="files/src-card-deckofcards.html"><abbr title="src/Card/DeckOfCards.php">DeckOfCards.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">175</span>
+    <span class="phpdocumentor-element-found-in__line">195</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Fetches a random card from the deck as an instance of CardGraphic.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getRandomCardAsObject</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">object</span></code>
@@ -475,6 +490,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">object</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>as a random card from the deck.</p>
+</section>
+
             </section>
 
 </article>
@@ -492,11 +511,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Card/DeckOfCards.php"><a href="files/src-card-deckofcards.html"><abbr title="src/Card/DeckOfCards.php">DeckOfCards.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">210</span>
+    <span class="phpdocumentor-element-found-in__line">245</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Calculate and returns the total amount of cards left in the current deck.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getTheAmountOfCards</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
@@ -513,6 +533,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">int</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>representing the total amount of cards in the deck currently.</p>
+</section>
+
             </section>
 
 </article>
@@ -530,11 +554,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Card/DeckOfCards.php"><a href="files/src-card-deckofcards.html"><abbr title="src/Card/DeckOfCards.php">DeckOfCards.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">191</span>
+    <span class="phpdocumentor-element-found-in__line">219</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Fetches the whole deck as an array.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getWholeDeckAsArray</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
@@ -551,6 +576,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>containing the whole deck.</p>
+</section>
+
             </section>
 
 </article>
@@ -568,11 +597,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Card/DeckOfCards.php"><a href="files/src-card-deckofcards.html"><abbr title="src/Card/DeckOfCards.php">DeckOfCards.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">184</span>
+    <span class="phpdocumentor-element-found-in__line">208</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Shuffles the current deck so that the order is of suits and values are random.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">shuffledTheDeck</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
@@ -589,42 +619,12 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>of the whole deck as shuffled.</p>
+</section>
+
             </section>
 
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_sortSpades">
-        sortSpades()
-        <a href="classes/App-Card-DeckOfCards.html#method_sortSpades" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Card/DeckOfCards.php"><a href="files/src-card-deckofcards.html"><abbr title="src/Card/DeckOfCards.php">DeckOfCards.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">45</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">sortSpades</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-    
-    
-
-    
-
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -640,11 +640,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Card/DeckOfCards.php"><a href="files/src-card-deckofcards.html"><abbr title="src/Card/DeckOfCards.php">DeckOfCards.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">61</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Sorts the current deck according to suit and value.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">sortTheCurrentDeck</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
@@ -661,6 +662,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>with the sorted deck.</p>
+</section>
+
             </section>
 
 </article>
@@ -792,7 +797,6 @@
                                             <li class=""><a href="classes/App-Card-DeckOfCards.html#method_getTheAmountOfCards">getTheAmountOfCards()</a></li>
                                             <li class=""><a href="classes/App-Card-DeckOfCards.html#method_getWholeDeckAsArray">getWholeDeckAsArray()</a></li>
                                             <li class=""><a href="classes/App-Card-DeckOfCards.html#method_shuffledTheDeck">shuffledTheDeck()</a></li>
-                                            <li class=""><a href="classes/App-Card-DeckOfCards.html#method_sortSpades">sortSpades()</a></li>
                                             <li class=""><a href="classes/App-Card-DeckOfCards.html#method_sortTheCurrentDeck">sortTheCurrentDeck()</a></li>
                                     </ul>
             </li>
