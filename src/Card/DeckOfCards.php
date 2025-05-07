@@ -3,7 +3,7 @@
 namespace App\Card;
 
 use App\Card\CardGraphic;
-use function App\Helpers\sortHelper;
+use App\Helpers\Helpers;
 
 /**
  * The DeckOfCards class, acting as the deck in the card game.
@@ -83,8 +83,8 @@ class DeckOfCards
                 sort($clubValues);
             }
         }
-
-        $sortedDeckArray = sortHelper($spadeValues, $heartValues, $diamondValues, $clubValues);
+        $helper = new Helpers();
+        $sortedDeckArray = $helper->sortHelper($spadeValues, $heartValues, $diamondValues, $clubValues);
 
 
         return $sortedDeckArray;
@@ -105,9 +105,9 @@ class DeckOfCards
 
     /**
      * Fetches a random card from the deck as an instance of CardGraphic.
-     * @return object as a random card from the deck.
+     * @return CardGraphic as a random card from the deck.
      */
-    public function getRandomCardAsObject(): object
+    public function getRandomCardAsObject(): CardGraphic
     {
         // https://www.w3schools.com/php/func_array_rand.asp
         $randomIndex = array_rand($this->deck);

@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Card\DeckOfCards;
+use Exception;
 
 class CardGameController extends AbstractController
 {
@@ -26,7 +27,7 @@ class CardGameController extends AbstractController
     {
         // Jag vet inte om denna dokumentationen är okej att använda? Jag googlade "symfony sessionInterface"
         // https://github.com/symfony/symfony/blob/6.4/src/Symfony/Component/HttpFoundation/Session/SessionInterface.php
-        $sessionContent = $session->clear();
+        $session->clear();
 
         $this->addFlash(
             'notice',
@@ -135,7 +136,7 @@ class CardGameController extends AbstractController
             $num = $request->request->get('num_cards');
         }
         if ($num > 52) {
-            throw new \Exception("Can not draw more then 52 cards!");
+            throw new Exception("Can not draw more then 52 cards!");
         }
 
         // https://www.w3schools.com/php/func_var_unserialize.asp

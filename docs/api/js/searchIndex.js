@@ -221,56 +221,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Controller-CardGameController.html#method_drawAmountOfCards"
         },                {
-            "fqsen": "\\App\\Controller\\DiceGameController",
-            "name": "DiceGameController",
-            "summary": "",
-            "url": "classes/App-Controller-DiceGameController.html"
-        },                {
-            "fqsen": "\\App\\Controller\\DiceGameController\u003A\u003Ahome\u0028\u0029",
-            "name": "home",
-            "summary": "",
-            "url": "classes/App-Controller-DiceGameController.html#method_home"
-        },                {
-            "fqsen": "\\App\\Controller\\DiceGameController\u003A\u003AtestRollDice\u0028\u0029",
-            "name": "testRollDice",
-            "summary": "",
-            "url": "classes/App-Controller-DiceGameController.html#method_testRollDice"
-        },                {
-            "fqsen": "\\App\\Controller\\DiceGameController\u003A\u003AtestRollDices\u0028\u0029",
-            "name": "testRollDices",
-            "summary": "",
-            "url": "classes/App-Controller-DiceGameController.html#method_testRollDices"
-        },                {
-            "fqsen": "\\App\\Controller\\DiceGameController\u003A\u003AtestDiceHand\u0028\u0029",
-            "name": "testDiceHand",
-            "summary": "",
-            "url": "classes/App-Controller-DiceGameController.html#method_testDiceHand"
-        },                {
-            "fqsen": "\\App\\Controller\\DiceGameController\u003A\u003Ainit\u0028\u0029",
-            "name": "init",
-            "summary": "",
-            "url": "classes/App-Controller-DiceGameController.html#method_init"
-        },                {
-            "fqsen": "\\App\\Controller\\DiceGameController\u003A\u003AinitCallback\u0028\u0029",
-            "name": "initCallback",
-            "summary": "",
-            "url": "classes/App-Controller-DiceGameController.html#method_initCallback"
-        },                {
-            "fqsen": "\\App\\Controller\\DiceGameController\u003A\u003Aplay\u0028\u0029",
-            "name": "play",
-            "summary": "",
-            "url": "classes/App-Controller-DiceGameController.html#method_play"
-        },                {
-            "fqsen": "\\App\\Controller\\DiceGameController\u003A\u003Aroll\u0028\u0029",
-            "name": "roll",
-            "summary": "",
-            "url": "classes/App-Controller-DiceGameController.html#method_roll"
-        },                {
-            "fqsen": "\\App\\Controller\\DiceGameController\u003A\u003Asave\u0028\u0029",
-            "name": "save",
-            "summary": "",
-            "url": "classes/App-Controller-DiceGameController.html#method_save"
-        },                {
             "fqsen": "\\App\\Controller\\GameController",
             "name": "GameController",
             "summary": "",
@@ -321,10 +271,10 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Controller-LuckyController.html#method_number"
         },                {
-            "fqsen": "\\App\\Controller\\LuckyController\u003A\u003Ahi\u0028\u0029",
-            "name": "hi",
+            "fqsen": "\\App\\Controller\\LuckyController\u003A\u003AhiThere\u0028\u0029",
+            "name": "hiThere",
             "summary": "",
-            "url": "classes/App-Controller-LuckyController.html#method_hi"
+            "url": "classes/App-Controller-LuckyController.html#method_hiThere"
         },                {
             "fqsen": "\\App\\Controller\\LuckyControllerJson",
             "name": "LuckyControllerJson",
@@ -426,6 +376,16 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Game-CardGame.html#property_bankWon"
         },                {
+            "fqsen": "\\App\\Helpers\\Helpers",
+            "name": "Helpers",
+            "summary": "",
+            "url": "classes/App-Helpers-Helpers.html"
+        },                {
+            "fqsen": "\\App\\Helpers\\Helpers\u003A\u003AsortHelper\u0028\u0029",
+            "name": "sortHelper",
+            "summary": "",
+            "url": "classes/App-Helpers-Helpers.html#method_sortHelper"
+        },                {
             "fqsen": "\\App\\Kernel",
             "name": "Kernel",
             "summary": "",
@@ -450,6 +410,11 @@ Search.appendIndex(
             "name": "Game",
             "summary": "",
             "url": "namespaces/app-game.html"
+        },                {
+            "fqsen": "\\App\\Helpers",
+            "name": "Helpers",
+            "summary": "",
+            "url": "namespaces/app-helpers.html"
         },                {
             "fqsen": "\\App",
             "name": "App",

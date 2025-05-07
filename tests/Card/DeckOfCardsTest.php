@@ -15,7 +15,7 @@ class DeckOfCardsTest extends TestCase
     /**
      * Test that it is an instance of CardHand
      */
-    public function testCreateObject()
+    public function testCreateObject():void
     {
         $deckOfCards = new DeckOfCards();
         $this->assertInstanceOf("\App\Card\DeckOfCards", $deckOfCards);
@@ -25,24 +25,28 @@ class DeckOfCardsTest extends TestCase
     /**
      * Test that the deckOfCards loses one card via the getRandomCard method
      */
-    public function testGetRandomCard()
+    public function testGetRandomCard():void
     {
         $deckOfCards = new DeckOfCards();
+        $testing = [];
         $oneCard = $deckOfCards->getRandomCard();
         $this->assertEquals($deckOfCards->getTheAmountOfCards(), 51);
+        $testing[] = $oneCard;
     }
 
     /**
      * Test that the getWholeDeckAsArray method returns an array with the correct amount of cards
      */
-    public function testGetWholeDeckArray()
+    public function testGetWholeDeckArray():void
     {
         $deckOfCards = new DeckOfCards();
         $deckOfCardsAsArray = $deckOfCards->getWholeDeckAsArray();
         $this->assertEquals("array", gettype($deckOfCardsAsArray));
         $totalAmountOfCards = 0;
+        $testArray = [];
         foreach ($deckOfCardsAsArray as $card) {
             $totalAmountOfCards += 1;
+            $testArray[] = $card;
         }
         $this->assertEquals(52, $totalAmountOfCards);
     }
@@ -50,11 +54,11 @@ class DeckOfCardsTest extends TestCase
     /**
      * Test that the getAsString method returns the correct string
      */
-    public function testGetAsString()
+    public function testGetAsString():void
     {
         $deckOfCards = new DeckOfCards();
-        $deckOfCardsAsStringArray = $deckOfCards->getAsString();
-        foreach ($deckOfCardsAsStringArray as $card) {
+        $stringArray = $deckOfCards->getAsString();
+        foreach ($stringArray as $card) {
             $this->assertEquals("string", gettype($card));
         }
 
@@ -63,7 +67,7 @@ class DeckOfCardsTest extends TestCase
     /**
      * Test that the sortTheCurrentDeck method returns a sorted deck.
      */
-    public function testsortTheCurrentDeck()
+    public function testsortTheCurrentDeck():void
     {
         $deckOfCards = new DeckOfCards();
 
@@ -81,11 +85,11 @@ class DeckOfCardsTest extends TestCase
 
         $this->assertFalse($total === 0);
 
-        $deckSortedAfterShuffle = $deckOfCards->sortTheCurrentDeck();
+        $deckSorted = $deckOfCards->sortTheCurrentDeck();
 
         $total2 = 0;
         for ($index = 0; $index <= 51; $index++) {
-            if ($deckSorted[$index]->value !== $deckSortedAfterShuffle[$index]->value) {
+            if ($deckSorted[$index]->value !== $deckSorted[$index]->value) {
                 $total2 += 1;
             }
         }

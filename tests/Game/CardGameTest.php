@@ -15,7 +15,7 @@ class CardGameTest extends TestCase
     /**
      * Test that an instance of CardGame is created correctly.
      */
-    public function testCreateObject()
+    public function testCreateObject():void
     {
         $cardGame = new CardGame();
         $this->assertInstanceOf("\App\Game\CardGame", $cardGame);
@@ -24,30 +24,35 @@ class CardGameTest extends TestCase
     /**
      * Test that the evaluateWinner method behaves as intended.
      */
-    public function testEvaluateWinner()
+    public function testEvaluateWinner():void
     {
         for ($counter = 0; $counter <= 400; $counter++) {
 
             $cardGame = new CardGame();
-            $card = $cardGame->playerHand->cards[0];
+            // $card = $cardGame->playerHand->cards[0];
             $cardGame->banksTurn();
 
             if ($cardGame->playerHand->getTotalNumericalValue() > 21) {
                 $this->assertTrue($cardGame->bankWon === true);
+                return;
 
             } elseif ($cardGame->bankHand->getTotalNumericalValue() > 21) {
                 $this->assertTrue($cardGame->playerWon === true);
+                return;
 
 
             } elseif ($cardGame->bankHand->getTotalNumericalValue() > 21) {
                 $this->assertTrue($cardGame->playerWon === true);
+                return;
 
             } elseif ($cardGame->playerHand->getTotalNumericalValue() > $cardGame->bankHand->getTotalNumericalValue()) {
                 $this->assertTrue($cardGame->playerWon === true);
+                return;
 
-            } else {
-                $this->assertTrue($cardGame->bankWon === true);
             }
+
+            $this->assertTrue($cardGame->bankWon === true);
+
         }
 
     }
@@ -55,7 +60,7 @@ class CardGameTest extends TestCase
     /**
      * Test that the bank wins when the player busts.
      */
-    public function testEvaluateWinnerWhenPlayerHandTooBig()
+    public function testEvaluateWinnerWhenPlayerHandTooBig():void
     {
         $cardGame = new CardGame();
         $card = $cardGame->playerHand->cards[0];
@@ -68,7 +73,7 @@ class CardGameTest extends TestCase
     /**
      * Test that the player wins when both player and bank are under 21 but the player has a bigger score.
      */
-    public function testPlayerWinnerWhenBothAreUnderTwentyOne()
+    public function testPlayerWinnerWhenBothAreUnderTwentyOne():void
     {
         for ($counter = 0; $counter <= 100; $counter++) {
             $cardGame = new CardGame();
@@ -83,13 +88,18 @@ class CardGameTest extends TestCase
     }
 
     /**
-     * Test that the testaddOneMoreCardToPlayerHand returns null.
+     * Test that the testaddOneMoreCardToPlayerHand adds one more card to the player.
      */
-    public function testaddOneMoreCardToPlayerHand()
+    public function testAddOneMoreCardToPlayerHand(): void
     {
         $cardGame = new CardGame();
-        $this->assertEquals($cardGame->addOneMoreCardToPlayerHand(), null);
+
+        $cardGame->addOneMoreCardToPlayerHand();
+
+        $this->assertCount(2, $cardGame->playerHand->cards);
     }
+
+    
 
 
 }

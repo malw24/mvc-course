@@ -4,6 +4,8 @@ namespace App\Card;
 
 use App\Card\DeckOfCards;
 
+//https://phpstan.org/writing-php-code/phpdoc-types
+
 /**
  * The CardHand class, acting as a player's hand of cards.
  */
@@ -13,7 +15,8 @@ class CardHand
      * @var array $cards                 The cards that the hand is currently holding.
      * @var DeckOfCards $deckOfCards     The deck of cards used to deal hands to the CardHand.
      */
-
+    //https://phpstan.org/writing-php-code/phpdoc-types
+    /** @var CardGraphic[] */
     public array $cards = [];
     public DeckOfCards $deckOfCards;
 
