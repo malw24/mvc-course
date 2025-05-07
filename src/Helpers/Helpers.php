@@ -10,11 +10,12 @@ class Helpers
 {
 
     /**
-     * Constructor to initiate the object.
-     * @param array $spadesValues    The values belonging to spades.
-     * @param array $heartsValues    The values belonging to hearts.
-     * @param array $diamondValues   The values belonging to diamonds.
-     * @param array $clubValues    The values belonging to clubs.
+     * A helper method that helps sorts the current deck.
+     * @param int[] $spadesValues                   The values belonging to spades.
+     * @param int[] $heartsValues                   The values belonging to hearts.
+     * @param int[] $diamondValues                  The values belonging to diamonds.
+     * @param int[] $clubValues                     The values belonging to clubs.
+     * @return CardGraphic[] $sortedDeckArray       The whole deck sorted.
      */
     public function sortHelper(array $spadesValues, array $heartsValues, array $diamondValues, array  $clubValues): array
     {

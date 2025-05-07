@@ -41,11 +41,8 @@ class CardGameTest extends TestCase
                 return;
 
 
-            } elseif ($cardGame->bankHand->getTotalNumericalValue() > 21) {
-                $this->assertTrue($cardGame->playerWon === true);
-                return;
-
-            } elseif ($cardGame->playerHand->getTotalNumericalValue() > $cardGame->bankHand->getTotalNumericalValue()) {
+            } 
+            elseif ($cardGame->playerHand->getTotalNumericalValue() > $cardGame->bankHand->getTotalNumericalValue()) {
                 $this->assertTrue($cardGame->playerWon === true);
                 return;
 

@@ -11,17 +11,14 @@ use App\Helpers\Helpers;
 class DeckOfCards
 {
     /**
-     * @var array $deck        The array that holds all of the GraphicCard instances.
-     * @var array $suits       The array which holds all of the suits.
+     * @var CardGraphic[] $deck        The array that holds all of the GraphicCard instances.
      */
     protected array $deck = [];
 
-    private array $suits = [
-        '♠',
-        '♥',
-        '♦',
-        '♣',
-    ];
+    /** 
+     * @var string[] $suits           The array which holds all of the suits.
+    */
+    private array $suits = ['♠', '♥', '♦', '♣'];
 
     /**
      * Constructor to initiate the object.
@@ -56,7 +53,7 @@ class DeckOfCards
 
     /**
      * Sorts the current deck according to suit and value.
-     * @return array with the sorted deck.
+     * @return CardGraphic[] with the sorted deck.
      */
     public function sortTheCurrentDeck(): array
     {
@@ -118,7 +115,7 @@ class DeckOfCards
 
     /**
      * Shuffles the current deck so that the order is of suits and values are random.
-     * @return array of the whole deck as shuffled.
+     * @return CardGraphic[] of the whole deck as shuffled.
      */
     public function shuffledTheDeck(): array
     {
@@ -129,7 +126,7 @@ class DeckOfCards
 
     /**
      * Fetches the whole deck as an array.
-     * @return array containing the whole deck.
+     * @return CardGraphic[] containing the whole deck.
      */
     public function getWholeDeckAsArray(): array
     {
@@ -142,7 +139,7 @@ class DeckOfCards
 
     /**
      * Fetches each card as a string, puts it into an array and returns the array.
-     * @return array containing every card of the current deck as a string.
+     * @return String[] containing every card of the current deck as a string.
      */
     public function getAsString(): array
     {

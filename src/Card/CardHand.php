@@ -3,6 +3,7 @@
 namespace App\Card;
 
 use App\Card\DeckOfCards;
+use App\Card\CardGraphic;
 
 //https://phpstan.org/writing-php-code/phpdoc-types
 
@@ -46,7 +47,7 @@ class CardHand
 
     /**
      * Fetches the current hand as a string.
-     * @return array containing all the cards in the current hand as strings.
+     * @return string[] containing all the cards in the current hand as strings.
      */
     public function getAsString(): array
     {
@@ -72,7 +73,7 @@ class CardHand
 
     /**
      * Fetches a random card from the deck and puts it in the cards array.
-     * @return array containing the newly fetched card.
+     * @return CardGraphic[] containing the newly fetched card.
      */
     public function getRandomCard(): array
     {
