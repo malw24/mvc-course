@@ -378,12 +378,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Helpers\\Helpers",
             "name": "Helpers",
-            "summary": "",
+            "summary": "The\u0020Helpers\u0020class,\u0020containing\u0020helper\u0020methods.",
             "url": "classes/App-Helpers-Helpers.html"
         },                {
             "fqsen": "\\App\\Helpers\\Helpers\u003A\u003AsortHelper\u0028\u0029",
             "name": "sortHelper",
-            "summary": "",
+            "summary": "A\u0020helper\u0020method\u0020that\u0020helps\u0020sorts\u0020the\u0020current\u0020deck.",
             "url": "classes/App-Helpers-Helpers.html#method_sortHelper"
         },                {
             "fqsen": "\\App\\Kernel",

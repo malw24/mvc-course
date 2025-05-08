@@ -8,7 +8,6 @@ use App\Card\CardGraphic;
  */
 class Helpers
 {
-
     /**
      * A helper method that helps sorts the current deck.
      * @param int[] $spadesValues                   The values belonging to spades.
