@@ -88,6 +88,48 @@ header {
 
 }
 
+.library-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.library-form input{
+    min-height: 40px;
+    margin-bottom: 20px;
+}
+
+.library-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-bottom: 100px;
+    max-width: 600px;
+}
+
+.all-books-div {
+    padding: 10px 0px;
+    border-bottom: 2px solid;
+}
+
+.all-books-h2 {
+    font-size: 30px;
+}
+
+.library-wrapper h1 {
+    font-size: 48px;
+}
+
+.library-a {
+    text-decoration: none;
+    color:black;
+    width: fit-content;
+    font-size: 24px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid;
+    padding: 2px;
+}
+
+
 footer {
     display: flex;
     justify-content: center;
