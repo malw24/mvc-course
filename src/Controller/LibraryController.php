@@ -103,26 +103,88 @@ final class LibraryController extends AbstractController
        
     }
 
-    // #[Route('/library/create-manually', name: 'library_create_manually')]
-    // public function createBookManually(
-    //     ManagerRegistry $doctrine
-    // ): Response {
-    //     $entityManager = $doctrine->getManager();
-    //     $book = new Book();
-    //     $book->setTitle("Moby-Dick");
-    //     $book->setIsbn("9789187193170");
-    //     $book->setAuthor("Herman Melville");
-    //     $book->setImage("/images/moby.jpg");
+    #[Route('/library/update', name: 'book_update')]
+    public function updateBook(
+        ManagerRegistry $doctrine,
+        Request $request,
+        BookRepository $bookRepository
+    ): Response 
+    {
+        $requestMethod = $request->getMethod();
 
-    //     // tell Doctrine you want to (eventually) save the Product
-    //     // (no queries yet)
-    //     $entityManager->persist($book);
+        if($requestMethod === "GET") {
+            $books = $bookRepository
+            ->findAll();
+            $data = [
+                        "books" => $books
+                    ];
+            return $this->render('library/update_a_book.html.twig', $data);
+        }
+        $num = $request->request->get('num_cards');
+        
+    }
 
-    //     // actually executes the queries (i.e. the INSERT query)
-    //     $entityManager->flush();
+    #[Route('/library/update/specific', name: 'book_update_specific', methods:["GET", "POST"])]
+    public function updateBookSpecific(
+        ManagerRegistry $doctrine,
+        Request $request,
+        BookRepository $bookRepository
+    ): Response 
+    {
+        $requestMethod = $request->getMethod();
+        
+        if($requestMethod === "POST") {
+            $entityManager = $doctrine->getManager();
+            $theId = intval($request->request->get('the_id'));
+            $book = $entityManager->getRepository(Book::class)->find($theId);
+            var_dump($book);
+            $data = [
+                "book" => $book
+            ];
+            // var_dump($book);
+            return $this->render('library/update_a_book_specific.html.twig', $data);
+        }
 
-    //     return new Response('Saved new book called:'.$book->getTitle());
-    // }
+        return $this->redirectToRoute('book_update'); 
+        
+    }
+
+
+    #[Route('/library/update/current-book', name: 'book_update_current', methods:["POST"])]
+    public function updateBookCurrentBook(
+        ManagerRegistry $doctrine,
+        Request $request,
+        BookRepository $bookRepository
+    ): Response 
+    {
+        $requestMethod = $request->getMethod();
+        
+        if($requestMethod === "POST") {
+            $bookData = [];
+            
+            $entityManager = $doctrine->getManager();
+            $theId = $request->request->get('theId');
+            $title = $request->request->get('title');
+            $isbn = $request->request->get('isbn');
+            $author = $request->request->get('author');
+            $image = $request->request->get('image');
+
+            $book = $entityManager->getRepository(Book::class)->find($theId);
+
+            $bookData[] = $title;
+            $bookData[] = $isbn;
+            $bookData[] = $author;
+            $bookData[] = $image;
+            var_dump($bookData);
+            
+
+            // return $this->redirectToRoute('library_read_all'); 
+        }
+
+        
+        
+    }
+
 
  
 }

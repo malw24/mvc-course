@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BookController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+<main>
+    <div class="update-wrapper">
+        <h1>Uppdatera en bok!</h1>
+        <h2>Välj en bok att uppdatera</h2>
+        <form class="update-wrapper" method="POST" action="{{ path('book_update_specific') }}">
+            <select class="update-select" name="the_id" required>
+                {% for book in books %}
+                    <option class="update-option" value={{book.id}}>{{book.title}}</option>
+                {% endfor %}
+            </select>
+            <button class="update-btn" type="submit">Uppdatera</button>
+        </form>
+    </div>
+</main>
+{% endblock %}
