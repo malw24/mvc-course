@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Slumpmässig bok: {{title}}{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+<main>
+    <div class="library-link-nav">
+        <a href="{{ path('library_create') }}">Lägg till en bok</a>
+        <a href="{{ path('library_read_one') }}">Se detaljer om en bok</a>
+        <a href="{{ path('library_read_all') }}">Se detaljer om alla böcker</a>
+        <a href="{{ path('book_update') }}">Uppdatera en bok</a>
+        <a href="{{ path('book_delete') }}">Radera en bok</a>
+    </div>
+    <div class="library-wrapper">
+        <h1>{{title}}</h1>
+        <img class="book-img-one" style="text-align:center;" src="{{ asset(image_link)}}" alt="{{title}}-bild">
+        <p><b>ISBN:</b> {{isbn}}</p>
+        <p><b>Författare:</b> {{author}}</p>
+        
+    </div>
+</main>
+{% endblock %}

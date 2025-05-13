@@ -3,7 +3,7 @@
 {% block title %}Api Routes{% endblock %}
 
 {% block body %}
-    <main>
+    <main class="api-main">
         <h1 class="page-title">Api Routes</h1>
         <br>
         <br>
@@ -17,7 +17,7 @@
                 <li class="api-li"> <h3>A route which returns a shuffled deck.</h3> </li>
                 <a class="api-link" href="{{ path('api_deck_draw') }}"><h3>Link: api/deck/draw </h3></a>
                 <li class="api-li"> <h3>A route which draws one card and returns it.</h3> </li>
-                <form class="api-li" method="post" action="api/deck/draw/1">
+                <form class="api-li" method="POST" action="api/deck/draw/1">
                     <h3>Link: api/deck/draw/:number</h3>
                     <h3>Draw a selected amount of cards from the deck </h3>
                     <input type="number" name="num_cards" min="1" max="52" value="1">
@@ -27,10 +27,20 @@
                 </form>
                 
                 <a class="api-link" href="{{ path('api_game') }}"><h3>Link: /api/game </h3></a>
-                <li > <h3>A route which returns the current standing of the game of 21 being played.</h3> </li>
+                <li class="api-li"> <h3>A route which returns the current standing of the game of 21 being played.</h3> </li>
+                
+                <a class="api-link" href="{{ path('library_show_all') }}"><h3>Link: /api/library/books </h3></a>
+                <li class="api-li"> <h3>A route which returns all the books in the library currently.</h3> </li>
+                <a class="api-link" href="{{ path('pride_api') }}"><h3>Link: api/library/books/specific/9781853260001 </h3></a>
+                <li class="api-li"> <h3>A route which returns Pride and Prejudice.</h3> </li>
+
+                <a class="api-link" href=""><h3>Link: api/library/books/{isbn} </h3></a>
+                <li > <h3>A route which returns a book depending on ISBN.</h3> </li>
+              
             </ul>
             <br>
             <br>
         </article>
     </main>
+
 {% endblock %}

@@ -15,16 +15,22 @@
         <a href="{{ path('book_update') }}">Uppdatera en bok</a>
         <a href="{{ path('book_delete') }}">Radera en bok</a>
     </div>
-    <div class="library-wrapper">
-        <h1>Alla böcker</h1>
-        {% for book in books %}
-            <div class="all-books-div">
-                <h2 class="all-books-h2">{{ book.title }}</h2>
-                <img class="book-img" src="{{ asset(book.image)}}" alt="{{ book.title }}-bild">
-                <p><b>ISBN:</b> {{ book.isbn }}</p>
-                <p><b>Författare:</b> {{ book.author }}</p>
-            </div>
-        {% endfor %}
+    <div class="library-wrapper-grid">
+        <h1 style="text-align: center;">Alla böcker</h1>
+        <div class="all-books-grid">
+            {% for book in books %}
+                {# https://symfony.com/doc/current/reference/twig_reference.html#path #}
+                <a class="all-books-a" href="{{ path('library_read_specific', { id: book.id }) }}">
+                    <div class="all-books-div">
+                        <img class="book-img" src="{{ asset(book.image)}}" alt="{{ book.title }}-bild">
+                        <h2 class="all-books-h2">{{ book.title }}</h2>
+                        <p class="all-books-p"><b>ISBN:</b> {{ book.isbn }}</p>
+                        <p><b>Författare:</b> {{ book.author }}</p>
+                    </div>
+                </a> 
+            {% endfor %}
+        </div>
+      
         
     </div>
 </main>

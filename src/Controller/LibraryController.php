@@ -21,7 +21,7 @@ final class LibraryController extends AbstractController
         ]);
     }
 
-    #[Route('/library/show', name: 'library_show_all')]
+    #[Route('api/library/books', name: 'library_show_all')]
     public function showAllBook(
         BookRepository $bookRepository
     ): Response {
@@ -29,6 +29,46 @@ final class LibraryController extends AbstractController
             ->findAll();
 
         return $this->json($books);
+    }
+
+    #[Route('api/library/books/{isbn}', name: 'book_by_isbn')]
+    public function showbookByIsbn(
+        BookRepository $bookRepository,
+        string $isbn,
+        ManagerRegistry $doctrine
+    ): Response 
+    {
+        $books = $bookRepository
+                ->findAll();
+        $theBook = "";
+
+        forEach($books as $book) {
+            if($book->getIsbn() === $isbn) {
+                $theBook = $book;
+            }
+        }
+
+        return $this->json($theBook);
+    }
+
+    #[Route('api/library/books/specific/9781853260001', name: 'pride_api')]
+    public function showPrideAndPrejudice(
+        BookRepository $bookRepository,
+        ManagerRegistry $doctrine
+    ): Response 
+    {
+        $isbn = "9781853260001";
+        $books = $bookRepository
+                ->findAll();
+        $theBook = "";
+
+        forEach($books as $book) {
+            if($book->getIsbn() === $isbn) {
+                $theBook = $book;
+            }
+        }
+
+        return $this->json($theBook);
     }
 
     #[Route('/library/create', name: 'library_create', methods:["GET", "POST"])]
@@ -87,6 +127,26 @@ final class LibraryController extends AbstractController
        
     }
 
+    #[Route('/library/book/specific/{id}', name: 'library_read_specific')]
+    public function readSpecificBook(
+        BookRepository $bookRepository,
+        int $id,
+        ManagerRegistry $doctrine
+    ): Response 
+    {
+        $entityManager = $doctrine->getManager();
+        $book = $entityManager->getRepository(Book::class)->find($id);
+        $data = [
+                    "title" => $book->getTitle(),
+                    "isbn" => $book->getIsbn(),
+                    "author" => $book->getAuthor(),
+                    "image_link" => $book->getImage(),
+                ];
+
+        return $this->render('library/show_one_book_specific.html.twig', $data);
+       
+    }
+
     #[Route('/library/read-all', name: 'library_read_all')]
     public function readAllBooks(
         BookRepository $bookRepository,
@@ -139,7 +199,7 @@ final class LibraryController extends AbstractController
             $entityManager = $doctrine->getManager();
             $theId = intval($request->request->get('the_id'));
             $book = $entityManager->getRepository(Book::class)->find($theId);
-            var_dump($book);
+            // var_dump($book);
             $data = [
                 "book" => $book
             ];
