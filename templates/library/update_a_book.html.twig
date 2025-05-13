@@ -8,6 +8,13 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 <main>
+    <div class="library-link-nav">
+        <a href="{{ path('library_create') }}">Lägg till en bok</a>
+        <a href="{{ path('library_read_one') }}">Se detaljer om en bok</a>
+        <a href="{{ path('library_read_all') }}">Se detaljer om alla böcker</a>
+        <a href="{{ path('book_update') }}">Uppdatera en bok</a>
+        <a href="{{ path('book_delete') }}">Radera en bok</a>
+    </div>
     <div class="update-wrapper">
         <h1>Uppdatera en bok!</h1>
         <h2>Välj en bok att uppdatera</h2>

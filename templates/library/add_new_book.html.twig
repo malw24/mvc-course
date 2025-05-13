@@ -8,9 +8,16 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 <main>
+    <div class="library-link-nav">
+        <a href="{{ path('library_create') }}">Lägg till en bok</a>
+        <a href="{{ path('library_read_one') }}">Se detaljer om en bok</a>
+        <a href="{{ path('library_read_all') }}">Se detaljer om alla böcker</a>
+        <a href="{{ path('book_update') }}">Uppdatera en bok</a>
+        <a href="{{ path('book_delete') }}">Radera en bok</a>
+    </div>
     <div class="example-wrapper">
         <h1>Lägg till en bok!</h1>
-        <form class="library-form" method="post" action="/library/create">
+        <form class="library-form" method="POST" action="{{ path('library_create') }}">
             <label>Titel</label>
             <input type="text" name="title" required>
             <label>ISBN</label>
@@ -19,7 +26,7 @@
             <input type="text" name="author" required>
             <label>Bildlänk</label>
             <label>Exempel: car.jpg</label>
-            <input type="text" name="image-link" required>
+            <input type="text" name="image-link">
             <input style="width: 200px; margin: 0 auto;" type="submit" name="send_book" value="Skicka">
         </form>
     </div>

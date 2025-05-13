@@ -116,6 +116,26 @@ header {
     margin: 0 auto;
 }
 
+.library-link-nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 2px solid black;
+    padding-bottom: 10px;
+    max-width: fit-content;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.library-link-nav a {
+    font-size: 16px;
+    color: black;
+    padding: 0px 10px 0px 0px;
+    border-right: solid black 2px;
+    text-decoration: none;
+}
+
 .update-btn {
     margin-top: 50px;
     text-decoration: none;
@@ -125,6 +145,15 @@ header {
     border-radius: 20px;
     background-color: black;
     border: solid 2px black;
+}
+
+.book-img {
+    max-width: 200px;
+}
+
+.book-img-one {
+    max-width: 200px;
+    margin: 0 auto;
 }
 
 .update-input {
@@ -148,6 +177,9 @@ header {
 .all-books-div {
     padding: 10px 0px;
     border-bottom: 2px solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .all-books-h2 {

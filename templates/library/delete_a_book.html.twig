@@ -16,14 +16,15 @@
         <a href="{{ path('book_delete') }}">Radera en bok</a>
     </div>
     <div class="update-wrapper">
-        <h1>Uppdatera: {{book.title}}</h1>
-        <form class="update-wrapper" method="POST" action="{{ path('book_update_current') }}">
-            <input type="hidden" name="theId" value="{{ book.id }}">
-            <input class="update-input" type="text" name="title" placeholder="Nuvarande titel: {{book.title}}">
-            <input class="update-input" type="text" name="isbn" placeholder="ISBN: {{book.isbn}}">
-            <input class="update-input" type="text" name="author" placeholder="Författare: {{book.author}}">
-            <input class="update-input" type="text" name="image"  placeholder="Bildlänk: {{book.image}}">
-            <button class="update-btn" type="submit">Uppdatera</button>
+        <h1>Radera en bok!</h1>
+        <h2>Välj en bok att radera</h2>
+        <form class="update-wrapper" method="POST" action="{{ path('book_delete') }}">
+            <select class="update-select" name="the_id" required>
+                {% for book in books %}
+                    <option class="update-option" value={{book.id}}>{{book.title}}</option>
+                {% endfor %}
+            </select>
+            <button class="update-btn" type="submit">Radera</button>
         </form>
     </div>
 </main>

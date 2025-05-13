@@ -40,6 +40,7 @@ final class LibraryController extends AbstractController
     {
         //https://pkp.sfu.ca/ojs/doxygen/master/html/classSymfony_1_1Component_1_1HttpFoundation_1_1Request.html#a770d44aaa4a5c7d314131a3de6fdf5f4
        $requestMethod = $request->getMethod();
+      
        if($requestMethod === "GET") {
         return $this->render('library/add_new_book.html.twig');
        }
@@ -55,16 +56,17 @@ final class LibraryController extends AbstractController
        $book->setTitle($title);
        $book->setIsbn($isbn);
        $book->setAuthor($author);
-       $book->setImage($imageLink);
+       $book->setImage('img/' . $imageLink);
 
        $entityManager->persist($book);
 
        $entityManager->flush();
 
-       return $this->redirectToRoute('library_show_all');
+
+
+       return $this->redirectToRoute('library_read_all'); 
 
     }
-
     #[Route('/library/read-one', name: 'library_read_one')]
     public function readOneBook(
         BookRepository $bookRepository
@@ -120,7 +122,7 @@ final class LibraryController extends AbstractController
                     ];
             return $this->render('library/update_a_book.html.twig', $data);
         }
-        $num = $request->request->get('num_cards');
+    
         
     }
 
@@ -175,16 +177,65 @@ final class LibraryController extends AbstractController
             $bookData[] = $isbn;
             $bookData[] = $author;
             $bookData[] = $image;
-            var_dump($bookData);
-            
+            for($index = 0; $index <= 3; $index++) {
+                if($bookData[$index]) {
+                    // var_dump($bookData[$index]);
+                    if($index === 0) {
+                        // var_dump("In med titlen");
+                        $book->setTitle($title);
+                    } 
+                    if($index === 1) {
+                        // var_dump("In med isbn");
+                        $book->setIsbn($isbn);
+                    } 
+                    if($index === 2) {
+                        // var_dump("In med författare");
+                        $book->setAuthor($author);
+                    } 
+                    if($index === 3) {
+                        // var_dump("In med image");
+                        $book->setImage('img/' . $image);
+                    } 
+                }
+                
+            }
+            $entityManager->flush();
 
-            // return $this->redirectToRoute('library_read_all'); 
-        }
-
-        
-        
+            return $this->redirectToRoute('library_read_all'); 
+        }   
     }
 
 
- 
+    #[Route('/library/delete', name: 'book_delete')]
+    public function deleteBook(
+        ManagerRegistry $doctrine,
+        Request $request,
+        BookRepository $bookRepository
+    ): Response 
+    {
+        $requestMethod = $request->getMethod();
+
+        if($requestMethod === "GET") {
+            $books = $bookRepository
+            ->findAll();
+            $data = [
+                        "books" => $books
+                    ];
+            return $this->render('library/delete_a_book.html.twig', $data);
+        }
+        if($requestMethod === "POST") {
+
+            $entityManager = $doctrine->getManager();
+            $theId = intval($request->request->get('the_id'));
+            $book = $entityManager->getRepository(Book::class)->find($theId);
+
+            $entityManager->remove($book);
+            $entityManager->flush();
+            
+            return $this->redirectToRoute('library_read_all');
+        }
+        
+        
+        
+    }
 }
