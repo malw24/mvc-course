@@ -13,7 +13,7 @@ class CardTest extends TestCase
     /**
     * Test to see if an instance of the Card class is created properly.
     */
-    public function testCreateObject():void
+    public function testCreateObject(): void
     {
         $card = new Card('♠', 7, 7);
         $this->assertInstanceOf("\App\Card\Card", $card);
@@ -22,7 +22,7 @@ class CardTest extends TestCase
     /**
     * Test to see if the getAsString method returns a correct string.
     */
-    public function testThatItReturnsCorrectString():void
+    public function testThatItReturnsCorrectString(): void
     {
         $card = new Card('♠', 7, 7);
         $cardAsString = $card->getAsString();

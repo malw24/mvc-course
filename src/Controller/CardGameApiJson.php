@@ -13,10 +13,27 @@ use App\Card\DeckOfCards;
 class CardGameApiJson extends AbstractController
 {
     #[Route("/api/deck", name: "api_deck")]
-        public function apiDeck(SessionInterface $session): Response
-        {
-            if (count($session->all()) === 0) {
-                $deckOfCards = new DeckOfCards();
+    public function apiDeck(SessionInterface $session): Response
+    {
+        if (count($session->all()) === 0) {
+            $deckOfCards = new DeckOfCards();
+            $deckOfCardsAsArray = $deckOfCards->sortTheCurrentDeck();
+
+            $stringOrFalse = json_encode($deckOfCardsAsArray, JSON_UNESCAPED_UNICODE);
+            if ($stringOrFalse === false) {
+                $stringOrFalse = '{"error": "Error"}';
+            }
+
+            $response = new Response();
+            $response->setContent($stringOrFalse);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
+        $fromSession = $session->get("deck_of_cards");
+        if (is_string($fromSession)) {
+            $deckOfCards = unserialize($fromSession);
+            if ($deckOfCards instanceof DeckOfCards) {
                 $deckOfCardsAsArray = $deckOfCards->sortTheCurrentDeck();
 
                 $stringOrFalse = json_encode($deckOfCardsAsArray, JSON_UNESCAPED_UNICODE);
@@ -29,28 +46,11 @@ class CardGameApiJson extends AbstractController
                 $response->headers->set('Content-Type', 'application/json');
                 return $response;
             }
-
-            $fromSession = $session->get("deck_of_cards");
-            if(is_string($fromSession)) {
-                $deckOfCards = unserialize($fromSession);
-                if($deckOfCards instanceof DeckOfCards) {
-                    $deckOfCardsAsArray = $deckOfCards->sortTheCurrentDeck();
-
-                    $stringOrFalse = json_encode($deckOfCardsAsArray, JSON_UNESCAPED_UNICODE);
-                    if ($stringOrFalse === false) {
-                        $stringOrFalse = '{"error": "Error"}';
-                    }
-
-                    $response = new Response();
-                    $response->setContent($stringOrFalse);
-                    $response->headers->set('Content-Type', 'application/json');
-                    return $response;
-                }
-            }
-            $response = new Response();
-            return $response;
-            
         }
+        $response = new Response();
+        return $response;
+
+    }
 
     #[Route("/api/deck/shuffle", name: "api_deck_shuffle", methods: ['GET', 'POST'])]
     public function apiDeckShuffle(SessionInterface $session): Response
@@ -77,35 +77,35 @@ class CardGameApiJson extends AbstractController
         // https://www.w3schools.com/php/func_var_unserialize.asp
         $fromSession = $session->get("deck_of_cards");
         $sessionDeck = "";
-        if(is_string($fromSession)) { 
+        if (is_string($fromSession)) {
             $sessionDeck = unserialize($fromSession);
         }
-        
+
         if ($sessionDeck) {
-            if($sessionDeck instanceof DeckOfCards) {
+            if ($sessionDeck instanceof DeckOfCards) {
                 if ($sessionDeck->getTheAmountOfCards() > 0) {
                     // $deckOfCards = unserialize($session->get("deck_of_cards"));
                     $randomCard = $sessionDeck->getRandomCard();
                     $session->set("deck_of_cards", serialize($sessionDeck));
-                    
+
                     $data = [
                         "drawn_card" => $randomCard,
                         "cards_left_in_deck" => $sessionDeck->getTheAmountOfCards()
                     ];
-                    
+
                     $stringOrFalse = json_encode($data, JSON_UNESCAPED_UNICODE);
                     if ($stringOrFalse === false) {
                         $stringOrFalse = '{"error":"Error"}';
                     }
-                   
-                    
+
+
                     $response = new Response();
                     $response->setContent($stringOrFalse);
                     $response->headers->set('Content-Type', 'application/json');
                     return $response;
                 }
             }
-            
+
 
             $deckOfCards = new DeckOfCards();
             $randomCard = $deckOfCards->getRandomCard();
@@ -115,7 +115,7 @@ class CardGameApiJson extends AbstractController
                 "drawn_card" => $randomCard,
                 "cards_left_in_deck" => $deckOfCards->getTheAmountOfCards()
             ];
-            
+
             $stringOrFalse = json_encode($data, JSON_UNESCAPED_UNICODE);
             if ($stringOrFalse === false) {
                 $stringOrFalse = '{"error":"Error"}';
@@ -160,11 +160,11 @@ class CardGameApiJson extends AbstractController
         }
         $fromSession = $session->get("deck_of_cards");
         $sessionDeck = "";
-        if(is_string($fromSession)) { 
+        if (is_string($fromSession)) {
             $sessionDeck = unserialize($fromSession);
         }
         if ($sessionDeck) {
-            if($sessionDeck instanceof DeckOfCards) {
+            if ($sessionDeck instanceof DeckOfCards) {
                 if ($sessionDeck->getTheAmountOfCards() >= $num) {
                     $drawnCards = [];
                     for ($counter = 1; $counter <= $num; $counter++) {
@@ -176,19 +176,19 @@ class CardGameApiJson extends AbstractController
                         "drawn_cards" => $drawnCards,
                         "cards_left_in_deck" => $sessionDeck->getTheAmountOfCards()
                     ];
-                    
+
                     $stringOrFalse = json_encode($data, JSON_UNESCAPED_UNICODE);
                     if ($stringOrFalse === false) {
                         $stringOrFalse = '{"error":"Error"}';
                     }
-                
+
                     $response = new Response();
                     $response->setContent($stringOrFalse);
                     $response->headers->set('Content-Type', 'application/json');
                     return $response;
                 }
             }
-            
+
             $deckOfCards = new DeckOfCards();
             $drawnCards = [];
             for ($counter = 1; $counter <= $num; $counter++) {

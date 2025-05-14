@@ -15,7 +15,7 @@ class CardHandTest extends TestCase
     /**
      * Test that it is an instance of CardHand
      */
-    public function testCreateObject():void
+    public function testCreateObject(): void
     {
         $cardHand = new CardHand(7);
         $this->assertInstanceOf("\App\Card\CardHand", $cardHand);
@@ -24,7 +24,7 @@ class CardHandTest extends TestCase
     /**
      * Test the returnCurrentMethod behaves as expected.
      */
-    public function testReturnCurrentDeckMethod():void
+    public function testReturnCurrentDeckMethod(): void
     {
         $cardHand = new CardHand(7);
         $testDeck = $cardHand->deckOfCards;
@@ -34,7 +34,7 @@ class CardHandTest extends TestCase
     /**
      * Test that the getAsString method returns an array with the expected strings.
      */
-    public function testReturnedStringArray():void
+    public function testReturnedStringArray(): void
     {
         $cardHand = new CardHand(7);
         $cards = [];
@@ -47,7 +47,7 @@ class CardHandTest extends TestCase
     /**
      * Test that the getTotalNumericalValue method calculates the total value correctly.
      */
-    public function testGetTotalNumericalValue():void
+    public function testGetTotalNumericalValue(): void
     {
         $cardHand = new CardHand(7);
         $testTotalValue = 0;
@@ -61,7 +61,7 @@ class CardHandTest extends TestCase
     /**
      * Test that the getRandomCard method actually fetches a CardGraphic instance.
      */
-    public function testGetRandomCard():void
+    public function testGetRandomCard(): void
     {
         $cardHand = new CardHand(1);
         $cardHand->getRandomCard();

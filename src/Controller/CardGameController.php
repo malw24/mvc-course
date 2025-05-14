@@ -46,20 +46,20 @@ class CardGameController extends AbstractController
     #[Route("/card/deck", name: "card_deck")]
     public function cardDeck(SessionInterface $session): Response
     {
-        
+
         $deckOfCards = "";
         $fromSession = $session->get("deck_of_cards");
-        if(is_string($fromSession)) {
+        if (is_string($fromSession)) {
             $deckOfCards = unserialize($fromSession);
         }
-        
+
         if (!$deckOfCards) {
             $deckOfCards = new DeckOfCards();
             // https://www.w3schools.com/php/func_var_serialize.asp
             $session->set("deck_of_cards", serialize($deckOfCards));
         }
 
-        if($deckOfCards instanceof DeckOfCards) { 
+        if ($deckOfCards instanceof DeckOfCards) {
             $sortedDeckAsArray = $deckOfCards->sortTheCurrentDeck();
 
             $data = [
@@ -93,15 +93,15 @@ class CardGameController extends AbstractController
     {
         $fromSession = $session->get("deck_of_cards");
         $sessionDeck = "";
-        if(is_string($fromSession)) { 
+        if (is_string($fromSession)) {
             $sessionDeck = unserialize($fromSession);
             if ($sessionDeck) {
                 if ($sessionDeck instanceof DeckOfCards && $sessionDeck->getTheAmountOfCards() > 0) {
                     // https://www.w3schools.com/php/func_var_unserialize.asp
                     $fromSession = $session->get("deck_of_cards");
-                    if(is_string($fromSession)) { 
+                    if (is_string($fromSession)) {
                         $deckOfCards = unserialize($fromSession);
-                        if($deckOfCards instanceof DeckOfCards) {
+                        if ($deckOfCards instanceof DeckOfCards) {
                             $randomCard = $deckOfCards->getRandomCard();
                             $amountOfCardsLeft = $deckOfCards->getTheAmountOfCards();
                             $session->set("deck_of_cards", serialize($deckOfCards));
@@ -113,7 +113,7 @@ class CardGameController extends AbstractController
                         }
                     }
                 }
-    
+
                 $deckOfCards = new DeckOfCards();
                 $randomCard = $deckOfCards->getRandomCard();
                 $amountOfCardsLeft = $deckOfCards->getTheAmountOfCards();
@@ -124,12 +124,12 @@ class CardGameController extends AbstractController
                     "amount_of_cards_left" => $amountOfCardsLeft
                 ];
                 return $this->render('draw_random_card.html.twig', $data);
-    
+
             }
         }
         // https://www.w3schools.com/php/func_var_unserialize.asp
         // $sessionDeck = unserialize($session->get("deck_of_cards"));
-        
+
         $deckOfCards = new DeckOfCards();
         $randomCard = $deckOfCards->getRandomCard();
         $amountOfCardsLeft = $deckOfCards->getTheAmountOfCards();
@@ -158,15 +158,15 @@ class CardGameController extends AbstractController
         }
         // https://www.w3schools.com/php/func_var_unserialize.asp
         $fromSession = $session->get("deck_of_cards");
-        if(is_string($fromSession)) {
+        if (is_string($fromSession)) {
             $sessionDeck = unserialize($fromSession);
             if ($sessionDeck instanceof DeckOfCards) {
                 if ($sessionDeck->getTheAmountOfCards() >= $num) {
                     // https://www.w3schools.com/php/func_var_unserialize.asp
                     $fromSession = $session->get("deck_of_cards");
-                    if(is_string($fromSession)) { 
+                    if (is_string($fromSession)) {
                         $deckOfCards =  unserialize($fromSession);
-                        if($deckOfCards instanceof DeckOfCards) {
+                        if ($deckOfCards instanceof DeckOfCards) {
                             $drawnCards = [];
                             for ($counter = 1; $counter <= $num; $counter++) {
                                 $randomCard = $deckOfCards->getRandomCard();
@@ -178,27 +178,27 @@ class CardGameController extends AbstractController
                                 "drawnCards" => $drawnCards,
                                 "requested_amount" => $num
                             ];
-        
+
                             return $this->render('draw_many.html.twig', $data);
                         }
                     }
                 }
-        }
-        
-        $deckOfCards = new DeckOfCards();
-        $drawnCards = [];
-        for ($counter = 1; $counter <= $num; $counter++) {
-            $randomCard = $deckOfCards->getRandomCard();
-            $drawnCards[] = $randomCard;
-        }
-        $session->set("deck_of_cards", serialize($deckOfCards));
-        $data = [
-            "num_cards_left" => $deckOfCards->getTheAmountOfCards(),
-            "drawnCards" => $drawnCards,
-            "requested_amount" => $num
-        ];
+            }
 
-        return $this->render('draw_many.html.twig', $data);
+            $deckOfCards = new DeckOfCards();
+            $drawnCards = [];
+            for ($counter = 1; $counter <= $num; $counter++) {
+                $randomCard = $deckOfCards->getRandomCard();
+                $drawnCards[] = $randomCard;
+            }
+            $session->set("deck_of_cards", serialize($deckOfCards));
+            $data = [
+                "num_cards_left" => $deckOfCards->getTheAmountOfCards(),
+                "drawnCards" => $drawnCards,
+                "requested_amount" => $num
+            ];
+
+            return $this->render('draw_many.html.twig', $data);
 
         }
 

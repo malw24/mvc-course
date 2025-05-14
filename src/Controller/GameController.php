@@ -39,19 +39,19 @@ class GameController extends AbstractController
             $theGame = new CardGame();
             $session->set("current_game", serialize($theGame));
             $playersTurn = true;
-        } 
+        }
 
-        if($requestMethod === "POST") {
+        if ($requestMethod === "POST") {
             $fromSession = $session->get("current_game");
             //https://www.w3schools.com/php/func_var_is_string.asp
             if (is_string($fromSession)) {
                 $fromSession = unserialize($fromSession);
-            } 
+            }
             $theGame = $fromSession;
-            
+
         }
-            
-        
+
+
         // Linten klagar på att $theGame kanske inte alltid är definerad men på sättet som jag
         // har satt ihop detta på så går det endast att göra en POST-förfrågan när spelet är igång,
         // och spelet börjar alltid med en GET, så $theGame kommer alltid vara definerad
@@ -63,11 +63,11 @@ class GameController extends AbstractController
             //https://www.w3schools.com/php/func_var_is_string.asp
             if (is_string($fromSession)) {
                 $fromSession = unserialize($fromSession);
-            } 
- 
+            }
+
             $theGame = $fromSession;
             if ($request->request->get('one_more_card')) {
-                if($theGame instanceof CardGame) {
+                if ($theGame instanceof CardGame) {
                     $theGame->addOneMoreCardToPlayerHand();
                     $session->set("current_game", serialize($theGame));
                     $playersTurn = true;
@@ -77,21 +77,21 @@ class GameController extends AbstractController
                         $playersTurn = false;
                     }
                 }
-                
+
             }
 
             if ($request->request->get('enough')) {
                 // https://www.w3schools.com/php/keyword_instanceof.asp
-                if($theGame instanceof CardGame) {
+                if ($theGame instanceof CardGame) {
                     $theGame->banksTurn();
                     $playersTurn = false;
                 }
-                
+
             }
 
             if (!$request->request->get('one_more_card') && !$request->request->get('enough')) {
                 // https://www.w3schools.com/php/keyword_instanceof.asp
-                if($theGame instanceof CardGame) { 
+                if ($theGame instanceof CardGame) {
                     $theGame->banksTurn();
                     $playersTurn = false;
                 }
@@ -101,7 +101,7 @@ class GameController extends AbstractController
         $currentPlayer = "Ditt";
 
         if ($playersTurn) {
-            if($theGame instanceof CardGame) { 
+            if ($theGame instanceof CardGame) {
                 if ($theGame->playerHand->getTotalNumericalValue() > 21) {
                     $theGame->evaluateWinner();
                 }
@@ -117,9 +117,9 @@ class GameController extends AbstractController
                 $session->set("current_game", serialize($theGame));
                 return $this->render('game_play_players_turn.html.twig', $data);
             }
-           
+
         }
-        if($theGame instanceof CardGame) { 
+        if ($theGame instanceof CardGame) {
             $data = [
                 "player_hand_array" => $theGame->playerHand->getAsString(),
                 "current_total_points" => $theGame->playerHand->getTotalNumericalValue(),

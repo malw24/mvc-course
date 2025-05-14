@@ -15,7 +15,7 @@ class DeckOfCards
      */
     protected array $deck = [];
 
-    /** 
+    /**
      * @var string[] $suits           The array which holds all of the suits.
     */
     private array $suits = ['♠', '♥', '♦', '♣'];

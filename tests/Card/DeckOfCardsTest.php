@@ -15,7 +15,7 @@ class DeckOfCardsTest extends TestCase
     /**
      * Test that it is an instance of CardHand
      */
-    public function testCreateObject():void
+    public function testCreateObject(): void
     {
         $deckOfCards = new DeckOfCards();
         $this->assertInstanceOf("\App\Card\DeckOfCards", $deckOfCards);
@@ -25,7 +25,7 @@ class DeckOfCardsTest extends TestCase
     /**
      * Test that the deckOfCards loses one card via the getRandomCard method
      */
-    public function testGetRandomCard():void
+    public function testGetRandomCard(): void
     {
         $deckOfCards = new DeckOfCards();
         $testing = [];
@@ -37,7 +37,7 @@ class DeckOfCardsTest extends TestCase
     /**
      * Test that the getWholeDeckAsArray method returns an array with the correct amount of cards
      */
-    public function testGetWholeDeckArray():void
+    public function testGetWholeDeckArray(): void
     {
         $deckOfCards = new DeckOfCards();
         $deckOfCardsAsArray = $deckOfCards->getWholeDeckAsArray();
@@ -54,7 +54,7 @@ class DeckOfCardsTest extends TestCase
     /**
      * Test that the getAsString method returns the correct string
      */
-    public function testGetAsString():void
+    public function testGetAsString(): void
     {
         $deckOfCards = new DeckOfCards();
         $stringArray = $deckOfCards->getAsString();
@@ -67,7 +67,7 @@ class DeckOfCardsTest extends TestCase
     /**
      * Test that the sortTheCurrentDeck method returns a sorted deck.
      */
-    public function testsortTheCurrentDeck():void
+    public function testsortTheCurrentDeck(): void
     {
         $deckOfCards = new DeckOfCards();
 

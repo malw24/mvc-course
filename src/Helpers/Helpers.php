@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Card\CardGraphic;
+
 /**
  * The Helpers class, containing helper methods.
  */

@@ -22,17 +22,17 @@ class GameControllerApi extends AbstractController
             if ($sessionGet) {
 
                 $response = new JsonResponse($sessionGet);
-    
+
                 $response->setEncodingOptions(
                     $response->getEncodingOptions() | JSON_PRETTY_PRINT
                 );
                 return $response;
             }
-        } 
+        }
         if (!is_string($fromSession)) {
             $fromSession = null;
         }
-        
+
         $message = "No game currently going on.";
 
         $response = new JsonResponse($message);
