@@ -1,0 +1,54 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Metrics{% endblock %}
+
+{% block body %}
+    <main class="main">
+        <h1 class="page-title-special">Metrics</h1>
+        <br>
+        <br>
+        <article class="metric-article">
+            <h2>Introduktion</h2>
+            <ul>
+                <li class="metric-li">Codestyle</li>
+                <p>Codestyle påverkar inte direkt funktionaliteten i koden utan syftar mer på sättet som koden är skrivet.</p>
+                <p>Är koden lättläst, är den lätt att följa?</p>
+                <p>Hur konsekvent är koden, är indentering, namngivning och så vidare konsekvent?</p>
+
+                <li class="metric-li">Coverage</li>
+                <p>Handlar främst hur stor del av koden som testas av testerna.</p>
+                <p>Hög täckning, "coverage", kan innebära att koden är väl testad.</p>
+                <p>Låg täckning, "coverage", kan innebära potentiell risk inom försäkran om kvalitén.</p>
+                <p>En kodbas med lågtäckning är med andra ord dåligt testad eller till viss del inte testad alls, vilket kan säga en hel del om kodens kvalité.</p>
+
+                <li class="metric-li">Complexity</li>
+                <p>Namnnet säger det mesta - hur komplex är koden?</p>
+                <p>Och i förlängning: hur lätt eller svår är koden att underhålla eller utveckla vidare?</p>
+                <p>Kod med hög komplexitet är svårare att följa, vilket betyder att den är svårare att förstå, vilket innebär större risk för buggar.</p>
+                 
+                <li class="metric-li">Cohesion</li>
+                <p>Även kallad LCOM - Lack of Cohesion of Methods.</p>
+                <p>Cohesion mäter hur tätt alla delar i en klass hänger ihop.</p>
+                <p>Låg LCOM är bra eftersom det innebär att graden koden har på bristande "cohesion" är låg.</p>
+                <p>Tvärtom innebär en hög LCOM att bristen på sammansättning i koden är hög.</p>
+
+                <li class="metric-li">Coupling</li>
+                <p>Visar på i vilken grad olika delar av koden är beroende av varandra, till exempel hur en klass kanske används i en annan klass.</p>
+                <p>Mäts i Ce = mäter antalet klasser som klassen i fråga är beroende av. 
+                <br>
+                Hög Ce betyder att klassen i fråga är beroende av många andra klasser och kan då vara känslig för förändringar i dessa klasser.</p>
+                <p>
+                    Mäts i Ca = mäter antalet klasser som är beroende av klassen i fråga.
+                    <br>
+                    Hög Ca betyder att många andra klasser förlitar sig på klassen i fråga och eventuella förändring i klassen i fråga kan påverka resten av programmet.
+                </p>
+                <li class="metric-li">CRAP: Change Risk Anti Patterns</li>
+                <p>Ett mått på hur riskabel en metod är att ändra och ett sätt att håll koll på metoden. </p>
+                <p>CRAP score är en blandning av storlek på metoden, komplexiteten samt hur väl testad metoden är. </p>
+                <p>Ju högre komplexitet, desto större andel av koden behöver vara testad för att hålla sig under en "CRAPpy" nivå.</p>
+            </ul>
+
+            
+        </article>
+    </main>
+{% endblock %}

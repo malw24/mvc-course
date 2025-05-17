@@ -44,6 +44,14 @@ article {
     margin: 0 auto;
 }
 
+.metric-article {
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0rem 0rem 10rem;
+}
+
 h1 {
     border-bottom: 4px double #ccc;
 }
@@ -201,6 +209,19 @@ header {
 .update-option {
     width: 200px;
 }
+
+.metric-li {
+    margin-top: 4rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.metric-li:first-of-type {
+    margin-top: 1rem;
+
+}
+
+
 
 .all-books-grid {
     display: grid;
