@@ -125,6 +125,18 @@
                 <br>
                 Anledning till varför jag väljer att göra detta är för att det är något jag velat göra ett tag, det är något som behöver göras, samt att jag vill få ner cyklomatiska komplexiteten.
             </p>
+            <img class="scrutinizer-pic" style="margin: 0 auto;" src="{{ asset('img/scrutinizer4.png') }}" alt="scrutinizer measurements three">
+            <h2>Förbättring</h2>
+            <p>
+                Efter att ha total lyft ut och "renoverat" om GameControllern till mindre metoder så har critical värderingen försvunnit.
+                <br>
+                Den total poängen har även ökat till 9.61 från 9.16.
+                <br>
+                I utförandet av förbättringen så utgick jag från PHPmd som jag vet sedan tidigare hade klagat på GameControllerns cyklomatiska komplexitet (alltså att den är för hög).
+                Och jag märkte tidigt att lyfta ut endast en del av controllern inte gjorde tillräckligt stor skillnad, så det hela slutade i att jag delade upp hela controllern i mindre metoder.
+                <br>
+                Och det gjorde tricket.
+            </p>
         </article>
     </main>
 {% endblock %}

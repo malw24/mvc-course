@@ -38,7 +38,6 @@ class GameController extends AbstractController
             return $fromSession;
         }
 
-        return null;
     }
 
 
@@ -88,10 +87,10 @@ class GameController extends AbstractController
         $playersTurn = $this->handlePlayerActions($theGame, $request);
 
         if ($playersTurn) {
-            return $this->renderPlayersTurn($theGame, $session, $currentPlayer);
+            return $this->startPlayersTurn($theGame, $session, $currentPlayer);
         }
 
-        return $this->renderBanksTurn($theGame, $session, $currentPlayer);
+        return $this->startBanksTurn($theGame, $session, $currentPlayer);
     }
 
 
@@ -121,7 +120,7 @@ class GameController extends AbstractController
     }
 
 
-    private function renderPlayersTurn(CardGame $game, SessionInterface $session, string $currentPlayer): Response
+    private function startPlayersTurn(CardGame $game, SessionInterface $session, string $currentPlayer): Response
     {
         if ($game->playerHand->getTotalNumericalValue() > 21) {
             $game->evaluateWinner();
@@ -140,7 +139,7 @@ class GameController extends AbstractController
         ]);
     }
 
-    private function renderBanksTurn(CardGame $game, SessionInterface $session, string $currentPlayer): Response
+    private function startBanksTurn(CardGame $game, SessionInterface $session, string $currentPlayer): Response
     {
         $session->set("current_game", serialize($game));
 
