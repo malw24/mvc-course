@@ -56,6 +56,34 @@ h1 {
     border-bottom: 4px double #ccc;
 }
 
+.metric-h1 {
+    border-bottom: none;
+    font-size: 40px;
+}
+
+.metrics-pic {
+    width: 100%;
+}
+.scrutinizer-pic {
+    max-width: 500px;
+}
+
+.scrutinizer-badge {
+    min-height: 30px;
+}
+
+.scrutinizer-div {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 50px;
+    gap: 10px;
+    padding: 10px;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+
+}
+
 p {
     font-size: 20px;
     margin: 20px auto;

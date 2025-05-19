@@ -16,3 +16,12 @@ Unit testing will also be a part of the course.
 1. Create a folder for where you want the repo to be located.
 2. Move to the folder in your terminal using cd.
 3. Using SSH enter the following line to clone the repo into your specified folder: `git clone git@github.com:malw24/mvc-course.git`
+
+
+## Scrutinizer 
+
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/malw24/mvc-course/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/malw24/mvc-course/?branch=main)
+
+[![Code Coverage](https://scrutinizer-ci.com/g/malw24/mvc-course/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/malw24/mvc-course/?branch=main)
+
+[![Build Status](https://scrutinizer-ci.com/g/malw24/mvc-course/badges/build.png?b=main)](https://scrutinizer-ci.com/g/malw24/mvc-course/build-status/main)

@@ -8,7 +8,7 @@
         <br>
         <br>
         <article class="metric-article">
-            <h2>Introduktion</h2>
+            <h1 class="metric-h1">Introduktion</h1>
             <ul>
                 <li class="metric-li">Codestyle</li>
                 <p>Codestyle påverkar inte direkt funktionaliteten i koden utan syftar mer på sättet som koden är skrivet.</p>
@@ -47,8 +47,84 @@
                 <p>CRAP score är en blandning av storlek på metoden, komplexiteten samt hur väl testad metoden är. </p>
                 <p>Ju högre komplexitet, desto större andel av koden behöver vara testad för att hålla sig under en "CRAPpy" nivå.</p>
             </ul>
-
+            <h1 class="metric-h1">Phpmetrics</h1>
+            <img class="metrics-pic" src="{{ asset('img/phpmetric.png') }}" alt="phpmetric measurements">
+            <br>
+            <br>
+            <img class="metrics-pic" src="{{ asset('img/phpmetric2.png') }}" alt="phpmetric measurements two">
+            <br>
+            <br>
+            <p>
+                Enligt phpmetrics så har jag flera stycken instanser av för komplicerad kod.
+                <br>
+                Klass cyklomatiska komplexiteten är för hög för controllerna för CardGame, CardGameApi, Game och Library.
+                <br>
+                Jag tror att här finns förbättringspotential.
+                <br>
+                Den här koden kan vara svår att underhålla i längden, kanske.
+            </p>
+            <h1 class="metric-h1">Scrutinizer</h1>
+            <div class="scrutinizer-div">
+                <a href="https://scrutinizer-ci.com/g/malw24/mvc-course/">
+                <img class="scrutinizer-badge" src="https://scrutinizer-ci.com/g/malw24/mvc-course/badges/quality-score.png?b=main" alt="Code Quality">
+                </a>
+                <a href="https://scrutinizer-ci.com/g/malw24/mvc-course/">
+                <img class="scrutinizer-badge" src="https://scrutinizer-ci.com/g/malw24/mvc-course/badges/coverage.png?b=main" alt="Code Coverage">
+                </a>
+                <a href="https://scrutinizer-ci.com/g/malw24/mvc-course/inspections/64bf1f29-27a5-4cca-9acd-e97eb79e58f3/log">
+                <img class="scrutinizer-badge" src="https://scrutinizer-ci.com/g/malw24/mvc-course/badges/build.png?b=main" alt="Build Status">
+                </a>
+            </div>
+            <img class="scrutinizer-pic" style="margin: 0 auto;" src="{{ asset('img/scrutinizer.png') }}" alt="scrutinizer measurements">
+            <p>
+                Enligt Scrutinizer så är koden "very good" men det finns förbättringspotential.
+                <br>
+                Första åtgärd som behöver göras är GameController som utvärderas som "critical" av scrutinizer.
+                <br>
+                Kodens täckning är även inte speciellt mycket att gå på.
+            </p>
+            <img class="scrutinizer-pic" style="margin: 0 auto;" src="{{ asset('img/scrutinizer2.png') }}" alt="scrutinizer measurements two">
+            <p>
+                Det finns en specifik metod vid namn "apiDeckDrawAmount()" i controllern CardGameApiJson som har fått ratingen C.
+            </p>
+            <img class="scrutinizer-pic" style="margin: 0 auto;" src="{{ asset('img/scrutinizer3.png') }}" alt="scrutinizer measurements three">
+            <p>
+                Det finns även en del metoder i flera olika kontroller som har ratingen B.
+            </p>
             
+            <h1 class="metric-h1">Förbättringar och findings</h1>
+            <p>
+                Min kods struktur är generellt konsekvent. 
+                Dock antyder CRAP-värdena och komplexiteterna på att vissa metoder skulle kunna må bra av av omskrivning för förbättrad läsbarhet.
+            </p>
+            <p style="margin: 0px;">
+                GameController utvärderas som kritisk och jag vill därför ge mig på den först och främst.
+            </p>
+            <p>
+                Därefter har apiDeckDrawAmount() en komplexitet på 12 och CRAP på 156 vilket tyder på att koden där kan vara svår följa, underhålla samt vidareutveckla.
+                Även drawAmountOfCards() har ett komplexitet och CRAP-värde som är högt, vilket är något som jag vill förbättra.
+            </p>
+            <p>
+                Täckningen är låg, ja, men det är för större delen av koden i mitt program återfinns i controllerna som vi inte har gjort tester för.
+            </p>
+            <p style="text-align: left; margin: 0px; margin-bottom: 20px;">
+                Så, det jag kommer börja med att försöka förbättra är följande:
+            </p>
+            <br>
+            <br>
+            <img class="metrics-pic" src="{{ asset('img/phpmetric.png') }}" alt="phpmetric measurements">
+            <p>
+                PHPstan pratar bland annat om denna för GameController:
+                <br>
+                /GameController.php // CyclomaticComplexity // The method gamePlay() has a Cyclomatic Complexity of 20. The configured cyclomatic complexity threshold is 10.
+                <br>
+                <br>
+                Att lyfta ut en del av koden och lägga den som en separat del kommer att förbättra koden och dess mätvärden avsevärt, tror jag.
+                <br>
+                Att lyfta ut delar av koden kommer göra det både lättare att läsa koden, eftersom det inte blir lika mycket text, men det kommer även bli enklare att underhålla samt felsöka den.
+                <br>
+                Anledning till varför jag väljer att göra detta är för att det är något jag velat göra ett tag, det är något som behöver göras, samt att jag vill få ner cyklomatiska komplexiteten.
+            </p>
         </article>
     </main>
 {% endblock %}

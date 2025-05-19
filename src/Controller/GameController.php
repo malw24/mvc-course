@@ -14,10 +14,10 @@ use App\Game\CardGame;
 class GameController extends AbstractController
 {
     #[Route("/game", name: "game", methods:["GET", "POST"])]
-    public function gameLandingPage(): Response
+    public function gameLandingPage(Request $request): Response
     {
         // https://www.w3schools.com/php/php_superglobals_request.asp
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($request->getMethod() === "POST") {
             return $this->redirectToRoute('game_play');
         }
 
@@ -26,117 +26,138 @@ class GameController extends AbstractController
 
     }
 
+    private function getGameFromSession(SessionInterface $session): ?CardGame
+    {
+        $fromSession = $session->get("current_game");
+
+        if (is_string($fromSession)) {
+            $fromSession = unserialize($fromSession);
+        }
+
+        if ($fromSession instanceof CardGame) {
+            return $fromSession;
+        }
+
+        return null;
+    }
+
 
     #[Route("/game/play", name: "game_play", methods:["GET", "POST"])]
-    public function gamePlay(SessionInterface $session, Request $request): Response
+    public function playGame(SessionInterface $session, Request $request): Response
     {
-        // https://www.w3schools.com/php/php_superglobals_request.asp
-        $requestMethod = $_SERVER["REQUEST_METHOD"];
-        $theGame = null;
-        $playersTurn = true;
-        if ($requestMethod === "GET") {
-            $session->clear();
-            $theGame = new CardGame();
-            $session->set("current_game", serialize($theGame));
-            $playersTurn = true;
+        if ($request->getMethod() === "GET") {
+            return $this->gameGetRequest($session);
         }
 
-        if ($requestMethod === "POST") {
-            $fromSession = $session->get("current_game");
-            //https://www.w3schools.com/php/func_var_is_string.asp
-            if (is_string($fromSession)) {
-                $fromSession = unserialize($fromSession);
-            }
-            $theGame = $fromSession;
-
+        if ($request->getMethod() === "POST") {
+            return $this->gamePostRequest($session, $request);
         }
 
-
-        // Linten klagar på att $theGame kanske inte alltid är definerad men på sättet som jag
-        // har satt ihop detta på så går det endast att göra en POST-förfrågan när spelet är igång,
-        // och spelet börjar alltid med en GET, så $theGame kommer alltid vara definerad
-
-        // https://www.w3schools.com/php/keyword_instanceof.asp
-        if ($requestMethod === "POST" || ($theGame instanceof CardGame && $theGame->playerHand->getTotalNumericalValue() === 21)) {
-
-            $fromSession = $session->get("current_game");
-            //https://www.w3schools.com/php/func_var_is_string.asp
-            if (is_string($fromSession)) {
-                $fromSession = unserialize($fromSession);
-            }
-
-            $theGame = $fromSession;
-            if ($request->request->get('one_more_card')) {
-                if ($theGame instanceof CardGame) {
-                    $theGame->addOneMoreCardToPlayerHand();
-                    $session->set("current_game", serialize($theGame));
-                    $playersTurn = true;
-                    if ($theGame->playerHand->getTotalNumericalValue() === 21) {
-
-                        $theGame->banksTurn();
-                        $playersTurn = false;
-                    }
-                }
-
-            }
-
-            if ($request->request->get('enough')) {
-                // https://www.w3schools.com/php/keyword_instanceof.asp
-                if ($theGame instanceof CardGame) {
-                    $theGame->banksTurn();
-                    $playersTurn = false;
-                }
-
-            }
-
-            if (!$request->request->get('one_more_card') && !$request->request->get('enough')) {
-                // https://www.w3schools.com/php/keyword_instanceof.asp
-                if ($theGame instanceof CardGame) {
-                    $theGame->banksTurn();
-                    $playersTurn = false;
-                }
-            }
-        }
-
-        $currentPlayer = "Ditt";
-
-        if ($playersTurn) {
-            if ($theGame instanceof CardGame) {
-                if ($theGame->playerHand->getTotalNumericalValue() > 21) {
-                    $theGame->evaluateWinner();
-                }
-                $data = [
-                    "player_hand_array" => $theGame->playerHand->getAsString(),
-                    "current_total_points" => $theGame->playerHand->getTotalNumericalValue(),
-                    "player_hand_object" => $theGame->playerHand,
-                    "current_player" => $currentPlayer,
-                    "player_wins" => $theGame->didPlayerWin(),
-                    "bank_wins" => $theGame->didBankWin(),
-                    "banks_turn" => false
-                ];
-                $session->set("current_game", serialize($theGame));
-                return $this->render('game_play_players_turn.html.twig', $data);
-            }
-
-        }
-        if ($theGame instanceof CardGame) {
-            $data = [
-                "player_hand_array" => $theGame->playerHand->getAsString(),
-                "current_total_points" => $theGame->playerHand->getTotalNumericalValue(),
-                "player_hand_object" => $theGame->playerHand,
-                "current_player" => $currentPlayer,
-                "bank_hand_array" => $theGame->bankHand->getAsString(),
-                "current_total_points_bank" => $theGame->bankHand->getTotalNumericalValue(),
-                "bank_hand_object" => $theGame->bankHand,
-                "player_wins" => $theGame->didPlayerWin(),
-                "bank_wins" => $theGame->didBankWin(),
-                "banks_turn" => true
-            ];
-            $session->set("current_game", serialize($theGame));
-            return $this->render('game_play_banks_turn.html.twig', $data);
-        }
         return $this->render('game_play_banks_turn.html.twig');
     }
+
+    private function gameGetRequest(SessionInterface $session): Response
+    {
+        $session->clear();
+        $theGame = new CardGame();
+        $session->set("current_game", serialize($theGame));
+        $currentPlayer = "Ditt";
+
+        $data = [
+            "player_hand_array" => $theGame->playerHand->getAsString(),
+            "current_total_points" => $theGame->playerHand->getTotalNumericalValue(),
+            "player_hand_object" => $theGame->playerHand,
+            "current_player" => $currentPlayer,
+            "player_wins" => $theGame->didPlayerWin(),
+            "bank_wins" => $theGame->didBankWin(),
+            "banks_turn" => false
+        ];
+
+        return $this->render('game_play_players_turn.html.twig', $data);
+    }
+
+    private function gamePostRequest(SessionInterface $session, Request $request): Response
+    {
+        $theGame = $this->getGameFromSession($session);
+        $currentPlayer = "Ditt";
+
+        if (!$theGame) {
+            return $this->render('game_play_banks_turn.html.twig');
+        }
+
+        $playersTurn = $this->handlePlayerActions($theGame, $request);
+
+        if ($playersTurn) {
+            return $this->renderPlayersTurn($theGame, $session, $currentPlayer);
+        }
+
+        return $this->renderBanksTurn($theGame, $session, $currentPlayer);
+    }
+
+
+    private function handlePlayerActions(CardGame $game, Request $request): bool
+    {
+        if ($game->playerHand->getTotalNumericalValue() === 21) {
+            $game->banksTurn();
+            return false;
+        }
+
+        if ($request->request->get('one_more_card')) {
+            $game->addOneMoreCardToPlayerHand();
+            if ($game->playerHand->getTotalNumericalValue() === 21) {
+                $game->banksTurn();
+                return false;
+            }
+            return true;
+        }
+
+        if ($request->request->get('enough')) {
+            $game->banksTurn();
+            return false;
+        }
+
+        $game->banksTurn();
+        return false;
+    }
+
+
+    private function renderPlayersTurn(CardGame $game, SessionInterface $session, string $currentPlayer): Response
+    {
+        if ($game->playerHand->getTotalNumericalValue() > 21) {
+            $game->evaluateWinner();
+        }
+
+        $session->set("current_game", serialize($game));
+
+        return $this->render('game_play_players_turn.html.twig', [
+            "player_hand_array" => $game->playerHand->getAsString(),
+            "current_total_points" => $game->playerHand->getTotalNumericalValue(),
+            "player_hand_object" => $game->playerHand,
+            "current_player" => $currentPlayer,
+            "player_wins" => $game->didPlayerWin(),
+            "bank_wins" => $game->didBankWin(),
+            "banks_turn" => false
+        ]);
+    }
+
+    private function renderBanksTurn(CardGame $game, SessionInterface $session, string $currentPlayer): Response
+    {
+        $session->set("current_game", serialize($game));
+
+        return $this->render('game_play_banks_turn.html.twig', [
+            "player_hand_array" => $game->playerHand->getAsString(),
+            "current_total_points" => $game->playerHand->getTotalNumericalValue(),
+            "player_hand_object" => $game->playerHand,
+            "current_player" => $currentPlayer,
+            "bank_hand_array" => $game->bankHand->getAsString(),
+            "current_total_points_bank" => $game->bankHand->getTotalNumericalValue(),
+            "bank_hand_object" => $game->bankHand,
+            "player_wins" => $game->didPlayerWin(),
+            "bank_wins" => $game->didBankWin(),
+            "banks_turn" => true
+        ]);
+    }
+
 
     #[Route("/game/doc", name: "game_doc")]
     public function gameDoc(): Response

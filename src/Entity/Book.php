@@ -24,7 +24,7 @@ class Book
 
     #[ORM\Column(length: 255)]
     private ?string $image = null;
-    
+
 
     /**
      * Fetches the id of the current book.
@@ -46,7 +46,7 @@ class Book
 
     /**
      * Sets the title of the current book.
-     * 
+     *
      */
     public function setTitle(string $title): static
     {
@@ -66,7 +66,7 @@ class Book
 
     /**
      * Sets the ISBN of the current book.
-     * 
+     *
      */
     public function setIsbn(string $isbn): static
     {
@@ -86,7 +86,7 @@ class Book
 
     /**
      * Sets the author of the current book.
-     * 
+     *
      */
     public function setAuthor(string $author): static
     {
@@ -105,7 +105,7 @@ class Book
     }
     /**
      * Sets the image of the current book.
-     * 
+     *
      */
     public function setImage(string $image): static
     {
