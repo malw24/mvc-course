@@ -137,9 +137,14 @@
                <br>
                Detta gör också flödet i apiDeckDrawAmount() lättare att följa.
             </p>
+            <p style="margin: 0;">
+                För CardGameController, återigen, samma sak här.
+                <br>
+                Logik måste separeras, lyftas ut, så att metoden inte är lika "kladdig" och lättare att följa.
+            </p>
             
             <h2>Förbättring</h2>
-            <img class="scrutinizer-pic" style="margin: 0 auto;" src="{{ asset('img/scrutinizer4.png') }}" alt="scrutinizer measurements three">
+            <img class="scrutinizer-pic" style="margin: 0 auto;" src="{{ asset('img/scrutinizer4.png') }}" alt="scrutinizer measurements four">
             <p>
                 Efter att ha total lyft ut och "renoverat" om GameControllern till mindre metoder så har critical värderingen försvunnit.
                 <br>
@@ -150,12 +155,18 @@
                 <br>
                 Och det gjorde tricket.
             </p>
-            <img class="scrutinizer-pic" style="margin: 0 auto;" src="{{ asset('img/scrutinizer5.png') }}" alt="scrutinizer measurements three">
+            <img class="scrutinizer-pic" style="margin: 0 auto;" src="{{ asset('img/scrutinizer5.png') }}" alt="scrutinizer measurements five">
             <p>
                 I min andra förbättring så fixade jag till apiDeckDrawAmount() i CardGameApiJson som hade en cyklomatisk komplexitet på 12.
                 <br>
                 Detta höjde även totala poängen till 9.68 men främst så förenkla det apiDeckDrawAmount() vilket gör den enklare att underhålla och bygga vidare på.
 
+            </p>
+            <img class="scrutinizer-pic" style="margin: 0 auto;" src="{{ asset('img/scrutinizer6.png') }}" alt="scrutinizer measurements six">
+            <p>
+                Återigen var problemet att den cyklomatiska komplexiteten var för hög, denna gång 11 i värde för drawAmountOfCards i CardGameController.
+                <br>
+                Lösningen var densamma som tidigare, jag flyttade ut en del av logien i en metod som anropas och på sätt minskar jag komplexiteten.
             </p>
         </article>
     </main>

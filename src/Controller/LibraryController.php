@@ -20,52 +20,6 @@ final class LibraryController extends AbstractController
         ]);
     }
 
-    #[Route('api/library/books', name: 'library_show_all')]
-    public function showAllBook(
-        BookRepository $bookRepository
-    ): Response {
-        $books = $bookRepository
-            ->findAll();
-
-        return $this->json($books);
-    }
-
-    #[Route('api/library/books/{isbn}', name: 'book_by_isbn')]
-    public function showbookByIsbn(
-        BookRepository $bookRepository,
-        string $isbn
-    ): Response {
-        $books = $bookRepository
-                ->findAll();
-        $theBook = "";
-
-        foreach ($books as $book) {
-            if ($book->getIsbn() === $isbn) {
-                $theBook = $book;
-            }
-        }
-
-        return $this->json($theBook);
-    }
-
-    #[Route('api/library/books/specific/9781853260001', name: 'pride_api')]
-    public function showPrideAndPrejudice(
-        BookRepository $bookRepository
-    ): Response {
-        $isbn = "9781853260001";
-        $books = $bookRepository
-                ->findAll();
-        $theBook = "";
-
-        foreach ($books as $book) {
-            if ($book->getIsbn() === $isbn) {
-                $theBook = $book;
-            }
-        }
-
-        return $this->json($theBook);
-    }
-
     #[Route('/library/create', name: 'library_create', methods:["GET", "POST"])]
     public function addBook(
         Request $request,
