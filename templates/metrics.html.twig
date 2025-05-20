@@ -113,11 +113,12 @@
             <br>
             <br>
             <img class="metrics-pic" src="{{ asset('img/phpmetric.png') }}" alt="phpmetric measurements">
+            <br>
+            <br>
             <p>
                 PHPstan pratar bland annat om denna för GameController:
                 <br>
                 /GameController.php // CyclomaticComplexity // The method gamePlay() has a Cyclomatic Complexity of 20. The configured cyclomatic complexity threshold is 10.
-                <br>
                 <br>
                 Att lyfta ut en del av koden och lägga den som en separat del kommer att förbättra koden och dess mätvärden avsevärt, tror jag.
                 <br>
@@ -125,8 +126,20 @@
                 <br>
                 Anledning till varför jag väljer att göra detta är för att det är något jag velat göra ett tag, det är något som behöver göras, samt att jag vill få ner cyklomatiska komplexiteten.
             </p>
-            <img class="scrutinizer-pic" style="margin: 0 auto;" src="{{ asset('img/scrutinizer4.png') }}" alt="scrutinizer measurements three">
+            <br>
+            <br>
+            <p>
+               apiDeckDrawAmount() i CardGameApiJson har också för hög cyklomatisk komplexitet.
+               <br>
+               Det verkar vara ett återkommande fenomen för mina controllers.
+               <br>
+               Lösningen på detta är samma här, lyfta ut kod, gör delar av koden, av funktionaliteten, fristående och därmed lättare att felsöka och underhålla.
+               <br>
+               Detta gör också flödet i apiDeckDrawAmount() lättare att följa.
+            </p>
+            
             <h2>Förbättring</h2>
+            <img class="scrutinizer-pic" style="margin: 0 auto;" src="{{ asset('img/scrutinizer4.png') }}" alt="scrutinizer measurements three">
             <p>
                 Efter att ha total lyft ut och "renoverat" om GameControllern till mindre metoder så har critical värderingen försvunnit.
                 <br>
@@ -136,6 +149,13 @@
                 Och jag märkte tidigt att lyfta ut endast en del av controllern inte gjorde tillräckligt stor skillnad, så det hela slutade i att jag delade upp hela controllern i mindre metoder.
                 <br>
                 Och det gjorde tricket.
+            </p>
+            <img class="scrutinizer-pic" style="margin: 0 auto;" src="{{ asset('img/scrutinizer5.png') }}" alt="scrutinizer measurements three">
+            <p>
+                I min andra förbättring så fixade jag till apiDeckDrawAmount() i CardGameApiJson som hade en cyklomatisk komplexitet på 12.
+                <br>
+                Detta höjde även totala poängen till 9.68 men främst så förenkla det apiDeckDrawAmount() vilket gör den enklare att underhålla och bygga vidare på.
+
             </p>
         </article>
     </main>

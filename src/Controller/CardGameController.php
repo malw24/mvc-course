@@ -146,6 +146,23 @@ class CardGameController extends AbstractController
 
     }
 
+    public function drawAmountOfCardsNew(int $num, SessionInterface $session): Response
+    {
+        $deckOfCards = new DeckOfCards();
+        $drawnCards = [];
+        for ($counter = 1; $counter <= $num; $counter++) {
+            $randomCard = $deckOfCards->getRandomCard();
+            $drawnCards[] = $randomCard;
+        }
+        $session->set("deck_of_cards", serialize($deckOfCards));
+        $data = [
+            "num_cards_left" => $deckOfCards->getTheAmountOfCards(),
+            "drawnCards" => $drawnCards,
+            "requested_amount" => $num
+        ];
+
+        return $this->render('draw_many.html.twig', $data);
+    }
     #[Route("card/deck/draw/{num<\d+>}", name: "deck_draw_num_cards")]
     public function drawAmountOfCards(int $num, SessionInterface $session, Request $request): Response
     {
@@ -185,37 +202,11 @@ class CardGameController extends AbstractController
                 }
             }
 
-            $deckOfCards = new DeckOfCards();
-            $drawnCards = [];
-            for ($counter = 1; $counter <= $num; $counter++) {
-                $randomCard = $deckOfCards->getRandomCard();
-                $drawnCards[] = $randomCard;
-            }
-            $session->set("deck_of_cards", serialize($deckOfCards));
-            $data = [
-                "num_cards_left" => $deckOfCards->getTheAmountOfCards(),
-                "drawnCards" => $drawnCards,
-                "requested_amount" => $num
-            ];
-
-            return $this->render('draw_many.html.twig', $data);
+            return $this->drawAmountOfCardsNew($num, $session);
 
         }
-
-        $deckOfCards = new DeckOfCards();
-        $drawnCards = [];
-        for ($counter = 1; $counter <= $num; $counter++) {
-            $randomCard = $deckOfCards->getRandomCard();
-            $drawnCards[] = $randomCard;
-        }
-        $session->set("deck_of_cards", serialize($deckOfCards));
-        $data = [
-            "num_cards_left" => $deckOfCards->getTheAmountOfCards(),
-            "drawnCards" => $drawnCards,
-            "requested_amount" => $num
-        ];
-
-        return $this->render('draw_many.html.twig', $data);
+        
+        return $this->drawAmountOfCardsNew($num, $session);
     }
 
 
