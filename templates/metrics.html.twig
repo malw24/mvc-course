@@ -142,6 +142,13 @@
                 <br>
                 Logik måste separeras, lyftas ut, så att metoden inte är lika "kladdig" och lättare att följa.
             </p>
+
+             <p style="margin: 0;">
+                Till sist, gällande LibraryController: här är problemet helt enkelt att det finns för många metoder i klassen.
+                <br>
+                I och med att tre av metoderna/routsen leder till JSON respons och tillhör API-routsen så väljer jag att bygga en egen controller för dessa tre vid namn LibraryControllerApi.
+                <br>
+            </p>
             
             <h2>Förbättring</h2>
             <img class="scrutinizer-pic" style="margin: 0 auto;" src="{{ asset('img/scrutinizer4.png') }}" alt="scrutinizer measurements four">
@@ -167,6 +174,43 @@
                 Återigen var problemet att den cyklomatiska komplexiteten var för hög, denna gång 11 i värde för drawAmountOfCards i CardGameController.
                 <br>
                 Lösningen var densamma som tidigare, jag flyttade ut en del av logien i en metod som anropas och på sätt minskar jag komplexiteten.
+            </p>
+            <img class="scrutinizer-pic" style="margin: 0 auto;" src="{{ asset('img/phpmetric3.png') }}" alt="phpmetric measurements three">
+
+            <p style="margin: 0; margin-top: 20px; margin-bottom: 20px;">
+                Då var även LibraryController löst. 
+                <br>
+                Problemet här var att controllern innehöll för många metoder/routes (12 stycken).
+                <br>
+                Nu återstår endast "teoretiska" buggar i ovannämnda controllers.
+            <p>
+            <img class="scrutinizer-pic" style="margin: 0 auto;" src="{{ asset('img/scrutinizer7.png') }}" alt="scrutinizer measurements seven">
+            <h1 class="metric-h1">Diskussion</h1>
+            <p>
+                Jag tycker definitivt att man kan jobba med kodkvalitet på detta sättet.
+                <br>
+                Dock, speciellt när det gäller scrutinizer, så gäller det att göra små commits och pushningar till repot så att man tidigt upptäcker problem.
+                <br>
+                Att såhär, nu i efterhand, jobba med en större mängd filer kan vara tuffare.
+                <br>
+                Jag hade väldigt gärna haft med scrutinizer från början och kunnat fånga alla problem från början.
+                <br>
+                Samtidigt så har vi ju haft phpmd och phpstan sedan ett par kursmoment tillbaka.
+                <br> 
+                Men jag är ett fan av en dashboard som visar allt mer visuellt.
+            </p>
+            <p>
+                När det gäller andra möjligheter att jobba mot “clean code” så är det första jag kan tänker på "kunskap".
+                <br>
+                Att skriva funktionell, clean, kod som gör jobbet men samtidigt är lätt att underhålla, bygga vidare på, följa osv, det handlar om kunskap och erfarenhet främst, tror jag.
+                <br>
+                Nu när jag behövt att skriva om min kod för att den ska gå igenom phpmd, phpstan, scrutinizer och phpmetrics så lär man sig ju även att programmera samma resultat på ett bättre sätt.
+                <br>
+                Så, min uppfattning är att clean code kommer med "trial and error".
+                <br>
+                Jag tror definitivt att jag skriver mycket mer clean kod nu jämfört med när jag skrev kod för första gången.
+                <br>
+                Men jag tror att verktyg som scrutinizer är väldigt bra att använda för att påskynda den färdigheten/kunskapen.
             </p>
         </article>
     </main>
