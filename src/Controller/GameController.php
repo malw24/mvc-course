@@ -94,65 +94,65 @@ class GameController extends AbstractController
     }
 
 
-    private function handlePlayerActions(CardGame $game, Request $request): bool
+    private function handlePlayerActions(CardGame $theGame, Request $request): bool
     {
-        if ($game->playerHand->getTotalNumericalValue() === 21) {
-            $game->banksTurn();
+        if ($theGame->playerHand->getTotalNumericalValue() === 21) {
+            $theGame->banksTurn();
             return false;
         }
 
         if ($request->request->get('one_more_card')) {
-            $game->addOneMoreCardToPlayerHand();
-            if ($game->playerHand->getTotalNumericalValue() === 21) {
-                $game->banksTurn();
+            $theGame->addOneMoreCardToPlayerHand();
+            if ($theGame->playerHand->getTotalNumericalValue() === 21) {
+                $theGame->banksTurn();
                 return false;
             }
             return true;
         }
 
         if ($request->request->get('enough')) {
-            $game->banksTurn();
+            $theGame->banksTurn();
             return false;
         }
 
-        $game->banksTurn();
+        $theGame->banksTurn();
         return false;
     }
 
 
-    private function startPlayersTurn(CardGame $game, SessionInterface $session, string $currentPlayer): Response
+    private function startPlayersTurn(CardGame $theGame, SessionInterface $session, string $currentPlayer): Response
     {
-        if ($game->playerHand->getTotalNumericalValue() > 21) {
-            $game->evaluateWinner();
+        if ($theGame->playerHand->getTotalNumericalValue() > 21) {
+            $theGame->evaluateWinner();
         }
 
-        $session->set("current_game", serialize($game));
+        $session->set("current_game", serialize($theGame));
 
         return $this->render('game_play_players_turn.html.twig', [
-            "player_hand_array" => $game->playerHand->getAsString(),
-            "current_total_points" => $game->playerHand->getTotalNumericalValue(),
-            "player_hand_object" => $game->playerHand,
+            "player_hand_array" => $theGame->playerHand->getAsString(),
+            "current_total_points" => $theGame->playerHand->getTotalNumericalValue(),
+            "player_hand_object" => $theGame->playerHand,
             "current_player" => $currentPlayer,
-            "player_wins" => $game->didPlayerWin(),
-            "bank_wins" => $game->didBankWin(),
+            "player_wins" => $theGame->didPlayerWin(),
+            "bank_wins" => $theGame->didBankWin(),
             "banks_turn" => false
         ]);
     }
 
-    private function startBanksTurn(CardGame $game, SessionInterface $session, string $currentPlayer): Response
+    private function startBanksTurn(CardGame $theGame, SessionInterface $session, string $currentPlayer): Response
     {
-        $session->set("current_game", serialize($game));
+        $session->set("current_game", serialize($theGame));
 
         return $this->render('game_play_banks_turn.html.twig', [
-            "player_hand_array" => $game->playerHand->getAsString(),
-            "current_total_points" => $game->playerHand->getTotalNumericalValue(),
-            "player_hand_object" => $game->playerHand,
+            "player_hand_array" => $theGame->playerHand->getAsString(),
+            "current_total_points" => $theGame->playerHand->getTotalNumericalValue(),
+            "player_hand_object" => $theGame->playerHand,
             "current_player" => $currentPlayer,
-            "bank_hand_array" => $game->bankHand->getAsString(),
-            "current_total_points_bank" => $game->bankHand->getTotalNumericalValue(),
-            "bank_hand_object" => $game->bankHand,
-            "player_wins" => $game->didPlayerWin(),
-            "bank_wins" => $game->didBankWin(),
+            "bank_hand_array" => $theGame->bankHand->getAsString(),
+            "current_total_points_bank" => $theGame->bankHand->getTotalNumericalValue(),
+            "bank_hand_object" => $theGame->bankHand,
+            "player_wins" => $theGame->didPlayerWin(),
+            "bank_wins" => $theGame->didBankWin(),
             "banks_turn" => true
         ]);
     }
